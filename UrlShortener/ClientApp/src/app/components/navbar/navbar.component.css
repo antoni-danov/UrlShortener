@@ -1,0 +1,30 @@
+a {
+  text-decoration: none;
+  background-color: #059dc0;
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+}
+.mainNavbar {
+  font-size: smaller;
+  font-weight: bolder;
+  margin-left: 35%;
+}
+.navbar {
+  background-color: white;
+  display: flex;
+  justify-content: flex-end;
+}
+#loginBtn {
+  color: #059dc0;
+  border: 2px #059dc0 solid;
+  border-radius: 15px;
+  margin-top: -40px;
+  margin-right: 35px;
+  padding: 10px 50px;
+}
+  #loginBtn a {
+    text-decoration: none;
+    background-color: transparent;
+    color: #059dc0;
+  }

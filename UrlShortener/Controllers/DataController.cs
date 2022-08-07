@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace UrlShortener.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
+
     public class DataController : Controller
     {
         // GET: DataController

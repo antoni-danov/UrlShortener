@@ -1,0 +1,38 @@
+<div *ngIf="currentShortUrl" class="currentUrl text-center m-3">
+    <h3>Your new Url is ready:</h3>
+
+    <input class="rounded col-lg-4 p-2 m-3 text-center" type="text"
+        value="https://localhost:44347/{{currentShortUrl.shortUrl}}"><br>
+    <div class="info mt-3">
+        <div id="Original_Url"><strong>Original Url:</strong> </div>
+        <div class="collapse" id="test">
+            <div class="card card-body m-2">
+                {{currentShortUrl.originalUrl}}
+            </div>
+        </div>
+        <p>
+            <button class="btn btn-success my-4" type="button" data-toggle="collapse" data-target="#test"
+                aria-expanded="false" aria-controls="test">
+                Show complete Url
+            </button>
+        </p>
+    </div>
+    <button class="btn btn-success  text-center mx-4" (click)="CopyUrl(currentShortUrl.shortUrl)">Copy your
+        URL</button>
+    <button class="btn btn-warning" routerLink="/">Short another URL</button>
+</div>
+
+<div *ngIf="spiner" class="d-flex justify-content-center">
+    <div class="spinner-grow spinner-grow-sm text-primary align-middle" role="status">
+        <span class="sr-only"></span>
+    </div>
+    <div class="spinner-grow spinner-grow-sm text-warning align-middle" role="status">
+        <span class="sr-only"></span>
+    </div>
+    <div class="spinner-grow spinner-grow-sm text-primary align-middle" role="status">
+        <span class="sr-only"></span>
+    </div>
+    <div class="spinner-grow spinner-grow-sm text-warning align-middle" role="status">
+        <span class="sr-only"></span>
+    </div>
+</div>
