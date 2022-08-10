@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using UrlShortener.Models;
+using UrlShortener.Services;
 
 namespace UrlShortener
 {
@@ -28,9 +29,11 @@ namespace UrlShortener
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddDbContext<ApplicationDbContext>(connection => {
+            services.AddDbContext<ApplicationDbContext>(connection =>
+            {
                 connection.UseSqlServer(Configuration.GetConnectionString("default"));
-        });
+            });
+            services.AddSingleton<IShortServices, ShortServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
