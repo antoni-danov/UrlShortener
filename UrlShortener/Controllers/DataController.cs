@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UrlShortener.Services;
 
 namespace UrlShortener.Controllers
 {
@@ -8,6 +9,12 @@ namespace UrlShortener.Controllers
 
     public class DataController : Controller
     {
+        private IShortServices shortServices;
+
+        public DataController(IShortServices shortServices)
+        {
+            this.shortServices = shortServices;
+        }
         // GET: DataController
         public ActionResult Index()
         {
@@ -23,6 +30,7 @@ namespace UrlShortener.Controllers
         // GET: DataController/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
