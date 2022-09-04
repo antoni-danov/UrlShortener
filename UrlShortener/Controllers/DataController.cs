@@ -40,15 +40,22 @@ namespace UrlShortener.Controllers
                 {
                     return BadRequest("Invalid model object.");
                 }
-
-                this.shortServices.CreateUrlRecord(data);
-
+                if (isCreated(data.OriginalUrl) == false)
+                {
+                    this.shortServices.CreateUrlRecord(data);
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
             return StatusCode(201);
+        }
+
+        public Boolean isCreated(string originalUrl) {
+
+            return this.shortServices.isCreated(originalUrl);
+
         }
       
     }

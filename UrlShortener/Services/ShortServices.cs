@@ -29,5 +29,17 @@ namespace UrlShortener.Services
             db.SaveChanges();
 
         }
+
+        public bool isCreated(string originalUrl)
+        {
+            var result = this.db.UrlDatas.FirstOrDefault(x => x.OriginalUrl == originalUrl);
+
+            if(result != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

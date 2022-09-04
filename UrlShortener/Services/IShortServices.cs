@@ -6,5 +6,7 @@ namespace UrlShortener.Services
     {
         public UrlData GetNewUrl (string data);
         public void CreateUrlRecord(UrlData data);
+
+        public bool isCreated(string originalUrl);
     }
 }
