@@ -8,14 +8,16 @@ import { UrlData } from 'src/app/models/UrlData';
 })
 export class ShortServiceService {
 
-  shortUrl!: string;
+  shortUrl!: any;
 
   constructor(
-    private http: HttpClient,
+    private http: HttpClient
   ) { }
 
   async CreateUrl(value: UrlData) {
-    this.shortUrl = value.ShortUrl;
+
+    this.shortUrl = localStorage.setItem("shortUrl", value.ShortUrl);
+
     return await this.http.post(`${environment.localhost}`, value);
   }
   async GetUrl(data: string) {

@@ -1,4 +1,5 @@
-﻿using UrlShortener.Models;
+﻿using System.Linq;
+using UrlShortener.Models;
 
 namespace UrlShortener.Services
 {
@@ -10,9 +11,13 @@ namespace UrlShortener.Services
         {
             this.db = db;
         }
+
+        public UrlData GetNewUrl(string data) {
+           return this.db.UrlDatas.FirstOrDefault(x => x.ShortUrl == data);
+        }
+
         public void CreateUrlRecord(UrlData data)
         {
-          
             var newData = new UrlData
             {
                 OriginalUrl = data.OriginalUrl,
