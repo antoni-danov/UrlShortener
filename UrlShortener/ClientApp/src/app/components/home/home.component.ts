@@ -6,6 +6,7 @@ import { lastValueFrom } from 'rxjs';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import { UrlData } from 'src/app/models/UrlData';
 import { ShortServiceService } from 'src/app/services/ShorteningURL/short-service.service';
+import { DatePipe } from '@angular/common';
 var hash = require('jhash');
 
 @Component({
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
   currentShortUrl!: any;
   originalUrl!: any;
   spiner: boolean = false;
+  datePipe: DatePipe = new DatePipe('en-US');
 
   constructor(
     private service: ShortServiceService,
@@ -27,9 +29,10 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.form = new FormGroup({
       OriginalUrl: new FormControl('', Validators.required),
-      CreatedOn: new FormControl(formatDate(new Date(), 'dd/MM/YYYY HH:MM:SS', 'en'), Validators.required)
+      CreatedOn: new FormControl(this.datePipe.transform(new Date(), 'dd MMM yyyy'), Validators.required)
     });
   }
 
@@ -51,6 +54,6 @@ export class HomeComponent implements OnInit {
       this.currentShortUrl = data;
     });
 
-    this.router.navigateByUrl('/short');
+    this.router.navigateByUrl('/shorturl');
   };
 }
