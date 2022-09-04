@@ -33,6 +33,10 @@ namespace UrlShortener
             {
                 connection.UseSqlServer(Configuration.GetConnectionString("default"));
             });
+            services.AddCors(options => {
+                options.AddPolicy("AllowSpecificOrigin",
+                            builder => builder.WithOrigins("http://localhost:4200"));
+            });
             services.AddScoped<IShortServices, ShortServices>();
         }
 
@@ -58,7 +62,7 @@ namespace UrlShortener
             }
 
             app.UseRouting();
-
+            app.UseCors("AllowSpecificOrigin");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

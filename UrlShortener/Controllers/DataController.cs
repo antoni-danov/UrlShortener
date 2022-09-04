@@ -16,15 +16,18 @@ namespace UrlShortener.Controllers
         {
             this.shortServices = shortServices;
         }
+       
         // GET: DataController
-        public ActionResult Index()
+        [HttpGet("{data}")]
+        public ActionResult Index([FromRoute]string data)
         {
-            return View();
+            var result = this.shortServices.GetNewUrl(data);
+
+            return StatusCode(200, result);
         }
 
-        // GET: DataController/Create
+        // Post: DataController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create([FromBody] UrlData data)
         {
             try
@@ -47,69 +50,6 @@ namespace UrlShortener.Controllers
             }
             return StatusCode(201);
         }
-
-
-        //// GET: DataController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: DataController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: DataController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: DataController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: DataController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: DataController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+      
     }
 }

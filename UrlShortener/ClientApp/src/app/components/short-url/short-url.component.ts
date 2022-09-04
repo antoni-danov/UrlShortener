@@ -39,6 +39,7 @@ export class ShortUrlComponent implements OnInit, AfterViewInit {
     const result = await this.service.GetUrl(localStorage.getItem("shortUrl")!);
 
     var dataUrl = await firstValueFrom(result).then(data => {
+      console.log(data);
       this.currentShortUrl = data;
       this.spiner = false;
     });
@@ -49,12 +50,14 @@ export class ShortUrlComponent implements OnInit, AfterViewInit {
   SetLocalStorage(shortUrl: string) {
     localStorage.setItem("shortUrl", shortUrl);
   }
+
   async CopyUrl(data: string) {
 
     var publicUrl = this.clipboard.copyFromContent("https://localhost:44347/" + data);
 
     const originalLink = this.service.GetShortUrl(data);
   }
+
   ShortAnotherUrl() {
 
     this.router.navigateByUrl('/');
