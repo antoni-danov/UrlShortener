@@ -36,14 +36,18 @@ export class ShortUrlComponent implements OnInit, AfterViewInit {
   }
   async GetUrl() {
 
-    const result = await this.service.GetUrl(localStorage.getItem("shortUrl")!);
+    this.currentShortUrl = await this.service.temporaryValue;
 
-    var dataUrl = await firstValueFrom(result).then(data => {
-      this.currentShortUrl = data;
+    if (this.service.temporaryValue) {
       this.spiner = false;
-    });
-
-    return this.currentShortUrl;
+      return this.currentShortUrl;
+    } else {
+      const result = await this.service.GetUrl(localStorage.getItem("shortUrl")!);
+      var dataUrl = await firstValueFrom(result).then(data => {
+        this.currentShortUrl = data;
+        this.spiner = false;
+      });
+    }
 
   }
   SetLocalStorage(shortUrl: string) {
