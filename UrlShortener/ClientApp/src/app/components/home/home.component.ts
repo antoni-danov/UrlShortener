@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import { UrlData } from 'src/app/models/UrlData';
 import { ShortServiceService } from 'src/app/services/ShorteningURL/short-service.service';
 import { DatePipe } from '@angular/common';
+import { Guid } from 'guid-typescript';
 var hash = require('jhash');
 
 @Component({
@@ -38,10 +39,10 @@ export class HomeComponent implements OnInit {
 
   async ReduceUrl(value: UrlData) {
 
-    var longUrl = value.OriginalUrl;
-    var shortUrl = hash.hash(longUrl);
+    var shortUrl = hash.hash(value.OriginalUrl);
 
     var dataUrl = {
+      Id: Guid.create().toString(),
       OriginalUrl: value.OriginalUrl,
       CreatedOn: value.CreatedOn,
       ShortUrl: shortUrl

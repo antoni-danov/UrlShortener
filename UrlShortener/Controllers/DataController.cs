@@ -16,15 +16,15 @@ namespace UrlShortener.Controllers
         {
             this.shortServices = shortServices;
         }
-       
-        // GET: DataController
-        [HttpGet("{data}")]
-        public ActionResult Index([FromRoute]string data)
-        {
-            var result = this.shortServices.GetNewUrl(data);
 
-            return StatusCode(200, result);
-        }
+        // GET: DataController
+        //[HttpGet("{data}")]
+        //public ActionResult Index([FromRoute] string data)
+        //{
+        //    var result = this.shortServices.GetNewUrl(data);
+
+        //    return StatusCode(200, result);
+        //}
 
         // Post: DataController/Create
         [HttpPost]
@@ -32,6 +32,7 @@ namespace UrlShortener.Controllers
         {
             try
             {
+
                 if (data == null)
                 {
                     return BadRequest("Data object is null.");
@@ -49,14 +50,15 @@ namespace UrlShortener.Controllers
             {
                 Console.WriteLine(ex);
             }
-            return StatusCode(201);
+            return StatusCode(201, data);
         }
 
-        public Boolean isCreated(string originalUrl) {
+        public Boolean isCreated(string originalUrl)
+        {
 
             return this.shortServices.isCreated(originalUrl);
 
         }
-      
+
     }
 }
