@@ -21,6 +21,14 @@ namespace UrlShortener.Services
            return this.db.UrlDatas.FirstOrDefault(x => x.ShortUrl == data);
         }
 
+        public string GetOriginalUrl(string data)
+        {
+            UrlData result = this.db.UrlDatas.FirstOrDefault(x => x.ShortUrl == data);
+            string originalUrl = result.OriginalUrl;
+
+            return originalUrl;
+        }
+
         public void CreateUrlRecord(UrlData data)
         {
             db.UrlDatas.Add(data);
@@ -39,5 +47,6 @@ namespace UrlShortener.Services
 
             return false;
         }
+
     }
 }

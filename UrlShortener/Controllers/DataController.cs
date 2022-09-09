@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using UrlShortener.Models;
 using UrlShortener.Services;
@@ -16,15 +15,6 @@ namespace UrlShortener.Controllers
         {
             this.shortServices = shortServices;
         }
-
-        // GET: DataController
-        //[HttpGet("{data}")]
-        //public ActionResult Index([FromRoute] string data)
-        //{
-        //    var result = this.shortServices.GetNewUrl(data);
-
-        //    return StatusCode(200, result);
-        //}
 
         // Post: DataController/Create
         [HttpPost]
