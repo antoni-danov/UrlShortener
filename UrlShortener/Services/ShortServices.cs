@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UrlShortener.Models;
 
 namespace UrlShortener.Services
@@ -12,20 +13,17 @@ namespace UrlShortener.Services
             this.db = db;
         }
 
+        public ShortServices()
+        {
+        }
+
         public UrlData GetNewUrl(string data) {
            return this.db.UrlDatas.FirstOrDefault(x => x.ShortUrl == data);
         }
 
         public void CreateUrlRecord(UrlData data)
         {
-            var newData = new UrlData
-            {
-                OriginalUrl = data.OriginalUrl,
-                ShortUrl = data.ShortUrl,
-                CreatedOn = data.CreatedOn
-            };
-
-            db.UrlDatas.Add(newData);
+            db.UrlDatas.Add(data);
             db.SaveChanges();
 
         }

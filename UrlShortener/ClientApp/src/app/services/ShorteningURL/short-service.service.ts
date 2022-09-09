@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
 import { UrlData } from 'src/app/models/UrlData';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,16 +9,21 @@ import { UrlData } from 'src/app/models/UrlData';
 export class ShortServiceService {
 
   shortUrl!: any;
+  temporaryValue!: any;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  async CreateUrl(value: UrlData) {
+  async CreateUrl(value: UrlData){
 
     this.shortUrl = localStorage.setItem("shortUrl", value.ShortUrl);
 
-    return await this.http.post(`${environment.localhost}`, value);
+    var result = await this.http.post(`${environment.localhost}`, value);
+    this.temporaryValue = result.toPromise();
+
+    return result;
+
   }
   async GetUrl(data: string) {
 
