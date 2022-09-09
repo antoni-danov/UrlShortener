@@ -25,12 +25,14 @@ export class ShortServiceService {
     return result;
 
   }
+
   async GetUrl(data: string) {
 
     var result = await this.http.get(`${environment.localhost}/${data}`);
 
     return result;
   }
+
   async GetShortUrl(data: string) {
     return await this.http.get(`${environment.localhost}/${data}`);
   }
