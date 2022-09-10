@@ -13,9 +13,9 @@ a {
 .navbar {
   background-color: white;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
-#loginBtn {
+#homeBtn, #loginBtn, #registerBtn {
   color: #059dc0;
   border: 2px #059dc0 solid;
   border-radius: 15px;
