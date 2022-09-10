@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 using UrlShortener.Models;
 using UrlShortener.Services;
 
@@ -16,9 +17,17 @@ namespace UrlShortener.Controllers
             this.shortServices = shortServices;
         }
 
+        // GET: DataController
+        [HttpGet("/{data}")]
+        public async Task<IActionResult> GetUrl([FromRoute] string data)
+        {
+            var result = this.shortServices.GetOriginalUrl(data);
+            return new RedirectResult(result);
+        }
+
         // Post: DataController/Create
         [HttpPost]
-        public IActionResult Create([FromBody] UrlData data)
+        public async Task<IActionResult> Create([FromBody] UrlData data)
         {
             try
             {
@@ -33,7 +42,8 @@ namespace UrlShortener.Controllers
                 }
                 if (isCreated(data.OriginalUrl) == false)
                 {
-                    this.shortServices.CreateUrlRecord(data);
+                   await shortServices.CreateUrlRecord(data);
+                    
                 }
             }
             catch (Exception ex)
@@ -43,7 +53,7 @@ namespace UrlShortener.Controllers
             return StatusCode(201, data);
         }
 
-        public Boolean isCreated(string originalUrl)
+        public bool isCreated(string originalUrl)
         {
 
             return this.shortServices.isCreated(originalUrl);

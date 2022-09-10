@@ -1,4 +1,5 @@
-﻿using UrlShortener.Models;
+﻿using System.Threading.Tasks;
+using UrlShortener.Models;
 
 namespace UrlShortener.Services
 {
@@ -6,7 +7,7 @@ namespace UrlShortener.Services
     {
         public UrlData GetNewUrl (string data);
         public string GetOriginalUrl(string data);
-        public void CreateUrlRecord(UrlData data);
+        public Task CreateUrlRecord(UrlData data);
 
         public bool isCreated(string originalUrl);
     }
