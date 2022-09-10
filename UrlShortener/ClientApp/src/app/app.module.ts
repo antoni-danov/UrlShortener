@@ -10,6 +10,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { ShortUrlComponent } from './components/short-url/short-url.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { ClipboardModule } from 'ngx-clipboard';
     NavbarComponent,
     FooterComponent,
     HomeComponent,
-    ShortUrlComponent
+    ShortUrlComponent,
+    SignInComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
