@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using UrlShortener.Models;
 
 namespace UrlShortener.Services
@@ -29,11 +30,12 @@ namespace UrlShortener.Services
             return originalUrl;
         }
 
-        public void CreateUrlRecord(UrlData data)
+        public Task CreateUrlRecord(UrlData data)
         {
-            db.UrlDatas.Add(data);
-            db.SaveChanges();
+            db.UrlDatas.AddAsync(data);
+            db.SaveChangesAsync();
 
+            return Task.CompletedTask;
         }
 
         public bool isCreated(string originalUrl)
