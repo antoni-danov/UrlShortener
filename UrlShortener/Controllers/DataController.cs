@@ -29,9 +29,6 @@ namespace UrlShortener.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] UrlData data)
         {
-            try
-            {
-
                 if (data == null)
                 {
                     return BadRequest("Data object is null.");
@@ -45,11 +42,7 @@ namespace UrlShortener.Controllers
                    await shortServices.CreateUrlRecord(data);
                     
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+           
             return StatusCode(201, data);
         }
 

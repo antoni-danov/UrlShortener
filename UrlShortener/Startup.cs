@@ -69,6 +69,7 @@ namespace UrlShortener
              .AllowAnyOrigin()
              .AllowAnyMethod()
              .AllowAnyHeader());
+            app.UseMiddleware<GlobalErrorHandlingMiddleware>();
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
