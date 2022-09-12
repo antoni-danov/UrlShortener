@@ -22,6 +22,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     ShortUrlComponent,
     SignInComponent,
     SignUpComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
