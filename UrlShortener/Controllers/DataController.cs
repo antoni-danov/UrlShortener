@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using UrlShortener.ActionFilters;
 using UrlShortener.Models;
 using UrlShortener.Services;
 
@@ -11,6 +13,7 @@ namespace UrlShortener.Controllers
     public class DataController : Controller
     {
         private IShortServices shortServices;
+       
 
         public DataController(IShortServices shortServices)
         {
@@ -27,22 +30,14 @@ namespace UrlShortener.Controllers
 
         // Post: DataController/Create
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFiltersAttribute))]
         public async Task<IActionResult> Create([FromBody] UrlData data)
         {
-                if (data == null)
-                {
-                    return BadRequest("Data object is null.");
-                }
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object.");
-                }
-                if (isCreated(data.OriginalUrl) == false)
-                {
-                   await shortServices.CreateUrlRecord(data);
-                    
-                }
-           
+            if (isCreated(data.OriginalUrl) == false)
+            {
+                await shortServices.CreateUrlRecord(data);
+            }
+
             return StatusCode(201, data);
         }
 
