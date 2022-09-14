@@ -4,6 +4,7 @@ import { UrlData } from 'src/app/models/UrlData';
 import { ShortServiceService } from 'src/app/services/ShorteningURL/short-service.service';
 import { ClipboardService } from 'ngx-clipboard';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -56,9 +57,9 @@ export class ShortUrlComponent implements OnInit, AfterViewInit {
 
   async CopyUrl(data: string) {
 
-    var publicUrl = this.clipboard.copyFromContent("https://localhost:44373/" + data);
+    var publicUrl = this.clipboard.copyFromContent(`${environment.urlAddress}` + data);
 
-    const originalLink = this.service.GetShortUrl(data);
+    const originalLink = this.service.GetUrl(data);
   }
 
   ShortAnotherUrl() {

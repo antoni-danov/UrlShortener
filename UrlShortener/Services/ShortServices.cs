@@ -17,17 +17,18 @@ namespace UrlShortener.Services
         public ShortServices()
         {
         }
-
-        public UrlData GetNewUrl(string data) {
-           return this.db.UrlDatas.FirstOrDefault(x => x.ShortUrl == data);
-        }
-
         public string GetOriginalUrl(string data)
         {
             UrlData result = this.db.UrlDatas.FirstOrDefault(x => x.ShortUrl == data);
-            string originalUrl = result.OriginalUrl;
 
-            return originalUrl;
+            if(result != null)
+            {
+                string originalUrl = result.OriginalUrl;
+                return originalUrl;
+
+            }
+
+            return null;
         }
 
         public Task CreateUrlRecord(UrlData data)
@@ -38,16 +39,22 @@ namespace UrlShortener.Services
             return Task.CompletedTask;
         }
 
-        public bool isCreated(string originalUrl)
+        public ExistingUrlRecord isCreated(string originalUrl)
         {
             var result = this.db.UrlDatas.FirstOrDefault(x => x.OriginalUrl == originalUrl);
 
             if(result != null)
             {
-                return true;
+                var existingUrl = new ExistingUrlRecord()
+                {
+                    OriginalUrl = result.OriginalUrl,
+                    ShortUrl = result.ShortUrl
+                };
+                
+                return existingUrl;
             }
 
-            return false;
+            return null;
         }
 
     }
