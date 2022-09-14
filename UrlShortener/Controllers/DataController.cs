@@ -25,6 +25,7 @@ namespace UrlShortener.Controllers
         public async Task<IActionResult> GetUrl([FromRoute] string data)
         {
             var result = this.shortServices.GetOriginalUrl(data);
+
             return new RedirectResult(result);
         }
 
@@ -33,18 +34,22 @@ namespace UrlShortener.Controllers
         [ServiceFilter(typeof(ValidationFiltersAttribute))]
         public async Task<IActionResult> Create([FromBody] UrlData data)
         {
-            if (isCreated(data.OriginalUrl) == false)
+            var ifExist = isCreated(data.OriginalUrl);
+
+            if (ifExist == null)
             {
                 await shortServices.CreateUrlRecord(data);
+                return  StatusCode(201, data);
             }
 
-            return StatusCode(201, data);
+            return StatusCode(200, ifExist);
         }
 
-        public bool isCreated(string originalUrl)
+        public ExistingUrlRecord isCreated(string originalUrl)
         {
 
             return this.shortServices.isCreated(originalUrl);
+
 
         }
 
