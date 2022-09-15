@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { AuthServicesService } from '../../services/auth/auth-services.service';
 
 @Component({
@@ -6,15 +6,19 @@ import { AuthServicesService } from '../../services/auth/auth-services.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterContentChecked {
 
-  isLoggedIn: boolean = true;
+  isLoggedIn!: boolean;
 
   constructor(
     private services: AuthServicesService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.isLoggedIn = this.services.isAuthenticated();
+  }
+  ngAfterContentChecked() {
+    this.ngOnInit();
   }
 
   Logout() {

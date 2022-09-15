@@ -66,6 +66,15 @@ export class AuthServicesService {
       });
   }
 
+  isAuthenticated() {
+
+    const checkUser = this.cookieService.get('JWT');
+
+    if (checkUser) {
+      return true;
+    }
+    return false;
+  }
   cookiesFactory(jwt: string, uid: string, email: string) {
 
     this.currentDate = new Date();

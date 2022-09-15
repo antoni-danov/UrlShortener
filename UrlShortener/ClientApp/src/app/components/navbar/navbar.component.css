@@ -10,12 +10,14 @@ a {
   font-weight: bolder;
   margin-left: 35%;
 }
-.navbar {
+.navbar, .navigation {
   background-color: white;
   display: flex;
   justify-content: space-between;
 }
-#homeBtn, #loginBtn, #registerBtn, #logoutBtn {
+#homeBtn, #loginBtn,
+#registerBtn, #logoutBtn,
+#profileBtn {
   color: #059dc0;
   border: 2px #059dc0 solid;
   border-radius: 15px;
