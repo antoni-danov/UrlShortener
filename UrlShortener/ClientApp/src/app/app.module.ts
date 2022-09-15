@@ -21,6 +21,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import { AuthServicesService } from './services/auth/auth-services.service';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AuthServicesService } from './services/auth/auth-services.service';
     ShortUrlComponent,
     SignInComponent,
     SignUpComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

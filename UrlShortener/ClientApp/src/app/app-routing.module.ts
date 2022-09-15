@@ -4,12 +4,14 @@ import { HomeComponent } from './components/home/home.component';
 import { ShortUrlComponent } from './components/short-url/short-url.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'shorturl', component: ShortUrlComponent },
   { path: 'login', component: SignInComponent},
   { path: 'register', component: SignUpComponent },
+  { path: 'profile', component: UserProfileComponent },
 ];
 
 @NgModule({
