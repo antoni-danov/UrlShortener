@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthServicesService } from '../../services/auth/auth-services.service';
 
 @Component({
@@ -12,10 +13,14 @@ export class SignUpComponent implements OnInit {
   userForm!: FormGroup;
 
   constructor(
-    private authServices: AuthServicesService
+    private authServices: AuthServicesService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    if (this.authServices.isAuthenticated()) {
+      this.router.navigate(['/']);
+    }
 
     this.userForm = new FormGroup({
       email: new FormControl('', Validators.compose([
