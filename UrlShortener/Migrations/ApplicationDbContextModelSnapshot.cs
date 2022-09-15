@@ -37,9 +37,46 @@ namespace UrlShortener.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("UrlDatas");
+                });
+
+            modelBuilder.Entity("UrlShortener.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("UrlShortener.Models.UrlData", b =>
+                {
+                    b.HasOne("UrlShortener.Models.User", "User")
+                        .WithMany("Urls")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UrlShortener.Models.User", b =>
+                {
+                    b.Navigation("Urls");
                 });
 #pragma warning restore 612, 618
         }
