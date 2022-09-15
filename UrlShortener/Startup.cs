@@ -82,9 +82,10 @@ namespace UrlShortener
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
-                //endpoints.MapControllerRoute(
-                //    name: "retrieve",
-                //    pattern: "{controller}/{id}");
+                endpoints.MapControllerRoute(
+                    name:"User",
+                    pattern: "{controller}/{action=Index}"
+                    );
             });
 
             app.UseSpa(spa =>
