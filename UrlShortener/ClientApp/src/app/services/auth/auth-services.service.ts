@@ -13,6 +13,7 @@ export class AuthServicesService {
   uid!: string;
   jwt!: string;
   email!: string;
+  user!: any;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -23,30 +24,38 @@ export class AuthServicesService {
   async SignInWithEmailAndPassword(email: string, password: string) {
     await this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.uid = result.user?.uid!;
+        this.user = result.user;
       })
       .catch((error) => {
         window.alert(error.message);
       });
     var currentJwt = await this.getIdToken();
     this.jwt = currentJwt!;
-    this.email = email;
 
-    this.cookiesFactory(this.jwt, this.uid, this.email);
+    this.cookiesFactory(this.jwt, this.user.uid, this.user.email);
 
     this.router.navigateByUrl('/');
 
   }
   async SignUpWithEmailAndPassword(email: string, password: string) {
 
-    return await this.afAuth.createUserWithEmailAndPassword(email, password)
+    await this.afAuth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        const user = result.user;
+        this.user = result.user;
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
+
+    await firebase.default.auth().currentUser?.getIdToken()
+      .then(data => {
+        this.jwt = data;
+      });
+
+    this.cookiesFactory(this.jwt, this.user.uid, this.user.email);
+
+    this.router.navigateByUrl('/');
   }
   async SignOut() {
     this.cookieService.deleteAll();
