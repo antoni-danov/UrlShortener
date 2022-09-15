@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthServicesService } from '../../services/auth/auth-services.service';
 
 @Component({
@@ -12,10 +13,14 @@ export class SignInComponent implements OnInit {
   form!: FormGroup;
 
   constructor(
-    private service: AuthServicesService
+    private authServices: AuthServicesService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    if (this.authServices.isAuthenticated()) {
+      this.router.navigate(['/']);
+    }
 
     this.form = new FormGroup({
       email: new FormControl('', Validators.compose([
@@ -30,7 +35,7 @@ export class SignInComponent implements OnInit {
 
   async SignInEmailAndPassword(userdata: any) {
 
-    return await this.service.SignInWithEmailAndPassword(userdata.email, userdata.password);
+    return await this.authServices.SignInWithEmailAndPassword(userdata.email, userdata.password);
 
   }
 
