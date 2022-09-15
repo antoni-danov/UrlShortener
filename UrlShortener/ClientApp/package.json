@@ -24,6 +24,7 @@
     "guid-typescript": "^1.0.9",
     "jhash": "^0.1.10",
     "ngx-clipboard": "^15.1.0",
+    "ngx-cookie-service": "^14.0.1",
     "nodemon": "^2.0.19",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
