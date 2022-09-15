@@ -15,7 +15,7 @@ a {
   display: flex;
   justify-content: space-between;
 }
-#homeBtn, #loginBtn, #registerBtn {
+#homeBtn, #loginBtn, #registerBtn, #logoutBtn {
   color: #059dc0;
   border: 2px #059dc0 solid;
   border-radius: 15px;
