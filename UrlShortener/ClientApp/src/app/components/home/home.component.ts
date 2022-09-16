@@ -44,8 +44,9 @@ export class HomeComponent implements OnInit {
     var dataUrl = {
       Id: Guid.create().toString(),
       OriginalUrl: value.OriginalUrl,
+      ShortUrl: shortUrl,
       CreatedOn: value.CreatedOn,
-      ShortUrl: shortUrl
+      IsActive: true
     }
 
     this.spiner = true;

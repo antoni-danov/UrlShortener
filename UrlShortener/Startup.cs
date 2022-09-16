@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using UrlShortener.ActionFilters;
 using UrlShortener.Models;
 using UrlShortener.Services;
+using UrlShortener.Services.UserService;
 
 namespace UrlShortener
 {
@@ -45,6 +46,7 @@ namespace UrlShortener
                   .AllowCredentials());
             });
             services.AddScoped<IShortServices, ShortServices>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ValidationFiltersAttribute>();
             services.Configure<ApiBehaviorOptions>(options =>
             {
