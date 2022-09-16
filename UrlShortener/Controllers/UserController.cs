@@ -1,17 +1,29 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading;
+using UrlShortener.Models;
+using UrlShortener.Services;
+using UrlShortener.Services.UserService;
 
 namespace UrlShortener.Controllers
 {
-    [Route("user/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController : Controller
     {
+        private IUserService userService;
+
+        public UserController(IUserService userService)
+        {
+            this.userService = userService;
+        }
         // GET: UserController
         [HttpGet]
-        public ActionResult GetAll()
+        public List<UrlData> GetAll()
         {
-            return View();
+            var result = this.userService.GetAll();
+            return result;
         }
 
     //    // GET: UserController/Details/5
