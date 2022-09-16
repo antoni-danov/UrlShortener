@@ -22,6 +22,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import { AuthServicesService } from './services/auth/auth-services.service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserService } from './services/User/user.service';
+import { ShortServiceService } from './services/ShorteningURL/short-service.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,11 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     AngularFireStorageModule,
     AngularFireDatabaseModule
   ],
-  providers: [AuthServicesService],
+  providers: [
+    AuthServicesService,
+    ShortServiceService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
