@@ -1,1 +1,14 @@
-<p>user-profile works!</p>
+<div *ngFor="let url of urlData">
+  <div class="row m-2">
+    <div class="col">ORGINAL URL</div>
+    <div class="col">
+      {{url.shortUrl}}
+    </div>
+    <div class="col">{{url.createdOn}}</div>
+    <div class="col">
+      <button class="btn btn-danger btn-sm">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
