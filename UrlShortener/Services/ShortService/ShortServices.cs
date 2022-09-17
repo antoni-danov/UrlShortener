@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using UrlShortener.Models;
 
@@ -23,7 +20,7 @@ namespace UrlShortener.Services
         {
             UrlData result = this.db.UrlDatas.FirstOrDefault(x => x.ShortUrl == data);
 
-            if(result != null)
+            if (result != null)
             {
                 string originalUrl = result.OriginalUrl;
                 return originalUrl;
@@ -35,8 +32,8 @@ namespace UrlShortener.Services
 
         public Task CreateUrlRecord(UrlData data)
         {
-            db.UrlDatas.AddAsync(data);
-            db.SaveChangesAsync();
+             db.UrlDatas.AddAsync(data);
+             db.SaveChanges();
 
             return Task.CompletedTask;
         }
@@ -45,14 +42,14 @@ namespace UrlShortener.Services
         {
             var result = this.db.UrlDatas.FirstOrDefault(x => x.OriginalUrl == originalUrl);
 
-            if(result != null)
+            if (result != null)
             {
                 var existingUrl = new ExistingUrlRecord()
                 {
                     OriginalUrl = result.OriginalUrl,
                     ShortUrl = result.ShortUrl
                 };
-                
+
                 return existingUrl;
             }
 

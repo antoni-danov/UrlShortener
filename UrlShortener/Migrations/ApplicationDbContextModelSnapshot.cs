@@ -21,7 +21,7 @@ namespace UrlShortener.Migrations
 
             modelBuilder.Entity("UrlShortener.Models.UrlData", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UrlId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -40,10 +40,7 @@ namespace UrlShortener.Migrations
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
+                    b.HasKey("UrlId");
 
                     b.HasIndex("UserId");
 
@@ -52,7 +49,7 @@ namespace UrlShortener.Migrations
 
             modelBuilder.Entity("UrlShortener.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -60,18 +57,16 @@ namespace UrlShortener.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("UrlShortener.Models.UrlData", b =>
                 {
-                    b.HasOne("UrlShortener.Models.User", "User")
+                    b.HasOne("UrlShortener.Models.User", null)
                         .WithMany("Urls")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UrlShortener.Models.User", b =>

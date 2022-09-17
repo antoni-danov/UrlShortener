@@ -6,7 +6,7 @@
     </div>
     <div class="col">{{url.createdOn}}</div>
     <div class="col">
-      <button class="btn btn-danger btn-sm">
+      <button type="button" class="btn btn-danger btn-sm" (click)="deleteUrl(url.urlId)">
         Delete
       </button>
     </div>
