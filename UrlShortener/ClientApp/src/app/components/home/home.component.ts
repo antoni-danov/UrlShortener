@@ -1,13 +1,12 @@
-import { formatDate } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Guid } from 'guid-typescript';
 import { lastValueFrom } from 'rxjs';
-import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import { UrlData } from 'src/app/models/UrlData';
 import { ShortServiceService } from 'src/app/services/ShorteningURL/short-service.service';
-import { DatePipe } from '@angular/common';
-import { Guid } from 'guid-typescript';
+import { AuthServicesService } from '../../services/auth/auth-services.service';
 var hash = require('jhash');
 
 @Component({
@@ -42,16 +41,14 @@ export class HomeComponent implements OnInit {
     var shortUrl = hash.hash(value.OriginalUrl);
 
     var dataUrl = {
-      Id: Guid.create().toString(),
+      UrlId: Guid.create().toString(),
       OriginalUrl: value.OriginalUrl,
       ShortUrl: shortUrl,
       CreatedOn: value.CreatedOn,
-      IsActive: true
     }
 
     this.spiner = true;
     const dataInfo = await this.service.CreateUrl(dataUrl);
-    // this.form.reset();
     var result = await lastValueFrom(dataInfo).then(data => {
       this.currentShortUrl = data;
     });

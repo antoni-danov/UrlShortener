@@ -144,3 +144,6 @@ D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\obj\Debug\net6.0\
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\obj\Debug\net6.0\UrlShortener.Test.pdb
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\obj\Debug\net6.0\UrlShortener.Test.genruntimeconfig.cache
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\obj\Debug\net6.0\ref\UrlShortener.Test.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\System.Web.Http.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

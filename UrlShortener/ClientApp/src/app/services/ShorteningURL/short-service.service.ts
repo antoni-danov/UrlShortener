@@ -15,8 +15,7 @@ export class ShortServiceService {
     private http: HttpClient
   ) { }
 
-  async CreateUrl(value: UrlData){
-
+  async CreateUrl(value: UrlData) {
     this.shortUrl = localStorage.setItem("shortUrl", value.ShortUrl);
 
     var result = await this.http.post(`${environment.localhost}`, value);
