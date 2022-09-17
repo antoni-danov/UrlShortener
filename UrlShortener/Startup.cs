@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using System.Web.Http;
 using UrlShortener.ActionFilters;
 using UrlShortener.Models;
 using UrlShortener.Services;
@@ -85,8 +85,9 @@ namespace UrlShortener
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
-                    name:"User",
-                    pattern: "{controller}/{action=Index}"
+                    name:"user",
+                    pattern: "{controller}/{action=Index}/{id}",
+                    new { id = RouteParameter.Optional }
                     );
             });
 

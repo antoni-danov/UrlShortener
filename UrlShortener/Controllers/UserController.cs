@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Threading;
 using UrlShortener.Models;
-using UrlShortener.Services;
 using UrlShortener.Services.UserService;
 
 namespace UrlShortener.Controllers
@@ -22,77 +19,81 @@ namespace UrlShortener.Controllers
         [HttpGet]
         public List<UrlData> GetAll()
         {
-            var result = this.userService.GetAll();
+            var result = userService.GetAll();
             return result;
         }
 
-    //    // GET: UserController/Details/5
-    //    public ActionResult Details(int id)
-    //    {
-    //        return View();
-    //    }
+        // DELETE: UserController/Delete/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] string id)
+        {
+            userService.DeleteUrl(id);
 
-    //    // GET: UserController/Create
-    //    public ActionResult Create()
-    //    {
-    //        return View();
-    //    }
+            return StatusCode(200);
+           
+        }
 
-    //    // POST: UserController/Create
-    //    [HttpPost]
-    //    [ValidateAntiForgeryToken]
-    //    public ActionResult Create(IFormCollection collection)
-    //    {
-    //        try
-    //        {
-    //            return RedirectToAction(nameof(Index));
-    //        }
-    //        catch
-    //        {
-    //            return View();
-    //        }
-    //    }
+        //    // GET: UserController/Details/5
+        //    public ActionResult Details(int id)
+        //    {
+        //        return View();
+        //    }
 
-    //    // GET: UserController/Edit/5
-    //    public ActionResult Edit(int id)
-    //    {
-    //        return View();
-    //    }
+        //    // GET: UserController/Create
+        //    public ActionResult Create()
+        //    {
+        //        return View();
+        //    }
 
-    //    // POST: UserController/Edit/5
-    //    [HttpPost]
-    //    [ValidateAntiForgeryToken]
-    //    public ActionResult Edit(int id, IFormCollection collection)
-    //    {
-    //        try
-    //        {
-    //            return RedirectToAction(nameof(Index));
-    //        }
-    //        catch
-    //        {
-    //            return View();
-    //        }
-    //    }
+        //    // POST: UserController/Create
+        //    [HttpPost]
+        //    [ValidateAntiForgeryToken]
+        //    public ActionResult Create(IFormCollection collection)
+        //    {
+        //        try
+        //        {
+        //            return RedirectToAction(nameof(Index));
+        //        }
+        //        catch
+        //        {
+        //            return View();
+        //        }
+        //    }
 
-    //    // GET: UserController/Delete/5
-    //    public ActionResult Delete(int id)
-    //    {
-    //        return View();
-    //    }
+        //    // GET: UserController/Edit/5
+        //    public ActionResult Edit(int id)
+        //    {
+        //        return View();
+        //    }
 
-    //    // POST: UserController/Delete/5
-    //    [HttpPost]
-    //    [ValidateAntiForgeryToken]
-    //    public ActionResult Delete(int id, IFormCollection collection)
-    //    {
-    //        try
-    //        {
-    //            return RedirectToAction(nameof(Index));
-    //        }
-    //        catch
-    //        {
-    //            return View();
-    //        }
-    //    }
+        //    // POST: UserController/Edit/5
+        //    [HttpPost]
+        //    [ValidateAntiForgeryToken]
+        //    public ActionResult Edit(int id, IFormCollection collection)
+        //    {
+        //        try
+        //        {
+        //            return RedirectToAction(nameof(Index));
+        //        }
+        //        catch
+        //        {
+        //            return View();
+        //        }
+        //    }
+
+        //    // POST: UserController/Delete/5
+        //    [HttpPost]
+        //    [ValidateAntiForgeryToken]
+        //    public ActionResult Delete(int id, IFormCollection collection)
+        //    {
+        //        try
+        //        {
+        //            return RedirectToAction(nameof(Index));
+        //        }
+        //        catch
+        //        {
+        //            return View();
+        //        }
+        //    }
     }
 }
