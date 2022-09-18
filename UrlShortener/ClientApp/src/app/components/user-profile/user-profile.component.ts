@@ -24,22 +24,33 @@ export class UserProfileComponent implements OnInit {
   }
 
   deleteUrl(urlId: string) {
-    if (confirm("Do you really want to delete this Url?")) {
-      this.userService.DeleteUrl(urlId);
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'The url record was deleted!',
-        showConfirmButton: true
-      });
-      this.ngOnInit();
-    } else {
-      Swal.fire({
-        title: 'This time was close',
-        icon: 'warning',
-        showConfirmButton: true
-      })
-    }
+    Swal.fire({
+      title: 'Do you really want to delete this Url?',
+      showDenyButton: true,
+      cancelButtonColor: "red",
+      confirmButtonColor: "green",
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.DeleteUrl(urlId);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'The url record was deleted!',
+          showConfirmButton: true,
+          confirmButtonColor: "green"
+        });
+        this.ngOnInit();
+      } else {
+        Swal.fire({
+          title: 'This time was close',
+          icon: 'warning',
+          showConfirmButton: true,
+          confirmButtonColor: "green"
+        })
+      }
+    });
   }
 
 }

@@ -83,7 +83,9 @@ namespace UrlShortener
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id}",
+                    new { id = RouteParameter.Optional }
+                    );
                 endpoints.MapControllerRoute(
                     name:"user",
                     pattern: "{controller}/{action=Index}/{id}",

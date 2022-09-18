@@ -30,9 +30,9 @@ namespace UrlShortener.Services
             return null;
         }
 
-        public Task CreateUrlRecord(UrlData data)
+        public async Task<Task> CreateUrlRecord(UrlData data)
         {
-             db.UrlDatas.AddAsync(data);
+             await db.UrlDatas.AddAsync(data);
              db.SaveChanges();
 
             return Task.CompletedTask;
