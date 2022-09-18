@@ -24,6 +24,8 @@ import { AuthServicesService } from './services/auth/auth-services.service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserService } from './services/User/user.service';
 import { ShortServiceService } from './services/ShorteningURL/short-service.service';
+import { EditUrlComponent } from './components/edit-url/edit-url.component';
+import { UrlDetailsComponent } from './components/url-details/url-details.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { ShortServiceService } from './services/ShorteningURL/short-service.serv
     SignInComponent,
     SignUpComponent,
     UserProfileComponent,
+    EditUrlComponent,
+    UrlDetailsComponent,
   ],
   imports: [
     BrowserModule,
