@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthServicesService } from '../../services/auth/auth-services.service';
 
 @Component({
@@ -9,13 +10,19 @@ import { AuthServicesService } from '../../services/auth/auth-services.service';
 export class NavbarComponent implements OnInit, AfterContentChecked {
 
   isLoggedIn!: boolean;
+  userGreetings!: string;
 
   constructor(
-    private services: AuthServicesService
+    private services: AuthServicesService,
+    private cookies: CookieService
   ) { }
 
   ngOnInit() {
     this.isLoggedIn = this.services.isAuthenticated();
+
+    if (this.isLoggedIn == true) {
+      this.userGreetings = this.cookies.get("email");
+    }
   }
   ngAfterContentChecked() {
     this.ngOnInit();

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { UserService } from '../../services/User/user.service';
+
 
 @Component({
   selector: 'app-edit-url',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditUrlComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    private location: Location
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+  }
+
+  deleteUrl(urlId: string) {
+    if (confirm("Do you really want to delete this Url?")) {
+      this.userService.DeleteUrl(urlId);
+      alert("The Record was deleted");
+      this.ngOnInit();
+    } else {
+      alert("This time was close!");
+    }
+  }
+
+  async backToDetails() {
+    await this.location.back();
   }
 
 }

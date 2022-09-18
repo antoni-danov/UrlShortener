@@ -6,7 +6,6 @@ import { Guid } from 'guid-typescript';
 import { lastValueFrom } from 'rxjs';
 import { UrlData } from 'src/app/models/UrlData';
 import { ShortServiceService } from 'src/app/services/ShorteningURL/short-service.service';
-import { AuthServicesService } from '../../services/auth/auth-services.service';
 var hash = require('jhash');
 
 @Component({

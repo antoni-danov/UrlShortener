@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserService } from '../../services/User/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,7 +13,6 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private route: Router
   ) { }
 
   ngOnInit() {
@@ -27,10 +26,19 @@ export class UserProfileComponent implements OnInit {
   deleteUrl(urlId: string) {
     if (confirm("Do you really want to delete this Url?")) {
       this.userService.DeleteUrl(urlId);
-      alert("The Record was deleted");
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'The url record was deleted!',
+        showConfirmButton: true
+      });
       this.ngOnInit();
     } else {
-      alert("This time was close!");
+      Swal.fire({
+        title: 'This time was close',
+        icon: 'warning',
+        showConfirmButton: true
+      })
     }
   }
 
