@@ -19,10 +19,10 @@ namespace UrlShortener.Controllers
         }
 
         // GET: DataController
-        [HttpGet("/{data}")]
-        public async Task<IActionResult> GetUrl([FromRoute] string data)
+        [HttpGet("{id}")]
+        public IActionResult GetUrl([FromRoute] string id)
         {
-            var result = this.shortServices.GetOriginalUrl(data);
+            var result = this.shortServices.GetOriginalUrl(id);
 
             return new RedirectResult(result);
         }
@@ -36,8 +36,16 @@ namespace UrlShortener.Controllers
 
             if (ifExist == null)
             {
-                await shortServices.CreateUrlRecord(data);
-                return  StatusCode(201, data);
+                var url = new UrlData
+                {
+                    UrlId = data.UrlId,
+                    OriginalUrl = data.OriginalUrl,
+                    ShortUrl = data.ShortUrl,
+                    CreatedOn = data.CreatedOn
+                };
+
+                await shortServices.CreateUrlRecord(url);
+                return  StatusCode(201, url);
             }
 
             return StatusCode(200, ifExist);

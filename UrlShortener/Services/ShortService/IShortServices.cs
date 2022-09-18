@@ -7,7 +7,7 @@ namespace UrlShortener.Services
     public interface IShortServices
     {
         public string GetOriginalUrl(string data);
-        public Task CreateUrlRecord(UrlData data);
+        public Task<Task> CreateUrlRecord(UrlData data);
 
         public ExistingUrlRecord isCreated(string originalUrl);
     }
