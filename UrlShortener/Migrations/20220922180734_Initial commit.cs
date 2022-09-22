@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UrlShortener.Migrations
 {
@@ -11,7 +10,8 @@ namespace UrlShortener.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -23,11 +23,12 @@ namespace UrlShortener.Migrations
                 name: "UrlDatas",
                 columns: table => new
                 {
-                    UrlId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UrlId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     OriginalUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShortUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedOn = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

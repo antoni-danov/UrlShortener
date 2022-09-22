@@ -1,11 +1,15 @@
-<form class="form" [formGroup]="form" (ngSubmit)="SignInEmailAndPassword(form.value)">
-  <div>
-    <label for="email"> Email</label>
-    <input type="text" name="email" id="email" formControlName="email" placeholder="Your Email" />
-  </div>
-  <div>
-    <label for="password">Password </label>
-    <input type="password" name="password" id="password" formControlName="password" placeholder="Your Password" />
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="!form.valid"> Login</button>
-</form>
+<div class="container text-center">
+  <h3 class="p-4">Login</h3>
+  <form class="form" [formGroup]="form" (ngSubmit)="SignInEmailAndPassword(form.value)">
+    <div>
+      <label for="email"> Email</label>
+      <input type="text" name="email" id="email" formControlName="email" placeholder="Your Email" />
+    </div>
+    <div>
+      <label for="password">Password </label>
+      <input type="password" name="password" id="password" formControlName="password" placeholder="Your Password" />
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!form.valid"> Login</button>
+  </form>
+  <a class="m-4" href="/login">You don't have your account yet? Sign up here!</a>
+</div>

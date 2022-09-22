@@ -1,15 +1,19 @@
-<form class="form" [formGroup]="userForm" (ngSubmit)="UserSignUp(userForm.value)">
-  <div>
-    <label for="email">Email</label>
-    <input type="text" name="email" formControlName="email" placeholder="Your Email" />
+  <div class="container text-center">
+    <h2 class="p-4">Register</h2>
+    <form class="form p-4" [formGroup]="userForm" (ngSubmit)="UserSignUp(userForm.value)">
+      <div>
+        <label for="email">Email</label>
+        <input type="text" name="email" formControlName="email" placeholder="Your Email" />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" formControlName="password" placeholder="Your Password" />
+      </div>
+      <div>
+        <label for="repeatPassword">Repeat password</label>
+        <input type="password" name="repeatPassword" formControlName="repeatPassword" placeholder="Repeat Password" />
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Register</button>
+    </form>
+    <a class="m-4" href="/login">You have your account? Sign in here!</a>
   </div>
-  <div>
-    <label for="password">Password</label>
-    <input type="password" name="password" formControlName="password" placeholder="Your Password" />
-  </div>
-  <div>
-    <label for="repeatPassword">Repeat password</label>
-    <input type="password" name="repeatPassword" formControlName="repeatPassword" placeholder="Repeat Password" />
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Register</button>
-</form>

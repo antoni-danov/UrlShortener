@@ -1,0 +1,6 @@
+.container {
+  background-color: white;
+  border: 2px darkgreen solid;
+  border-radius: 15px;
+  display: flex;
+}

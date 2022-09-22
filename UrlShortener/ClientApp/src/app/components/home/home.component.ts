@@ -2,7 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Guid } from 'guid-typescript';
+import { Guid } from "guid-typescript";
+import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom } from 'rxjs';
 import { UrlData } from 'src/app/models/UrlData';
 import { ShortServiceService } from 'src/app/services/ShorteningURL/short-service.service';
@@ -24,7 +25,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private service: ShortServiceService,
     private router: Router
-
   ) { }
 
   ngOnInit() {
@@ -35,20 +35,18 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  async ReduceUrl(value: UrlData) {
-
-    var shortUrl = hash.hash(value.OriginalUrl);
+  async CreateUrl(data: UrlData) {
+    var shortUrl = hash.hash(data.OriginalUrl);
 
     var dataUrl = {
-      UrlId: Guid.create().toString(),
-      OriginalUrl: value.OriginalUrl,
+      OriginalUrl: data.OriginalUrl,
       ShortUrl: shortUrl,
-      CreatedOn: value.CreatedOn,
+      CreatedOn: data.CreatedOn
     }
 
-    this.spiner = true;
     const dataInfo = await this.service.CreateUrl(dataUrl);
-    var result = await lastValueFrom(dataInfo).then(data => {
+    this.spiner = true;
+    await lastValueFrom(dataInfo).then(data => {
       this.currentShortUrl = data;
     });
 
