@@ -1,1 +1,22 @@
-<p>url-details works!</p>
+<div class="container my-3 p-3">
+  <div class="leftContainer">
+    TEST
+    <iframe src="{{urlDetails.originalUrl}}"></iframe>
+  </div>
+  <div class="rightContainer">
+    <div class="p-2"><strong>Date of creation:</strong> {{urlDetails.createdOn}}</div>
+    <div class="p-2"><strong>Original Url: </strong> <a target="_blank" href="{{urlDetails.originalUrl}}">{{urlDetails.originalUrl}}</a></div>
+    <div class="p-2">
+      <strong>Short version of the Url: </strong> {{environmentHost}}{{urlDetails.shortUrl}}
+      <share-buttons theme="circles-dark"
+                     [include]="['copy', 'facebook', 'email', 'messenger', 'linkedin', 'reddit', 'tumblr', 'twitter', 'viber', 'whatsapp']"
+                     [showIcon]="true"
+                     [showText]="false"
+                     url="{{environmentHost}}{{urlDetails.shortUrl}}"
+                     description="Angular Share Buttons"
+                     class="py-4">
+      </share-buttons>
+    </div>
+    <button class="btn btn-success m-2" (click)="goBack()">Back</button>
+  </div>
+</div>

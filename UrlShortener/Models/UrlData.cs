@@ -1,5 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UrlShortener.Models
 {
@@ -7,7 +7,8 @@ namespace UrlShortener.Models
     {
         
         [Key]
-        public Guid UrlId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int UrlId { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
         public string OriginalUrl { get; set; }
@@ -17,6 +18,9 @@ namespace UrlShortener.Models
 
         [Required]
         public string CreatedOn { get; set; }
-       
+
+        //public int UserId { get; set; }
+        //public User User { get; set; }
+
     }
 }

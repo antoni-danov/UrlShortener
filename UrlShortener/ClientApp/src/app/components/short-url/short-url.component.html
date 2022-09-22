@@ -1,25 +1,27 @@
 <div *ngIf="currentShortUrl" class="currentUrl text-center m-3">
-    <h3>Your new Url is ready:</h3>
+  <h3>Your new Url is ready:</h3>
 
-    <input class="rounded col-lg-4 p-2 m-3 text-center" type="text"
-        value="https://localhost:44373/{{currentShortUrl.shortUrl}}"><br>
-    <div class="info mt-3">
-        <div id="Original_Url"><strong>Original Url:</strong> </div>
-        <div class="collapse" id="test">
-            <div class="card card-body m-2">
-                {{currentShortUrl.originalUrl}}
-            </div>
-        </div>
-        <p>
-            <button class="btn btn-success my-4" type="button" data-toggle="collapse" data-target="#test"
-                aria-expanded="false" aria-controls="test">
-              <span>Show complete Url</span>
-            </button>
-        </p>
+  <input class="rounded col-lg-4 p-2 m-3 text-center" type="text"
+         value="https://localhost:44373/{{currentShortUrl.shortUrl}}"><br>
+  <div class="info mt-3">
+    <div id="Original_Url"><strong>Original Url:</strong> </div>
+    <div class="collapse" id="test">
+      <div class="card card-body m-2">
+        {{currentShortUrl.originalUrl}}
+      </div>
     </div>
-    <button class="btn btn-success  text-center mx-4" (click)="CopyUrl(currentShortUrl.shortUrl)">Copy your
-        URL</button>
-    <button class="btn btn-warning" routerLink="/">Short another URL</button>
+    <p>
+      <button class="btn btn-dark  text-center my-4 p-4 px-5" (click)="CopyUrl(currentShortUrl.shortUrl)">
+        Copy your Url
+      </button>
+    </p>
+  </div>
+  <button class="btn btn-success mx-4 " type="button" data-toggle="collapse" data-target="#test"
+          aria-expanded="false" aria-controls="test">
+    <span>Show complete Url</span>
+  </button>
+  <button class="btn btn-warning" routerLink="/">Short another URL</button>
+  <button class="btn btn-success  text-center mx-4" routerLink="/profile">Show your collection</button>
 </div>
 
 <div *ngIf="spiner" class="d-flex justify-content-center">

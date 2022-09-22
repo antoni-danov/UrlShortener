@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +26,6 @@ import { AuthServicesService } from './services/auth/auth-services.service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserService } from './services/User/user.service';
 import { ShortServiceService } from './services/ShorteningURL/short-service.service';
-import { EditUrlComponent } from './components/edit-url/edit-url.component';
 import { UrlDetailsComponent } from './components/url-details/url-details.component';
 
 @NgModule({
@@ -37,8 +38,7 @@ import { UrlDetailsComponent } from './components/url-details/url-details.compon
     SignInComponent,
     SignUpComponent,
     UserProfileComponent,
-    EditUrlComponent,
-    UrlDetailsComponent,
+    UrlDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +50,9 @@ import { UrlDetailsComponent } from './components/url-details/url-details.compon
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    ShareButtonsModule,
+    ShareIconsModule
   ],
   providers: [
     AuthServicesService,

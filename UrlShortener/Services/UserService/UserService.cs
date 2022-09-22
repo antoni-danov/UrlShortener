@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UrlShortener.Models;
 
 namespace UrlShortener.Services.UserService
@@ -20,21 +22,23 @@ namespace UrlShortener.Services.UserService
 
             return result;
         }
-
-        public UrlData GetUrlById(string id)
+        public UrlData GetUrlById(int id)
         {
-            var guidId = Guid.Parse(id);
-            var url = db.UrlDatas.Where(x => x.UrlId == guidId).FirstOrDefault();
+            var url = db.UrlDatas.Where(x => x.UrlId == id).FirstOrDefault();
 
             return url;
         }
-        public void DeleteUrl(string id)
+        public async Task DeleteUrl(int id)
         {
             var existingUrl = GetUrlById(id);
 
-            db.UrlDatas.Remove(existingUrl);
-            db.SaveChanges();
-        }
+            if (existingUrl != null)
+            {
+                db.UrlDatas.Remove(existingUrl);
+                await db.SaveChangesAsync();
 
+            }
+            
+        }
     }
 }

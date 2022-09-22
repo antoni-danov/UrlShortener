@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserService } from '../../services/User/user.service';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -9,11 +9,10 @@ import { UserService } from '../../services/User/user.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  urlData: any;
+  urlData!: any;
 
   constructor(
     private userService: UserService,
-    private route: Router
   ) { }
 
   ngOnInit() {
@@ -25,13 +24,15 @@ export class UserProfileComponent implements OnInit {
   }
 
   deleteUrl(urlId: string) {
-    if (confirm("Do you really want to delete this Url?")) {
+
+    if (confirm("Do you realy want to delete this Url?")) {
       this.userService.DeleteUrl(urlId);
-      alert("The Record was deleted");
+      alert("Your record was deleted!");
       this.ngOnInit();
     } else {
       alert("This time was close!");
     }
+
   }
 
 }
