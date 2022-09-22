@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using UrlShortener.ActionFilters;
 using UrlShortener.Models;
 using UrlShortener.Services.UserService;
 
@@ -15,85 +17,35 @@ namespace UrlShortener.Controllers
         {
             this.userService = userService;
         }
-        // GET: UserController
+
         [HttpGet]
         public List<UrlData> GetAll()
         {
             var result = userService.GetAll();
             return result;
         }
-
-        // DELETE: UserController/Delete/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] string id)
+        
+        [HttpGet("{id}")]
+        public IActionResult GetUrlById([FromRoute] int id)
         {
-            userService.DeleteUrl(id);
+            var url = userService.GetUrlById(id);
 
-            return StatusCode(200);
-           
+            return StatusCode(200, url);
         }
 
-        //    // GET: UserController/Details/5
-        //    public ActionResult Details(int id)
-        //    {
-        //        return View();
-        //    }
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    // GET: UserController/Create
-        //    public ActionResult Create()
-        //    {
-        //        return View();
-        //    }
+            await userService.DeleteUrl(id);
 
-        //    // POST: UserController/Create
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public ActionResult Create(IFormCollection collection)
-        //    {
-        //        try
-        //        {
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        catch
-        //        {
-        //            return View();
-        //        }
-        //    }
+            return StatusCode(200);
+        }
 
-        //    // GET: UserController/Edit/5
-        //    public ActionResult Edit(int id)
-        //    {
-        //        return View();
-        //    }
-
-        //    // POST: UserController/Edit/5
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public ActionResult Edit(int id, IFormCollection collection)
-        //    {
-        //        try
-        //        {
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        catch
-        //        {
-        //            return View();
-        //        }
-        //    }
-
-        //    // POST: UserController/Delete/5
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public ActionResult Delete(int id, IFormCollection collection)
-        //    {
-        //        try
-        //        {
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        catch
-        //        {
-        //            return View();
-        //        }
-        //    }
+        
     }
 }

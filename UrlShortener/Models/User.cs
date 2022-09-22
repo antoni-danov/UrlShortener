@@ -11,7 +11,7 @@ namespace UrlShortener.Models
             this.Urls = new List<UrlData>();
         }
         [Key]
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
        
         [Required]
         public string Email { get; set; }

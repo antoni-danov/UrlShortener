@@ -13,16 +13,13 @@ export class UserService {
     private http: HttpClient
   ) { }
 
-   GetAll() {
-    return this.http.get(`${environment.userHost}`).toPromise();
+   async GetAll() {
+    return await this.http.get(`${environment.userHost}`).toPromise();
   }
-  async GetById() {
-
-  }
-  async EditUrl() {
-
+  async GetById(urlId: string){
+    return await this.http.get(`${environment.userHost}/${urlId}`).toPromise();
   }
   async DeleteUrl(urlId: string) {
-    return await this.http.delete(`${environment.userHost}/${urlId}`).toPromise();
+    return await this.http.delete(`${environment.userHost}/delete/${urlId}`).toPromise();
   }
 }

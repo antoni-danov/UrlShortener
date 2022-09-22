@@ -3,6 +3,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -18,7 +20,8 @@ export class AuthServicesService {
   constructor(
     private afAuth: AngularFireAuth,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) { }
 
   async SignInWithEmailAndPassword(email: string, password: string) {
@@ -57,10 +60,11 @@ export class AuthServicesService {
 
     this.router.navigateByUrl('/');
   }
-  async SignOut() {
+ 
+  SignOut() {
     this.cookieService.deleteAll();
 
-    return await this.afAuth.signOut()
+    return this.afAuth.signOut()
       .then(() => {
         this.router.navigate(['/']);
       });
