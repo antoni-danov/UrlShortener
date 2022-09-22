@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
-import { UrlData } from 'src/app/models/UrlData';
 import { ShortServiceService } from 'src/app/services/ShorteningURL/short-service.service';
 import { ClipboardService } from 'ngx-clipboard';
 import { Router } from '@angular/router';

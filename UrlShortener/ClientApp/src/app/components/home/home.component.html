@@ -2,7 +2,7 @@
   <h1 class="MainTitle" for="url">URL Shortener</h1><br />
   <div class="inner-container">
     <h3>Please enter your URL:</h3>
-    <form class="form" [formGroup]="form" (ngSubmit)="ReduceUrl(form.value)">
+    <form class="form" [formGroup]="form" (ngSubmit)="CreateUrl(form.value)">
       <input class="col-lg-6 my-3" type="url" id="OriginalUrl" formControlName="OriginalUrl"
         placeholder="Enter the original Url...">
       <div *ngIf="form.get('OriginalUrl').touched && form.get('OriginalUrl').hasError('required')"

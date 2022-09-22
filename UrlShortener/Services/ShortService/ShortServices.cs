@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using UrlShortener.Models;
 
@@ -30,12 +32,12 @@ namespace UrlShortener.Services
             return null;
         }
 
-        public async Task<Task> CreateUrlRecord(UrlData data)
+        public UrlData CreateUrlRecord(UrlData data)
         {
-             await db.UrlDatas.AddAsync(data);
-             db.SaveChanges();
+            db.UrlDatas.Add(data);
+            db.SaveChangesAsync();
 
-            return Task.CompletedTask;
+            return data;
         }
 
         public ExistingUrlRecord isCreated(string originalUrl)

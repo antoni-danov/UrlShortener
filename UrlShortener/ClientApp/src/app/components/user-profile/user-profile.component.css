@@ -7,3 +7,7 @@ h2{
   border: 2px darkgreen solid;
   border-radius: 15px;
 }
+.noData {
+  color: black;
+  text-align: center;
+}

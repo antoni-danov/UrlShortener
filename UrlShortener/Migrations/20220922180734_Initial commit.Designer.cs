@@ -10,7 +10,7 @@ using UrlShortener.Models;
 namespace UrlShortener.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220917183514_Initial commit")]
+    [Migration("20220922180734_Initial commit")]
     partial class Initialcommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,9 +23,10 @@ namespace UrlShortener.Migrations
 
             modelBuilder.Entity("UrlShortener.Models.UrlData", b =>
                 {
-                    b.Property<Guid>("UrlId")
+                    b.Property<int>("UrlId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CreatedOn")
                         .IsRequired()
@@ -39,8 +40,8 @@ namespace UrlShortener.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("UrlId");
 
@@ -51,9 +52,10 @@ namespace UrlShortener.Migrations
 
             modelBuilder.Entity("UrlShortener.Models.User", b =>
                 {
-                    b.Property<Guid>("UserId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
                         .IsRequired()
