@@ -44,10 +44,10 @@ export class UrlDetailsComponent implements OnInit {
     
   }
 
-  async CopyUrl(data: string) {
+  //async CopyUrl(data: string) {
 
-    var publicUrl = this.clipboard.copyFromContent(`${environment.urlAddress}` + data);
-  }
+  //  var publicUrl = this.clipboard.copyFromContent(`${environment.urlAddress}` + data);
+  //}
 
   async goBack() {
     await this.location.back();
