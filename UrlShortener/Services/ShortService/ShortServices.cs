@@ -42,7 +42,7 @@ namespace UrlShortener.Services
             };
 
             db.UrlDatas.Add(url);
-            db.SaveChangesAsync();
+            db.SaveChanges();
 
             return url;
         }

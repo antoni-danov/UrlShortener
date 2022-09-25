@@ -27,6 +27,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { UserService } from './services/User/user.service';
 import { ShortServiceService } from './services/ShorteningURL/short-service.service';
 import { UrlDetailsComponent } from './components/url-details/url-details.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UrlDetailsComponent } from './components/url-details/url-details.compon
     SignInComponent,
     SignUpComponent,
     UserProfileComponent,
-    UrlDetailsComponent
+    UrlDetailsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

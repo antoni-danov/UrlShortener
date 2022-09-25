@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UrlShortener.Models;
@@ -28,17 +26,12 @@ namespace UrlShortener.Services.UserService
 
             return url;
         }
-        public async Task<User> CreateUser(User data)
+        public User CreateUser(User data)
         {
-            var newUser = new User()
-            {
-                Email = data.Email
-            };
+           db.Users.Add(data);
+           db.SaveChanges();
 
-           await db.Users.AddAsync(newUser);
-           await db.SaveChangesAsync();
-
-            return newUser;
+           return data;
         }
         public async Task DeleteUrl(int id)
         {

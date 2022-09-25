@@ -34,11 +34,10 @@ namespace UrlShortener.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [ServiceFilter(typeof(ValidationFiltersAttribute))]
-        public async Task<IActionResult> CreateUser([FromBody] User data)
+        public IActionResult CreateUser(User data)
         {
-           var result =  await this.userService.CreateUser(data);
+           var result =  this.userService.CreateUser(data);
 
             return StatusCode(201, result);
         }

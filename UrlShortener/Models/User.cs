@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace UrlShortener.Models
 {
     public class User
     {
+        public User()
+        {
+            this.Urls = new HashSet<UrlData>();
+        }
         [Key]
         public int UserId { get; set; }
 
