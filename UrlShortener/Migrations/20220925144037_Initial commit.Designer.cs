@@ -10,8 +10,8 @@ using UrlShortener.Models;
 namespace UrlShortener.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220924210833_remove custom constructor from Users")]
-    partial class removecustomconstructorfromUsers
+    [Migration("20220925144037_Initial commit")]
+    partial class Initialcommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
