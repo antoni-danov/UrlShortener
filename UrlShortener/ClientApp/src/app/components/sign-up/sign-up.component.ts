@@ -18,7 +18,7 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.authServices.isAuthenticated()) {
+    if (this.authServices.IsAuthenticated()) {
       this.router.navigate(['/']);
     }
 

@@ -11,7 +11,7 @@ namespace UrlShortener.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        private IUserService userService;
+        public IUserService userService;
 
         public UserController(IUserService userService)
         {
@@ -31,6 +31,16 @@ namespace UrlShortener.Controllers
             var url = userService.GetUrlById(id);
 
             return StatusCode(200, url);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ServiceFilter(typeof(ValidationFiltersAttribute))]
+        public async Task<IActionResult> CreateUser([FromBody] User data)
+        {
+           var result =  await this.userService.CreateUser(data);
+
+            return StatusCode(201, result);
         }
 
         [HttpDelete("delete/{id}")]
