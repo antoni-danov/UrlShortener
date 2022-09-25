@@ -28,6 +28,18 @@ namespace UrlShortener.Services.UserService
 
             return url;
         }
+        public async Task<User> CreateUser(User data)
+        {
+            var newUser = new User()
+            {
+                Email = data.Email
+            };
+
+           await db.Users.AddAsync(newUser);
+           await db.SaveChangesAsync();
+
+            return newUser;
+        }
         public async Task DeleteUrl(int id)
         {
             var existingUrl = GetUrlById(id);
@@ -40,5 +52,7 @@ namespace UrlShortener.Services.UserService
             }
             
         }
+
+        
     }
 }

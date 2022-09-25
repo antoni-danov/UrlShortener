@@ -41,10 +41,10 @@ namespace UrlShortener.Services
                 CreatedOn = data.CreatedOn,
             };
 
-            db.UrlDatas.Add(data);
-            db.SaveChanges();
+            db.UrlDatas.Add(url);
+            db.SaveChangesAsync();
 
-            return data;
+            return url;
         }
 
         public ExistingUrlRecord isCreated(string originalUrl)

@@ -6,13 +6,9 @@ namespace UrlShortener.Models
 {
     public class User
     {
-        public User()
-        {
-            this.Urls = new List<UrlData>();
-        }
         [Key]
         public int UserId { get; set; }
-       
+
         [Required]
         public string Email { get; set; }
 

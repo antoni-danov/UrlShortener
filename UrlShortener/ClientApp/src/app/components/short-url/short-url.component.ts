@@ -20,7 +20,6 @@ export class ShortUrlComponent implements OnInit, AfterViewInit {
 
   constructor(
     private service: ShortServiceService,
-    private clipboard: ClipboardService,
     private router: Router
   ) { }
 

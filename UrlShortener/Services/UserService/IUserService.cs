@@ -8,6 +8,7 @@ namespace UrlShortener.Services.UserService
     {
         public UrlData GetUrlById(int id);
         public List<UrlData> GetAll();
+        public Task<User> CreateUser(User data);
         public Task DeleteUrl(int id);
 
     }
