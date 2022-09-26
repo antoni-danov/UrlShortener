@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UrlShortener.Models;
@@ -28,6 +26,13 @@ namespace UrlShortener.Services.UserService
 
             return url;
         }
+        public User CreateUser(User data)
+        {
+           db.Users.Add(data);
+           db.SaveChanges();
+
+           return data;
+        }
         public async Task DeleteUrl(int id)
         {
             var existingUrl = GetUrlById(id);
@@ -40,5 +45,7 @@ namespace UrlShortener.Services.UserService
             }
             
         }
+
+        
     }
 }

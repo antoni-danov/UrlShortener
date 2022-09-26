@@ -34,10 +34,17 @@ namespace UrlShortener.Services
 
         public UrlData CreateUrlRecord(UrlData data)
         {
-            db.UrlDatas.Add(data);
-            db.SaveChangesAsync();
+            var url = new UrlData
+            {
+                OriginalUrl = data.OriginalUrl,
+                ShortUrl = data.ShortUrl,
+                CreatedOn = data.CreatedOn,
+            };
 
-            return data;
+            db.UrlDatas.Add(url);
+            db.SaveChanges();
+
+            return url;
         }
 
         public ExistingUrlRecord isCreated(string originalUrl)

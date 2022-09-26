@@ -1,21 +1,26 @@
 <h2 class="mt-3">Your Collection</h2>
 <button class="btn btn-warning p-3" routerLink="/">Short a new URL</button>
+<!--<button class="btn btn-warning mx-2 p-3" routerLink="/">Delete selected</button>-->
 <div class="container mt-3 p-3">
   <div *ngIf="urlData?.length > 0">
     <div *ngFor="let url of urlData">
       <div class="row">
-        <div class="col">ORGINAL URL</div>
         <div class="col">
-          {{url.shortUrl}}
+          <iframe src="{{url.originalUrl}}" width="180" height="150" allowfullscreen="" loading="lazy"></iframe>
         </div>
-        <div class="col">{{url.createdOn}}</div>
         <div class="col">
-          <button type="button" class="btn btn-info btn-sm m-2" routerLink="/urldetails/{{url.urlId}}">
-            Details
-          </button>
-          <button type="button" class="btn btn-danger btn-sm m-2" (click)="deleteUrl(url.urlId)">
-            Delete
-          </button>
+          <div class="col">
+            {{url.shortUrl}}
+          </div>
+          <div class="col">{{url.createdOn}}</div>
+          <div class="col">
+            <button type="button" class="btn btn-warning btn-sm m-2" routerLink="/urldetails/{{url.urlId}}">
+              Details
+            </button>
+            <button type="button" class="btn btn-danger btn-sm m-2" (click)="deleteUrl(url.urlId)">
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>

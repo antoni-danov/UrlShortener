@@ -15,10 +15,10 @@ export class ShortServiceService {
     private http: HttpClient
   ) { }
 
-  async CreateUrl(value: UrlData) {
+  CreateUrl(value: UrlData) {
     this.shortUrl = localStorage.setItem("shortUrl", value.ShortUrl);
 
-    var result = await this.http.post(`${environment.localhost}`, value);
+    var result = this.http.post(`${environment.localhost}`, value);
     this.temporaryValue = result.toPromise();
 
     return result;

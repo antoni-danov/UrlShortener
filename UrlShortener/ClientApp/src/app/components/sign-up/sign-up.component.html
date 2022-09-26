@@ -1,19 +1,20 @@
-  <div class="container text-center">
+  <div class="container-fluid text-center">
     <h2 class="p-4">Register</h2>
-    <form class="form p-4" [formGroup]="userForm" (ngSubmit)="UserSignUp(userForm.value)">
-      <div>
-        <label for="email">Email</label>
-        <input type="text" name="email" formControlName="email" placeholder="Your Email" />
+    <form class="form-group p-4" [formGroup]="userForm" (ngSubmit)="UserSignUp(userForm.value)">
+      <div class="input-group mb-1">
+        <span class="input-group-text" id="basic-addon1">Email</span>
+        <input type="text" class="form-control" name="email" formControlName="email" placeholder="Your Email" aria-label="Username" aria-describedby="basic-addon1">
       </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" formControlName="password" placeholder="Your Password" />
+      <div class="input-group mb-1">
+        <span class="input-group-text" id="basic-addon1">Password</span>
+        <input type="password" class="form-control" name="password" formControlName="password" placeholder="Your password" aria-label="password" aria-describedby="basic-addon1">
       </div>
-      <div>
-        <label for="repeatPassword">Repeat password</label>
-        <input type="password" name="repeatPassword" formControlName="repeatPassword" placeholder="Repeat Password" />
+      <div class="input-group mb-1">
+        <span class="input-group-text" id="basic-addon1">Repeat password</span>
+        <input type="password" class="form-control" name="repeatPassword" formControlName="repeatPassword" placeholder="Repeat Password" aria-label="repeatPassword" aria-describedby="basic-addon1">
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Register</button>
+      <button type="submit" class="btn btn-primary my-3" [disabled]="!userForm.valid">Register</button>
     </form>
-    <a class="m-4" href="/login">You have your account? Sign in here!</a>
-  </div>
+    <div>You have your account?</div>
+  <a class="my-4" href="/login">Sign in here!</a>
+</div>

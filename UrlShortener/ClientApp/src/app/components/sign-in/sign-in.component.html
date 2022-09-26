@@ -1,15 +1,26 @@
-<div class="container text-center">
+<div class="container-fluid text-center">
   <h3 class="p-4">Login</h3>
-  <form class="form" [formGroup]="form" (ngSubmit)="SignInEmailAndPassword(form.value)">
-    <div>
-      <label for="email"> Email</label>
-      <input type="text" name="email" id="email" formControlName="email" placeholder="Your Email" />
+  <form class="form-group" [formGroup]="form" (ngSubmit)="SignInEmailAndPassword(form.value)">
+    <div class="input-group mb-1">
+      <span class="input-group-text" id="basic-addon1">Email</span>
+      <input type="text" class="form-control" name="email" formControlName="email" placeholder="Your Email" aria-label="Username" aria-describedby="basic-addon1">
     </div>
-    <div>
-      <label for="password">Password </label>
-      <input type="password" name="password" id="password" formControlName="password" placeholder="Your Password" />
+    <div class="input-group mb-1">
+      <span class="input-group-text" id="basic-addon1">Password</span>
+      <input type="password" class="form-control" name="password" formControlName="password" placeholder="Your password" aria-label="password" aria-describedby="basic-addon1">
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!form.valid"> Login</button>
+    <button type="submit" class="btn btn-primary my-3" [disabled]="!form.valid"> Login</button>
   </form>
-  <a class="m-4" href="/login">You don't have your account yet? Sign up here!</a>
+  <div class="signInContainer">
+    <div class="formGroup">
+      <button id="googleBtn" type="button" class="btn btn-primary p-6" (click)="SignInWithGoogle()">
+      </button>
+    </div>
+    <div class="formGroup">
+      <button id="facebookBtn" type="button" class="btn btn-primary p-6" (click)="SignInWithFacebook()">
+      </button>
+    </div>
+  </div>
+  <div>You don't have your account yet?</div>
+  <a class="my-4" href="/register">Sign up here!</a>
 </div>

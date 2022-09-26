@@ -15,11 +15,11 @@ export class ShortUrlComponent implements OnInit, AfterViewInit {
 
   currentShortUrl: any;
   originalUrl!: any;
+  environmentHost: string = environment.urlAddress;
   spiner: boolean = true;
 
   constructor(
     private service: ShortServiceService,
-    private clipboard: ClipboardService,
     private router: Router
   ) { }
 
@@ -54,12 +54,12 @@ export class ShortUrlComponent implements OnInit, AfterViewInit {
     localStorage.setItem("shortUrl", shortUrl);
   }
 
-  async CopyUrl(data: string) {
+  //async CopyUrl(data: string) {
 
-    var publicUrl = this.clipboard.copyFromContent(`${environment.urlAddress}` + data);
+  //  var publicUrl = this.clipboard.copyFromContent(`${environment.urlAddress}` + data);
 
-    const originalLink = this.service.GetUrl(data);
-  }
+  //  const originalLink = this.service.GetUrl(data);
+  //}
 
   ShortAnotherUrl() {
 

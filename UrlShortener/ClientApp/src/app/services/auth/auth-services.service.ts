@@ -1,10 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import * as firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase/compat/app';
 import { CookieService } from 'ngx-cookie-service';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { getAuth, FacebookAuthProvider } from "firebase/auth";
+import { environment } from '../../../environments/environment.prod';
 
 
 @Injectable({
@@ -12,9 +13,9 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthServicesService {
   currentDate!: Date;
-  uid!: string;
-  jwt!: string;
-  email!: string;
+  uid: any;
+  jwt: any;
+  email: any;
   user!: any;
 
   constructor(
@@ -24,6 +25,46 @@ export class AuthServicesService {
     private http: HttpClient
   ) { }
 
+  async SignInWithFacebook() {
+    var provider = new firebase.default.auth.FacebookAuthProvider();
+
+    //const auth = getAuth();
+    return await firebase.default.auth().signInWithPopup(provider)
+      .then((result) => {
+        this.jwt = result.credential?.signInMethod;
+        this.uid = result.user?.uid;
+        this.email = result.user?.email;
+
+        this.CookiesFactory(this.jwt, this.uid, this.email);
+
+        this.router.navigateByUrl('/');
+      }).catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+      });
+  }
+  async SignInWithPopUp() {
+    var provider = new firebase.default.auth.GoogleAuthProvider();
+  
+    return await firebase.default.auth().signInWithPopup(provider)
+      .then((result) => {
+        this.jwt = result.credential?.signInMethod;
+        this.uid = result.user?.uid;
+        this.email = result.user?.email;
+
+        this.CookiesFactory(this.jwt, this.uid, this.email);
+
+        this.router.navigateByUrl('/');
+
+      }).catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+      });
+  }
   async SignInWithEmailAndPassword(email: string, password: string) {
     await this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
@@ -32,10 +73,10 @@ export class AuthServicesService {
       .catch((error) => {
         window.alert(error.message);
       });
-    var currentJwt = await this.getIdToken();
+    var currentJwt = await this.GetIdToken();
     this.jwt = currentJwt!;
 
-    this.cookiesFactory(this.jwt, this.user.uid, this.user.email);
+    this.CookiesFactory(this.jwt, this.user.uid, this.user.email);
 
     this.router.navigateByUrl('/');
 
@@ -56,11 +97,13 @@ export class AuthServicesService {
         this.jwt = data;
       });
 
-    this.cookiesFactory(this.jwt, this.user.uid, this.user.email);
+    this.CookiesFactory(this.jwt, this.user.uid, this.user.email);
+
+    this.CreateUser(this.user.email);
 
     this.router.navigateByUrl('/');
   }
- 
+
   SignOut() {
     this.cookieService.deleteAll();
 
@@ -70,7 +113,10 @@ export class AuthServicesService {
       });
   }
 
-  isAuthenticated() {
+  async CreateUser(email: string) {
+    return await this.http.post(`${environment.userHost}`, email);
+  };
+  IsAuthenticated() {
 
     const checkUser = this.cookieService.get('JWT');
 
@@ -79,7 +125,7 @@ export class AuthServicesService {
     }
     return false;
   }
-  cookiesFactory(jwt: string, uid: string, email: string) {
+  CookiesFactory(jwt: string, uid: string, email: string) {
 
     this.currentDate = new Date();
     this.currentDate.setHours(this.currentDate.getHours() + 12);
@@ -88,7 +134,7 @@ export class AuthServicesService {
     this.cookieService.set('uid', uid, { expires: this.currentDate, secure: true });
     this.cookieService.set('email', email, { expires: this.currentDate, secure: true });
   }
-  async getIdToken() {
+  async GetIdToken() {
     return await firebase.default.auth().currentUser?.getIdToken();
   }
 }
