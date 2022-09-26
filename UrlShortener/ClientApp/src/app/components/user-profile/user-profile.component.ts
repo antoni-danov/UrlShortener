@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserService } from '../../services/User/user.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, AfterViewInit {
 
   urlData!: any;
 
@@ -23,16 +23,35 @@ export class UserProfileComponent implements OnInit {
       });
   }
 
+  ngAfterViewInit() {
+    this.ngOnInit();
+  }
+
   deleteUrl(urlId: string) {
 
-    if (confirm("Do you realy want to delete this Url?")) {
-      this.userService.DeleteUrl(urlId);
-      alert("Your record was deleted!");
-      this.ngOnInit();
-    } else {
-      alert("This time was close!");
-    }
-
+    Swal.fire({
+      title: 'Are you sure want to delete this Url?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        this.userService.DeleteUrl(urlId);
+        this.ngAfterViewInit();
+        Swal.fire(
+          'Deleted!',
+          'Your Url has been deleted.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your Url is safe!',
+          'error'
+        )
+      }
+    });
   }
 
 }

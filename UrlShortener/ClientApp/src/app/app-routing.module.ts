@@ -14,12 +14,8 @@ const routes: Routes = [
   { path: 'shorturl', component: ShortUrlComponent },
   { path: 'login', component: SignInComponent },
   { path: 'register', component: SignUpComponent },
-  {
-    path: '', canActivateChild: [AuthGuard], children: [
-      { path: 'profile', component: UserProfileComponent },
-      { path: 'urldetails/:id', component: UrlDetailsComponent }
-    ]
-  },
+  { path: 'urldetails/:id', component: UrlDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
   {
     path: '**', pathMatch: 'full',
     component: PageNotFoundComponent
