@@ -18,7 +18,7 @@ export class SignInComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.authServices.isAuthenticated()) {
+    if (this.authServices.IsAuthenticated()) {
       this.router.navigate(['/']);
     }
 
@@ -38,5 +38,11 @@ export class SignInComponent implements OnInit {
     return await this.authServices.SignInWithEmailAndPassword(userdata.email, userdata.password);
 
   }
+  async SignInWithGoogle() {
+    return await this.authServices.SignInWithPopUp();
+  }
 
+  async SignInWithFacebook() {
+    return await this.authServices.SignInWithFacebook();
+  }
 }

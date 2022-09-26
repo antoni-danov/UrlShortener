@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { UserService } from '../../services/User/user.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { ClipboardService } from 'ngx-clipboard';
+import Swal from 'sweetalert2';
+
 
 
 
@@ -23,9 +24,7 @@ export class UrlDetailsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private location: Location,
-    private activatedRoute: ActivatedRoute,
-    private clipboard: ClipboardService,
-    private router: Router
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -44,10 +43,32 @@ export class UrlDetailsComponent implements OnInit {
     
   }
 
-  async CopyUrl(data: string) {
+  deleteUrl(urlId: string) {
 
-    var publicUrl = this.clipboard.copyFromContent(`${environment.urlAddress}` + data);
+    Swal.fire({
+      title: 'Are you sure want to delete this Url?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        this.userService.DeleteUrl(urlId);
+        Swal.fire(
+          'Deleted!',
+          'Your Url has been deleted.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your Url is safe!',
+          'error'
+        )
+      }
+    });
   }
+
 
   async goBack() {
     await this.location.back();

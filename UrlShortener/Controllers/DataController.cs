@@ -35,14 +35,7 @@ namespace UrlShortener.Controllers
 
             if (ifExist == null)
             {
-                var url = new UrlData
-                {
-                    OriginalUrl = data.OriginalUrl,
-                    ShortUrl = data.ShortUrl,
-                    CreatedOn = data.CreatedOn,
-                };
-
-                var currentUrl = shortServices.CreateUrlRecord(url);
+                var currentUrl = shortServices.CreateUrlRecord(data);
                 return StatusCode(201, currentUrl);
             }
 

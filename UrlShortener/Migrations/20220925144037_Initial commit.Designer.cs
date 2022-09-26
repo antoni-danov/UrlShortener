@@ -10,7 +10,7 @@ using UrlShortener.Models;
 namespace UrlShortener.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220922180734_Initial commit")]
+    [Migration("20220925144037_Initial commit")]
     partial class Initialcommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
