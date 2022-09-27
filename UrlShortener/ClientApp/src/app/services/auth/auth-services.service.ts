@@ -4,7 +4,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/compat/app';
 import { CookieService } from 'ngx-cookie-service';
-import { getAuth, FacebookAuthProvider } from "firebase/auth";
 import { environment } from '../../../environments/environment.prod';
 
 
@@ -25,26 +24,6 @@ export class AuthServicesService {
     private http: HttpClient
   ) { }
 
-  async SignInWithFacebook() {
-    var provider = new firebase.default.auth.FacebookAuthProvider();
-
-    //const auth = getAuth();
-    return await firebase.default.auth().signInWithPopup(provider)
-      .then((result) => {
-        this.jwt = result.credential?.signInMethod;
-        this.uid = result.user?.uid;
-        this.email = result.user?.email;
-
-        this.CookiesFactory(this.jwt, this.uid, this.email);
-
-        this.router.navigateByUrl('/');
-      }).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-      });
-  }
   async SignInWithPopUp() {
     var provider = new firebase.default.auth.GoogleAuthProvider();
   

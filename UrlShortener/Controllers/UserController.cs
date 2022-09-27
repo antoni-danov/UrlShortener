@@ -43,14 +43,9 @@ namespace UrlShortener.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public IActionResult Delete([FromRoute] int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            await userService.DeleteUrl(id);
+            userService.DeleteUrl(id);
 
             return StatusCode(200);
         }

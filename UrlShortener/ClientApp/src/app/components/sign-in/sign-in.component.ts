@@ -41,8 +41,4 @@ export class SignInComponent implements OnInit {
   async SignInWithGoogle() {
     return await this.authServices.SignInWithPopUp();
   }
-
-  async SignInWithFacebook() {
-    return await this.authServices.SignInWithFacebook();
-  }
 }

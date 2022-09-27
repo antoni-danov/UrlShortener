@@ -33,14 +33,14 @@ namespace UrlShortener.Services.UserService
 
            return data;
         }
-        public async Task DeleteUrl(int id)
+        public void DeleteUrl(int id)
         {
             var existingUrl = GetUrlById(id);
 
             if (existingUrl != null)
             {
                 db.UrlDatas.Remove(existingUrl);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
 
             }
             
