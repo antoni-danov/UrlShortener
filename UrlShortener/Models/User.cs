@@ -9,6 +9,7 @@ namespace UrlShortener.Models
         {
             this.Urls = new HashSet<UrlData>();
         }
+
         [Key]
         public int UserId { get; set; }
 

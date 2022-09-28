@@ -74,7 +74,7 @@ namespace UrlShortener
                 app.UseSpaStaticFiles();
             }
             app.UseCors(x => x
-             .AllowAnyOrigin()
+             .SetIsOriginAllowed(origin => true)
              .AllowAnyMethod()
              .AllowAnyHeader());
             app.UseMiddleware<GlobalErrorHandlingMiddleware>();
