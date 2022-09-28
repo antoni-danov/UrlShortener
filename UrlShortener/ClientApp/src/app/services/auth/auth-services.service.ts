@@ -26,7 +26,7 @@ export class AuthServicesService {
 
   async SignInWithPopUp() {
     var provider = new firebase.default.auth.GoogleAuthProvider();
-  
+
     return await firebase.default.auth().signInWithPopup(provider)
       .then((result) => {
         this.jwt = result.credential?.signInMethod;
@@ -56,7 +56,6 @@ export class AuthServicesService {
     this.jwt = currentJwt!;
 
     this.CookiesFactory(this.jwt, this.user.uid, this.user.email);
-
     this.router.navigateByUrl('/');
 
   }
@@ -93,7 +92,7 @@ export class AuthServicesService {
   }
 
   async CreateUser(email: string) {
-    return await this.http.post(`${environment.userHost}`, email);
+    return await this.http.post(`${environment.userHost}`, email).toPromise();
   };
   IsAuthenticated() {
 

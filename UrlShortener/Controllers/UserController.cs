@@ -7,9 +7,9 @@ using UrlShortener.Services.UserService;
 
 namespace UrlShortener.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
         public IUserService userService;
 
@@ -35,7 +35,7 @@ namespace UrlShortener.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFiltersAttribute))]
-        public IActionResult CreateUser(User data)
+        public IActionResult CreateUser(string data)
         {
            var result =  this.userService.CreateUser(data);
 

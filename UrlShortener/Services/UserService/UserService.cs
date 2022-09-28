@@ -26,12 +26,17 @@ namespace UrlShortener.Services.UserService
 
             return url;
         }
-        public User CreateUser(User data)
+        public User CreateUser(string data)
         {
-           db.Users.Add(data);
-           db.SaveChanges();
+            var user = new User()
+            {
+                Email = data
+            };
 
-           return data;
+           db.Users.AddAsync(user);
+           db.SaveChangesAsync();
+
+           return user;
         }
         public void DeleteUrl(int id)
         {

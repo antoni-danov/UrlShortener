@@ -25,39 +25,21 @@ export class UserProfileComponent implements OnInit {
 
   async GetAllUrls() {
 
-   return await this.userService.GetAll()
-     .then((data) => {
-       this.urlData = data!;
-       this.numberOfRecords = this.urlData!.length;
+    return await this.userService.GetAll()
+      .then((data) => {
+        this.urlData = data!;
+        this.numberOfRecords = this.urlData!.length;
       });
   }
 
   deleteUrl(urlId: string) {
-
-    Swal.fire({
-      title: 'Are you sure want to delete this Url?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
-      if (result.value) {
-        this.userService.DeleteUrl(urlId);
-        this.ngOnInit();
-        Swal.fire(
-          'Deleted!',
-          'Your Url has been deleted.',
-          'success'
-        );
-        
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Your Url is safe!',
-          'error'
-        );
-      }
-    });
+    if (confirm("Are you sure")) {
+      this.userService.DeleteUrl(urlId);
+      alert("Record deleted");
+      this.ngOnInit();
+    } else {
+      alert("Not this time");
+    }
   }
 
 }
