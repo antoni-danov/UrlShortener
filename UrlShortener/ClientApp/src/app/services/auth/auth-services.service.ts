@@ -76,8 +76,8 @@ export class AuthServicesService {
       });
 
     this.CookiesFactory(this.jwt, this.user.uid, this.user.email);
-
-    this.CreateUser(this.user.email);
+    console.log(typeof(this.user.uid));
+    this.CreateUser(this.user.uid);
 
     this.router.navigateByUrl('/');
   }

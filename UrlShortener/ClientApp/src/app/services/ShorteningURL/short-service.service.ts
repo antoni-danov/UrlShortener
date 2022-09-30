@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { UrlData } from 'src/app/models/UrlData';
 import { environment } from 'src/environments/environment';
 var hash = require('jhash');
@@ -14,13 +15,13 @@ export class ShortServiceService {
   temporaryValue!: any;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private cookiesService: CookieService
   ) { }
 
   async CreateUrl(data: UrlData) {
 
     var object = this.formatUrlData(data);
-
     var result = await this.http.post(`${environment.localhost}`, object).toPromise();
     this.temporaryValue = result;
 
@@ -37,12 +38,14 @@ export class ShortServiceService {
 
   formatUrlData(data: UrlData): UrlData {
     var shortUrl = hash.hash(data.OriginalUrl);
+    var actualUid = this.cookiesService.get('uid');
 
     var dataUrl = {
       OriginalUrl: data.OriginalUrl,
       ShortUrl: shortUrl,
-      CreatedOn: data.CreatedOn
-    }
+      CreatedOn: data.CreatedOn,
+      UserId: actualUid
+    };
 
     this.shortUrl = localStorage.setItem("shortUrl", data.ShortUrl);
 

@@ -9,7 +9,7 @@ namespace UrlShortener.Controllers
 {
     [Route("api/data")]
     [ApiController]
-    public class DataController : ControllerBase
+    public class DataController : Controller
     {
         readonly IShortServices shortServices;
 
