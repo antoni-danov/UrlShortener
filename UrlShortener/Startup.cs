@@ -74,7 +74,7 @@ namespace UrlShortener
                 app.UseSpaStaticFiles();
             }
             app.UseCors(x => x
-             .SetIsOriginAllowed(origin => true)
+             .AllowAnyOrigin()
              .AllowAnyMethod()
              .AllowAnyHeader());
             app.UseMiddleware<GlobalErrorHandlingMiddleware>();
@@ -86,7 +86,7 @@ namespace UrlShortener
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "user",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action}/{id?}");
             });
 
             app.UseSpa(spa =>

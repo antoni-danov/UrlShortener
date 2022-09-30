@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UrlShortener.Models;
 
 namespace UrlShortener.Services.UserService
@@ -16,7 +15,7 @@ namespace UrlShortener.Services.UserService
 
         public List<UrlData> GetAll()
         {
-            var result = this.db.UrlDatas.ToList();
+            var result = this.db.UrlDatas.OrderByDescending(x => x.CreatedOn).ToList();
 
             return result;
         }
@@ -26,17 +25,13 @@ namespace UrlShortener.Services.UserService
 
             return url;
         }
-        public User CreateUser(string data)
+        public User CreateUser(User data)
         {
-            var user = new User()
-            {
-                Email = data
-            };
-
-           db.Users.AddAsync(user);
+            
+           db.Users.AddAsync(data);
            db.SaveChangesAsync();
 
-           return user;
+           return data;
         }
         public void DeleteUrl(int id)
         {

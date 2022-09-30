@@ -14,7 +14,7 @@ namespace UrlShortener.Models
         public int UserId { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public string Uid { get; set; }
 
         public ICollection<UrlData> Urls { get; set; }
     }
