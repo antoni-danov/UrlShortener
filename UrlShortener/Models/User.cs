@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UrlShortener.Models
 {
@@ -7,15 +9,16 @@ namespace UrlShortener.Models
     {
         public User()
         {
-            this.Urls = new HashSet<UrlData>();
+            this.UsersUrls = new HashSet<UrlData>();
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
         [Required]
         public string Uid { get; set; }
 
-        public ICollection<UrlData> Urls { get; set; }
+        public ICollection<UrlData> UsersUrls { get; set; }
     }
 }

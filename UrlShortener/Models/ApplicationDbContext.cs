@@ -15,6 +15,7 @@ namespace UrlShortener.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+          
         }
         public DbSet<UrlData> UrlDatas { get; set; }
         public DbSet<User> Users { get; set; }

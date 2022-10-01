@@ -9,5 +9,6 @@ namespace UrlShortener.Services
         public UrlData CreateUrlRecord(UrlData data);
 
         public ExistingUrlRecord isCreated(string originalUrl);
+
     }
 }
