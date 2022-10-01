@@ -20,7 +20,6 @@ export class ShortServiceService {
   ) { }
 
   async CreateUrl(data: UrlData) {
-
     var object = this.formatUrlData(data);
     var result = await this.http.post(`${environment.localhost}`, object).toPromise();
     this.temporaryValue = result;
