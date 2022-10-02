@@ -19,9 +19,10 @@ namespace UrlShortener.Controllers
         }
 
         [HttpGet]
-        public List<UrlData> GetAll()
+        [Route("search/all/{uid}")]
+        public List<UrlData> GetAll([FromRoute] string uid)
         {
-            var result = userService.GetAll();
+            var result = userService.GetAll(uid);
             return result;
         }
         
