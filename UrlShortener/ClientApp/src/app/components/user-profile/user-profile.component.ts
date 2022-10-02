@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/User/user.service';
-import Swal from 'sweetalert2';
 import { environment } from '../../../environments/environment';
 
 
