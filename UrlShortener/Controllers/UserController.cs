@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UrlShortener.ActionFilters;
 using UrlShortener.Models;
 using UrlShortener.Services.UserService;
@@ -34,11 +35,11 @@ namespace UrlShortener.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFiltersAttribute))]
-        public IActionResult CreateUser(User data)
+        public async Task<IActionResult> CreateUserAsync(User data)
         {
-            var result =  this.userService.CreateUser(data);
+            this.userService.CreateUser(data);
 
-            return StatusCode(201, result);
+            return StatusCode(201);
         }
 
         [HttpDelete("delete/{id}")]
