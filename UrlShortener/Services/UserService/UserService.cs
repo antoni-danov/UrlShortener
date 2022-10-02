@@ -13,9 +13,9 @@ namespace UrlShortener.Services.UserService
             this.db = db;
         }
 
-        public List<UrlData> GetAll()
+        public List<UrlData> GetAll(string uid)
         {
-            var result = this.db.UrlDatas.OrderByDescending(x => x.CreatedOn).ToList();
+            var result = this.db.UrlDatas.Where(x => x.Uid == uid).OrderByDescending(x => x.CreatedOn).ToList();
 
             return result;
         }
