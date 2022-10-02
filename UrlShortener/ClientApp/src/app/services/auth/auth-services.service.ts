@@ -4,8 +4,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/compat/app';
 import { CookieService } from 'ngx-cookie-service';
-import { getAuth, FacebookAuthProvider } from "firebase/auth";
 import { environment } from '../../../environments/environment.prod';
+import { User } from '../../models/User';
 
 
 @Injectable({
@@ -25,29 +25,9 @@ export class AuthServicesService {
     private http: HttpClient
   ) { }
 
-  async SignInWithFacebook() {
-    var provider = new firebase.default.auth.FacebookAuthProvider();
-
-    //const auth = getAuth();
-    return await firebase.default.auth().signInWithPopup(provider)
-      .then((result) => {
-        this.jwt = result.credential?.signInMethod;
-        this.uid = result.user?.uid;
-        this.email = result.user?.email;
-
-        this.CookiesFactory(this.jwt, this.uid, this.email);
-
-        this.router.navigateByUrl('/');
-      }).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-      });
-  }
   async SignInWithPopUp() {
     var provider = new firebase.default.auth.GoogleAuthProvider();
-  
+
     return await firebase.default.auth().signInWithPopup(provider)
       .then((result) => {
         this.jwt = result.credential?.signInMethod;
@@ -77,7 +57,6 @@ export class AuthServicesService {
     this.jwt = currentJwt!;
 
     this.CookiesFactory(this.jwt, this.user.uid, this.user.email);
-
     this.router.navigateByUrl('/');
 
   }
@@ -98,8 +77,7 @@ export class AuthServicesService {
       });
 
     this.CookiesFactory(this.jwt, this.user.uid, this.user.email);
-
-    this.CreateUser(this.user.email);
+    this.CreateUser(this.user.uid);
 
     this.router.navigateByUrl('/');
   }
@@ -113,8 +91,10 @@ export class AuthServicesService {
       });
   }
 
-  async CreateUser(email: string) {
-    return await this.http.post(`${environment.userHost}`, email);
+  async CreateUser(uid: User) {
+    var user = { Uid: uid };
+
+    await this.http.post(`${environment.userHost}`, user).toPromise();
   };
   IsAuthenticated() {
 

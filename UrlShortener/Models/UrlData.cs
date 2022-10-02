@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UrlShortener.Models
 {
     public class UrlData
     {
-        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UrlId { get; set; }
@@ -18,9 +18,8 @@ namespace UrlShortener.Models
 
         [Required]
         public string CreatedOn { get; set; }
-
-        //public int UserId { get; set; }
-        //public User User { get; set; }
+        public int? UserId { get; set; }
+        public User User { get; set; }
 
     }
 }

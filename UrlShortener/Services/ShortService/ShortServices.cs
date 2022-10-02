@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UrlShortener.Models;
@@ -38,11 +37,11 @@ namespace UrlShortener.Services
             {
                 OriginalUrl = data.OriginalUrl,
                 ShortUrl = data.ShortUrl,
-                CreatedOn = data.CreatedOn,
+                CreatedOn = data.CreatedOn
             };
 
-            db.UrlDatas.Add(url);
-            db.SaveChanges();
+            db.UrlDatas.AddAsync(url);
+            db.SaveChangesAsync();
 
             return url;
         }

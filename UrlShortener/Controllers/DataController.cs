@@ -7,7 +7,7 @@ using UrlShortener.Services;
 
 namespace UrlShortener.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/data")]
     [ApiController]
     public class DataController : Controller
     {
@@ -29,16 +29,15 @@ namespace UrlShortener.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFiltersAttribute))]
-        public IActionResult Create([FromBody] UrlData data)
+        public async Task<IActionResult> CreateAsync([FromBody] UrlData data)
         {
             var ifExist = IsCreated(data.OriginalUrl);
 
             if (ifExist == null)
             {
-                var currentUrl = shortServices.CreateUrlRecord(data);
+                var currentUrl =  shortServices.CreateUrlRecord(data);
                 return StatusCode(201, currentUrl);
             }
-
             return StatusCode(200, ifExist);
         }
 
