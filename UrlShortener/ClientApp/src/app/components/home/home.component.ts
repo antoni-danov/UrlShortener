@@ -2,12 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Guid } from "guid-typescript";
-import { CookieService } from 'ngx-cookie-service';
-import { lastValueFrom } from 'rxjs';
 import { UrlData } from 'src/app/models/UrlData';
 import { ShortServiceService } from 'src/app/services/ShorteningURL/short-service.service';
-var hash = require('jhash');
 
 @Component({
   selector: 'app-home',
@@ -21,6 +17,7 @@ export class HomeComponent implements OnInit {
   originalUrl!: any;
   spiner: boolean = false;
   datePipe: DatePipe = new DatePipe('en-US');
+  dateTimeFormat: string = 'dd MMM yyyy, HH:mm';
 
   constructor(
     private service: ShortServiceService,
@@ -31,24 +28,17 @@ export class HomeComponent implements OnInit {
 
     this.form = new FormGroup({
       OriginalUrl: new FormControl('', Validators.required),
-      CreatedOn: new FormControl(this.datePipe.transform(new Date(), 'dd MMM yyyy'), Validators.required)
+      CreatedOn: new FormControl(this.datePipe.transform(new Date(), this.dateTimeFormat), Validators.required)
     });
   }
 
   async CreateUrl(data: UrlData) {
-    var shortUrl = hash.hash(data.OriginalUrl);
 
-    var dataUrl = {
-      OriginalUrl: data.OriginalUrl,
-      ShortUrl: shortUrl,
-      CreatedOn: data.CreatedOn
-    }
-
-    const dataInfo = await this.service.CreateUrl(dataUrl);
+    const dataInfo = await this.service.CreateUrl(data)
+      .then(data => {
+        this.currentShortUrl = data;
+      });
     this.spiner = true;
-    await lastValueFrom(dataInfo).then(data => {
-      this.currentShortUrl = data;
-    });
 
     this.router.navigateByUrl('/shorturl');
   };

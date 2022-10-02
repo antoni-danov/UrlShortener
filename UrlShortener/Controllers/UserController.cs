@@ -7,7 +7,7 @@ using UrlShortener.Services.UserService;
 
 namespace UrlShortener.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UserController : Controller
     {
@@ -35,22 +35,17 @@ namespace UrlShortener.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFiltersAttribute))]
-        public IActionResult CreateUser(User data)
+        public async Task<IActionResult> CreateUserAsync(User data)
         {
-           var result =  this.userService.CreateUser(data);
+            this.userService.CreateUser(data);
 
-            return StatusCode(201, result);
+            return StatusCode(201);
         }
 
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public IActionResult Delete([FromRoute] int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            await userService.DeleteUrl(id);
+            userService.DeleteUrl(id);
 
             return StatusCode(200);
         }

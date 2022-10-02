@@ -55,7 +55,7 @@ namespace UrlShortener.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Uid")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -66,14 +66,16 @@ namespace UrlShortener.Migrations
 
             modelBuilder.Entity("UrlShortener.Models.UrlData", b =>
                 {
-                    b.HasOne("UrlShortener.Models.User", null)
-                        .WithMany("Urls")
+                    b.HasOne("UrlShortener.Models.User", "User")
+                        .WithMany("UsersUrls")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UrlShortener.Models.User", b =>
                 {
-                    b.Navigation("Urls");
+                    b.Navigation("UsersUrls");
                 });
 #pragma warning restore 612, 618
         }
