@@ -18,6 +18,7 @@ namespace UrlShortener.Models
 
         [Required]
         public string CreatedOn { get; set; }
+        public string Uid { get; set; }
         public int? UserId { get; set; }
         public User User { get; set; }
 
