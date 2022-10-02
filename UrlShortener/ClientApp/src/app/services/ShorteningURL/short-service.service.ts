@@ -43,9 +43,7 @@ export class ShortServiceService {
       OriginalUrl: data.OriginalUrl,
       ShortUrl: shortUrl,
       CreatedOn: data.CreatedOn,
-      UserId: actualUid
     };
-
     this.shortUrl = localStorage.setItem("shortUrl", data.ShortUrl);
 
     return dataUrl;

@@ -8,7 +8,7 @@ namespace UrlShortener.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid UrlId { get; set; }
+        public int UrlId { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
         public string OriginalUrl { get; set; }

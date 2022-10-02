@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase/compat/app';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment.prod';
+import { User } from '../../models/User';
 
 
 @Injectable({
@@ -76,7 +77,6 @@ export class AuthServicesService {
       });
 
     this.CookiesFactory(this.jwt, this.user.uid, this.user.email);
-    console.log(typeof(this.user.uid));
     this.CreateUser(this.user.uid);
 
     this.router.navigateByUrl('/');
@@ -91,8 +91,10 @@ export class AuthServicesService {
       });
   }
 
-  async CreateUser(email: string) {
-    return await this.http.post(`${environment.userHost}`, email).toPromise();
+  async CreateUser(uid: User) {
+    var user = { Uid: uid };
+
+    await this.http.post(`${environment.userHost}`, user).toPromise();
   };
   IsAuthenticated() {
 
