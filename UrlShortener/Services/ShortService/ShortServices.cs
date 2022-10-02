@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using UrlShortener.Models;
 
 namespace UrlShortener.Services
@@ -37,7 +35,8 @@ namespace UrlShortener.Services
             {
                 OriginalUrl = data.OriginalUrl,
                 ShortUrl = data.ShortUrl,
-                CreatedOn = data.CreatedOn
+                CreatedOn = data.CreatedOn,
+                Uid = data.Uid
             };
 
             db.UrlDatas.AddAsync(url);
@@ -55,7 +54,8 @@ namespace UrlShortener.Services
                 var existingUrl = new ExistingUrlRecord()
                 {
                     OriginalUrl = result.OriginalUrl,
-                    ShortUrl = result.ShortUrl
+                    ShortUrl = result.ShortUrl,
+                    Uid = result.Uid
                 };
 
                 return existingUrl;

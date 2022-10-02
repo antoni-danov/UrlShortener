@@ -28,7 +28,7 @@ namespace UrlShortener.Test
                 CreatedOn = "12 September 2022"
             };
             //act
-            var createdResponse = this.controller.Create(correctUrlData);
+            var createdResponse = this.controller.CreateAsync(correctUrlData);
             //assert
             Assert.NotNull(createdResponse);
 
@@ -40,7 +40,7 @@ namespace UrlShortener.Test
             };
             //act
             controller.ModelState.AddModelError("OriginalUrl", "THe Original Url is required.");
-            var createdFalseResponse = controller.Create(incorrectUrlData);
+            var createdFalseResponse = controller.CreateAsync(incorrectUrlData);
 
             //assert
             Assert.IsType<BadRequestObjectResult>(createdFalseResponse);
