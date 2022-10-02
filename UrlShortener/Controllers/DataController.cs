@@ -38,6 +38,15 @@ namespace UrlShortener.Controllers
                 var currentUrl =  shortServices.CreateUrlRecord(data);
                 return StatusCode(201, currentUrl);
             }
+            else if (ifExist != null)
+            {
+                if (ifExist.Uid == "N/A")
+                {
+                    var currentUrl = shortServices.CreateUrlRecord(data);
+                    return StatusCode(201, currentUrl);
+                }
+            }
+
             return StatusCode(200, ifExist);
         }
 

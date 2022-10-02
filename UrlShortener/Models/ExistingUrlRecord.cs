@@ -9,6 +9,7 @@ namespace UrlShortener.Models
 
         [Required(ErrorMessage = "The field is required")]
         public string ShortUrl { get; set; }
+        public string Uid { get; set; }
 
     }
 }
