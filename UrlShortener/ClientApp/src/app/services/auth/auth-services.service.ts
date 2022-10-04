@@ -43,14 +43,14 @@ export class AuthServicesService {
         var credential = error.credential;
       });
 
+    this.CreateUser(this.uid);
+
     this.cookie = {
       JWT: this.jwt,
       Uid: this.uid,
       Email: this.email,
       RememberMe: false
     };
-
-    this.CreateUser(this.uid);
     this.CookiesFactory(this.cookie);
 
     this.router.navigateByUrl('/');
@@ -115,9 +115,11 @@ export class AuthServicesService {
       });
   }
 
-  async CreateUser(uid: User) {
+  async CreateUser(uid: User){
     var user = { Uid: uid };
-    await this.http.post(`${environment.userHost}`, user).toPromise();
+    var createdUser = await this.http.post(`${environment.userHost}`, user).toPromise();
+
+    return createdUser;
   };
   IsAuthenticated() {
 

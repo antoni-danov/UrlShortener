@@ -38,8 +38,8 @@ namespace UrlShortener.Services.UserService
 
                 db.Users.Add(user);
                 db.SaveChanges();
-            }
-           
+
+            }           
         }
         public void DeleteUrl(int id)
         {

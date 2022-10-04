@@ -35,7 +35,4 @@ export class SignUpComponent implements OnInit {
   UserSignUp(userdata: any) {
     this.authServices.SignUpWithEmailAndPassword(userdata);
   }
-  async SignInWithGoogle() {
-    return await this.authServices.SignInWithPopUp();
-  }
 }
