@@ -27,13 +27,19 @@ namespace UrlShortener.Services.UserService
         }
         public void CreateUser(User data)
         {
-            var user = new User()
-            {
-                Uid = data.Uid
-            };
+            var existing = isCreated(data.Uid);
 
-           db.Users.Add(user);
-           db.SaveChanges();
+            if (existing == null)
+            {
+                var user = new User()
+                {
+                    Uid = data.Uid
+                };
+
+                db.Users.Add(user);
+                db.SaveChanges();
+
+            }           
         }
         public void DeleteUrl(int id)
         {
@@ -47,7 +53,16 @@ namespace UrlShortener.Services.UserService
             }
             
         }
+        public User isCreated(string originalUrl)
+        {
+            var existingUser = db.Users.FirstOrDefault(x => x.Uid == originalUrl);
 
-        
+            if (existingUser != null)
+            {
+                return existingUser;
+            }
+
+            return null;
+        }
     }
 }

@@ -3,15 +3,16 @@
   <div class="inner-container">
     <h3>Please enter your URL:</h3>
     <form class="form" [formGroup]="form" (ngSubmit)="CreateUrl(form.value)">
-      <input class="col-lg-6 my-3" type="url" id="OriginalUrl" formControlName="OriginalUrl"
-        placeholder="Enter the original Url...">
+      <textarea class="form-control" type="url" id="OriginalUrl" formControlName="OriginalUrl"
+         placeholder="Enter the original Url..." rows="5"></textarea>
       <div *ngIf="form.get('OriginalUrl').touched && form.get('OriginalUrl').hasError('required')"
-        class="alert alert-danger">
+           class="alert alert-danger mt-3">
         <!-- <i class="fa-solid fa-triangle-exclamation"s></i> -->
         <div>This field is required</div>
       </div>
-      <br><button class="btn btn-lg my-2" type="submit" [disabled]="form.get('OriginalUrl').value.length == 0"><img
-          class="img-button" src="../assets/images/play.png" alt="Alternate Text" /> Short your Url</button>
+      <br><button class="btn btn-lg my-2" type="submit" [disabled]="form.get('OriginalUrl').value.length == 0">
+        <img class="img-button" src="../assets/images/play.png" alt="Alternate Text" /> Short your Url
+      </button>
 
     </form>
 

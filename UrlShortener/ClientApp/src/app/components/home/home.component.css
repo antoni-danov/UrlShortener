@@ -50,3 +50,6 @@ input:invalid {
   font-family: Prompt;
   font-size: 20px;
 }
+.textInput {
+  height: 150px;
+}
