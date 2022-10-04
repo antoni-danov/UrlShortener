@@ -24,8 +24,9 @@ namespace UrlShortener.Test
             var correctUrlData = new UrlData()
             {
                 OriginalUrl = "https://code-maze.com/aspnetcore-webapi-best-practices/",
-                ShortUrl = "https://localhost:44347/1IsPCG",
-                CreatedOn = "12 September 2022"
+                ShortUrl = "https://localhost:44373/1IsPCG",
+                CreatedOn = "12 September 2022",
+                Uid = "dflkjsdlkj454l5kjkjd9"
             };
             //act
             var createdResponse = this.controller.CreateAsync(correctUrlData);
@@ -35,11 +36,12 @@ namespace UrlShortener.Test
             //arrange
             var incorrectUrlData = new UrlData()
             {
-                ShortUrl = "https://localhost:44347/1IsPCG",
-                CreatedOn = "12 September 2022"
+                ShortUrl = "https://localhost:44373/1IsPCG",
+                CreatedOn = "12 September 2022",
+                Uid = "dflkjsdlkj454l5kjkjd9"
             };
             //act
-            controller.ModelState.AddModelError("OriginalUrl", "THe Original Url is required.");
+            controller.ModelState.AddModelError("OriginalUrl", "The Original Url is required.");
             var createdFalseResponse = controller.CreateAsync(incorrectUrlData);
 
             //assert

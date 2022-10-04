@@ -1,4 +1,4 @@
-  <div class="container-fluid text-center">
+<div class="container-fluid text-center">
   <h2 class="p-4">Register</h2>
   <form class="form-group p-4" [formGroup]="userForm" (ngSubmit)="UserSignUp(userForm.value)">
     <div class="input-group mb-1">
@@ -12,12 +12,6 @@
     </div>
     <button type="submit" class="btn btn-primary my-3" [disabled]="!userForm.valid">Register</button>
   </form>
-  <div class="signInContainer">
-    <div class="formGroup">
-      <button id="googleBtn" type="button" class="btn btn-primary p-6 mb-3" (click)="SignInWithGoogle()">
-      </button>
-    </div>
-  </div>
   <div>You have your account?</div>
   <a class="my-4" href="/login">Sign in here!</a>
 </div>
