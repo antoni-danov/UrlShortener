@@ -27,15 +27,15 @@ export class SignInComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[A-za-z0-9._%+-]+@[a-z]{3,6}\.[a-z]{2,4}$')
       ])),
-      password: new FormControl('', Validators.required)
+      password: new FormControl('', Validators.required),
+      checkbox: new FormControl('')
     });
 
         
   }
 
   async SignInEmailAndPassword(userdata: any) {
-
-    return await this.authServices.SignInWithEmailAndPassword(userdata.email, userdata.password);
+    return await this.authServices.SignInWithEmailAndPassword(userdata);
 
   }
   async SignInWithGoogle() {

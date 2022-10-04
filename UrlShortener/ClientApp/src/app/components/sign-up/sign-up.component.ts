@@ -32,11 +32,7 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  UserSignUp(data: any) {
-
-    var email = data.email;
-    var password = data.password;
-
-    this.authServices.SignUpWithEmailAndPassword(email, password);
+  UserSignUp(userdata: any) {
+    this.authServices.SignUpWithEmailAndPassword(userdata);
   }
 }
