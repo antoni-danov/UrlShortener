@@ -1,10 +1,7 @@
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\CoverletSourceRootsMapping
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\testhost.dll
-D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\UrlShortener.Views.dll
-D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\UrlShortener.Views.pdb
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\UrlShortener.deps.json
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\UrlShortener.runtimeconfig.json
-D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\UrlShortener.runtimeconfig.dev.json
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\appsettings.Development.json
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\appsettings.json
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\UrlShortener.exe
@@ -118,13 +115,9 @@ D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
@@ -144,6 +137,6 @@ D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\obj\Debug\net6.0\
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\obj\Debug\net6.0\UrlShortener.Test.pdb
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\obj\Debug\net6.0\UrlShortener.Test.genruntimeconfig.cache
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\obj\Debug\net6.0\ref\UrlShortener.Test.dll
-D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\System.Net.Http.Formatting.dll
-D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\System.Web.Http.dll
-D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\UrlShortener.staticwebassets.runtime.json
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
