@@ -11,8 +11,8 @@ var hash = require('jhash');
 })
 export class ShortServiceService {
 
-  shortUrl!: any;
-  temporaryValue!: any;
+  shortUrl!: string;
+  temporaryValue!: Object;
 
   constructor(
     private http: HttpClient,
@@ -22,7 +22,7 @@ export class ShortServiceService {
   async CreateUrl(data: UrlData) {
     var object = this.formatUrlData(data);
     var result = await this.http.post(`${environment.localhost}`, object).toPromise();
-    this.temporaryValue = result;
+    this.temporaryValue = result!;
 
     return result;
 
@@ -45,7 +45,9 @@ export class ShortServiceService {
       CreatedOn: data.CreatedOn,
       Uid: actualUid.length != 0 ? actualUid : "N/A" 
     };
-    this.shortUrl = localStorage.setItem("shortUrl", data.ShortUrl);
+    localStorage.setItem("shortUrl", data.ShortUrl);
+
+    this.shortUrl = localStorage.getItem("shortUrl")!;
 
     return dataUrl;
   } 
