@@ -44,7 +44,7 @@ export class UrlDetailsComponent implements OnInit {
 
   }
 
-  deleteUrl(urlId: string) {
+  deleteUrl(urlId: number) {
     if (confirm("Are you sure")) {
       this.userService.DeleteUrl(urlId);
       alert("Record deleted");

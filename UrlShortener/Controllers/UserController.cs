@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UrlShortener.ActionFilters;
 using UrlShortener.Models;
@@ -20,10 +22,11 @@ namespace UrlShortener.Controllers
 
         [HttpGet]
         [Route("search/all/{uid}")]
-        public List<UrlData> GetAll([FromRoute] string uid)
+        public async Task<ActionResult<List<UrlData>>> GetAllAsync([FromRoute] string uid)
         {
-            var result = userService.GetAll(uid);
-            return result;
+            var result = await userService.GetAllAsync(uid);
+            return result.ToList();
+
         }
         
         [HttpGet("{id}")]
@@ -36,11 +39,11 @@ namespace UrlShortener.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFiltersAttribute))]
-        public async Task<IActionResult> CreateUserAsync(User data)
+        public async Task<ActionResult<User>> CreateUserAsync(User data)
         {
-            this.userService.CreateUser(data);
+            var createdUrl = await userService.CreateUser(data);
 
-            return StatusCode(201);
+            return StatusCode(201, createdUrl);
         }
 
         [HttpDelete("delete/{id}")]

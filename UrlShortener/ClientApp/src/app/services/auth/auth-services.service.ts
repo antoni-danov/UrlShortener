@@ -118,7 +118,7 @@ export class AuthServicesService {
   async CreateUser(uid: User){
     var user = { Uid: uid };
     var createdUser = await this.http.post(`${environment.userHost}`, user).toPromise();
-
+    console.log(createdUser);
     return createdUser;
   };
   IsAuthenticated() {

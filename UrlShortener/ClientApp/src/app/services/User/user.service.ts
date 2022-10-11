@@ -23,7 +23,7 @@ export class UserService {
   async GetById(urlId: string): Promise<UrlData | undefined>{
     return await this.http.get<UrlData>(`${environment.userHost}/${urlId}`).toPromise();
   }
-  DeleteUrl(urlId: string) {
+  DeleteUrl(urlId: number) {
     return this.http.delete(`${environment.userHost}/delete/${urlId}`).toPromise();
   }
 }
