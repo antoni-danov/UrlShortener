@@ -18,35 +18,15 @@ namespace UrlShortener.Test
         }
 
         [Fact]
-        public void AddUrl()
+        public void Get_WhenCalled_ReturnsOkResult()
         {
-            //arrange
-            var correctUrlData = new UrlData()
-            {
-                OriginalUrl = "https://code-maze.com/aspnetcore-webapi-best-practices/",
-                ShortUrl = "https://localhost:44373/1IsPCG",
-                CreatedOn = "12 September 2022",
-                Uid = "dflkjsdlkj454l5kjkjd9"
-            };
-            //act
-            var createdResponse = this.controller.CreateAsync(correctUrlData);
-            //assert
-            Assert.NotNull(createdResponse);
-
-            //arrange
-            var incorrectUrlData = new UrlData()
-            {
-                ShortUrl = "https://localhost:44373/1IsPCG",
-                CreatedOn = "12 September 2022",
-                Uid = "dflkjsdlkj454l5kjkjd9"
-            };
-            //act
-            controller.ModelState.AddModelError("OriginalUrl", "The Original Url is required.");
-            var createdFalseResponse = controller.CreateAsync(incorrectUrlData);
-
-            //assert
-            Assert.IsType<BadRequestObjectResult>(createdFalseResponse);
-            
+            //Arange
+            var value = "asld2";
+            // Act
+            var okResult = controller.GetUrl(value);
+            // Assert
+            var result = Assert.IsType<RedirectResult>(okResult);
         }
+
     }
 }
