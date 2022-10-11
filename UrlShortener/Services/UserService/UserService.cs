@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UrlShortener.Models;
 
 namespace UrlShortener.Services.UserService
@@ -13,11 +16,10 @@ namespace UrlShortener.Services.UserService
             this.db = db;
         }
 
-        public List<UrlData> GetAll(string uid)
+        public async Task<IEnumerable<UrlData>> GetAll(string uid)
         {
-            var result = this.db.UrlDatas.Where(x => x.Uid == uid).OrderByDescending(x => x.CreatedOn).ToList();
-
-            return result;
+            return await db.UrlDatas.Where(x => x.Uid == uid)
+                     .OrderByDescending(x => x.CreatedOn).ToListAsync();
         }
         public UrlData GetUrlById(int id)
         {
