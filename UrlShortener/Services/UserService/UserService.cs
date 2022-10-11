@@ -16,7 +16,7 @@ namespace UrlShortener.Services.UserService
             this.db = db;
         }
 
-        public async Task<IEnumerable<UrlData>> GetAll(string uid)
+        public async Task<IEnumerable<UrlData>> GetAllAsync(string uid)
         {
             return await db.UrlDatas.Where(x => x.Uid == uid)
                      .OrderByDescending(x => x.CreatedOn).ToListAsync();
@@ -27,7 +27,7 @@ namespace UrlShortener.Services.UserService
 
             return url;
         }
-        public void CreateUser(User data)
+        public async Task<User> CreateUser(User data)
         {
             var existing = isCreated(data.Uid);
 
@@ -38,10 +38,14 @@ namespace UrlShortener.Services.UserService
                     Uid = data.Uid
                 };
 
-                db.Users.Add(user);
+                var newUser = await db.Users.AddAsync(user);
                 db.SaveChanges();
 
-            }           
+                return newUser.Entity;
+
+            }
+
+            return existing;
         }
         public void DeleteUrl(int id)
         {
