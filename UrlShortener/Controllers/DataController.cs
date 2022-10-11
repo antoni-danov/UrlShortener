@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 using UrlShortener.ActionFilters;
 using UrlShortener.Models;
@@ -31,6 +30,7 @@ namespace UrlShortener.Controllers
         [ServiceFilter(typeof(ValidationFiltersAttribute))]
         public async Task<IActionResult> CreateAsync([FromBody] UrlData data)
         {
+            
             var ifExist = IsCreated(data.OriginalUrl);
 
             if (ifExist == null)
