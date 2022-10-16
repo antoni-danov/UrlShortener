@@ -3,7 +3,7 @@ using UrlShortener.Models;
 
 namespace UrlShortener.Services
 {
-    public interface IShortServices
+    public interface IShortService
     {
         public string GetOriginalUrl(string data);
         public UrlData CreateUrlRecord(UrlData data);

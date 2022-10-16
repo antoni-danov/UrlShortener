@@ -10,18 +10,18 @@ namespace UrlShortener.Controllers
     [ApiController]
     public class DataController : Controller
     {
-        readonly IShortServices shortServices;
+        readonly IShortService shortService;
 
 
-        public DataController(IShortServices shortServices)
+        public DataController(IShortService shortService)
         {
-            this.shortServices = shortServices;
+            this.shortService = shortService;
         }
 
         [HttpGet("/{data}")]
         public async Task<IActionResult> GetUrl([FromRoute] string data)
         {
-            var result = this.shortServices.GetOriginalUrl(data);
+            var result = this.shortService.GetOriginalUrl(data);
 
             return new RedirectResult(result);
         }
@@ -35,14 +35,14 @@ namespace UrlShortener.Controllers
 
             if (ifExist == null)
             {
-                var currentUrl =  shortServices.CreateUrlRecord(data);
+                var currentUrl =  shortService.CreateUrlRecord(data);
                 return StatusCode(201, currentUrl);
             }
             else if (ifExist != null)
             {
                 if (ifExist.Uid == "N/A")
                 {
-                    var currentUrl = shortServices.CreateUrlRecord(data);
+                    var currentUrl = shortService.CreateUrlRecord(data);
                     return StatusCode(201, currentUrl);
                 }
             }
@@ -53,7 +53,7 @@ namespace UrlShortener.Controllers
         public ExistingUrlRecord IsCreated(string originalUrl)
         {
 
-            return this.shortServices.isCreated(originalUrl);
+            return this.shortService.isCreated(originalUrl);
 
 
         }

@@ -9,11 +9,11 @@ namespace UrlShortener.Test
     public class DataControllerTest
     {
         DataController controller;
-        IShortServices services;
+        IShortService services;
 
         public DataControllerTest()
         {
-            services = new ShortServices();
+            services = new ShortService();
             controller = new DataController(services);
         }
 
