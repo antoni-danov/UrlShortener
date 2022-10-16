@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { UserService } from '../../services/User/user.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import Swal from 'sweetalert2';
 import { ShortServiceService } from '../../services/ShorteningURL/short-service.service';
 
 
@@ -23,7 +21,6 @@ export class UrlDetailsComponent implements OnInit {
 
 
   constructor(
-    private userService: UserService,
     private shortService: ShortServiceService,
     private location: Location,
     private activatedRoute: ActivatedRoute,

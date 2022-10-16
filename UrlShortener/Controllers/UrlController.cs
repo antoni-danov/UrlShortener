@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using UrlShortener.ActionFilters;
 using UrlShortener.Models;
 using UrlShortener.Services;
-using UrlShortener.Services.UserService;
 
 namespace UrlShortener.Controllers
 {
@@ -31,9 +30,9 @@ namespace UrlShortener.Controllers
 
         [HttpGet]
         [Route("urlById/{id}")]
-        public async Task<ActionResult<UrlData>> GetUrlById([FromRoute] int id)
+        public ActionResult<UrlData> GetUrlById([FromRoute] int id)
         {
-            var url = await shortService.GetUrlById(id);
+            var url = shortService.GetUrlById(id);
 
             return StatusCode(200, url);
         }

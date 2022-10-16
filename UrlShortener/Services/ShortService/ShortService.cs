@@ -24,9 +24,9 @@ namespace UrlShortener.Services
                      .OrderByDescending(x => x.CreatedOn).ToListAsync();
         }
 
-        public async Task<UrlData> GetUrlById(int id)
+        public UrlData GetUrlById(int id)
         {
-            var url = await db.UrlDatas.Where(x => x.UrlId == id).FirstOrDefaultAsync();
+            var url = db.UrlDatas.Where(x => x.UrlId == id).FirstOrDefault();
 
             return url;
         }
@@ -60,9 +60,9 @@ namespace UrlShortener.Services
             return url;
         }
 
-        public async void DeleteUrl(int id)
+        public void DeleteUrl(int id)
         {
-            var existingUrl = await GetUrlById(id);
+            var existingUrl = GetUrlById(id);
 
             if (existingUrl != null)
             {
