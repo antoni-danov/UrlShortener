@@ -44,7 +44,7 @@ namespace UrlShortener
                   .AllowAnyHeader()
                   .AllowCredentials());
             });
-            services.AddScoped<IShortServices, ShortServices>();
+            services.AddScoped<IShortService, ShortService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ValidationFiltersAttribute>();
             services.Configure<ApiBehaviorOptions>(options =>
@@ -81,7 +81,7 @@ namespace UrlShortener
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
+                    name: "url",
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "user",

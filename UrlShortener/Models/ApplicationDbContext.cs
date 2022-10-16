@@ -19,5 +19,6 @@ namespace UrlShortener.Models
         }
         public DbSet<UrlData> UrlDatas { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<DeletedItem> DeletedItems { get; set; }
     }
 }
