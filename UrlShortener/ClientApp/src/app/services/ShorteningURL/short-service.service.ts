@@ -16,7 +16,7 @@ export class ShortServiceService {
 
   constructor(
     private http: HttpClient,
-    private cookiesService: CookieService
+    private cookies: CookieService
   ) { }
 
   async CreateUrl(data: UrlData) {
@@ -28,6 +28,15 @@ export class ShortServiceService {
 
   }
 
+  async GetAll(): Promise<UrlData[] | undefined> {
+    var params = this.cookies.get('uid');
+    return await this.http.get<UrlData[]>(`${environment.localhost}/search/all/${params}`).toPromise();
+  }
+
+  async GetById(urlId: string): Promise<UrlData | undefined> {
+    return await this.http.get<UrlData>(`${environment.localhost}/urlById/${urlId}`).toPromise();
+  }
+
   async GetUrl(data: string) {
 
     var result = await this.http.get(`${environment.localhost}/${data}`);
@@ -35,9 +44,13 @@ export class ShortServiceService {
     return result;
   }
 
+  DeleteUrl(urlId: number) {
+    return this.http.delete(`${environment.localhost}/delete/${urlId}`).toPromise();
+  }
+
   formatUrlData(data: UrlData): UrlData {
     var shortUrl = hash.hash(data.OriginalUrl);
-    var actualUid = this.cookiesService.get('uid');
+    var actualUid = this.cookies.get('uid');
 
     var dataUrl = {
       OriginalUrl: data.OriginalUrl,

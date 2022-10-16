@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UrlShortener.Models;
 
 namespace UrlShortener.Services
@@ -15,9 +18,21 @@ namespace UrlShortener.Services
         public ShortService()
         {
         }
+        public async Task<IEnumerable<UrlData>> GetAllAsync(string uid)
+        {
+            return await db.UrlDatas.Where(x => x.Uid == uid)
+                     .OrderByDescending(x => x.CreatedOn).ToListAsync();
+        }
+
+        public async Task<UrlData> GetUrlById(int id)
+        {
+            var url = await db.UrlDatas.Where(x => x.UrlId == id).FirstOrDefaultAsync();
+
+            return url;
+        }
         public string GetOriginalUrl(string data)
         {
-            UrlData result = this.db.UrlDatas.FirstOrDefault(x => x.ShortUrl == data);
+            UrlData result = db.UrlDatas.FirstOrDefault(x => x.ShortUrl == data);
 
             if (result != null)
             {
@@ -43,6 +58,19 @@ namespace UrlShortener.Services
             db.SaveChangesAsync();
 
             return url;
+        }
+
+        public async void DeleteUrl(int id)
+        {
+            var existingUrl = await GetUrlById(id);
+
+            if (existingUrl != null)
+            {
+                db.UrlDatas.Remove(existingUrl);
+                db.SaveChanges();
+
+            }
+
         }
 
         public ExistingUrlRecord isCreated(string originalUrl)
