@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UrlShortener.ActionFilters;
 using UrlShortener.Models;
 using UrlShortener.Services;
+using UrlShortener.Services.UserService;
 
 namespace UrlShortener.Controllers
 {
@@ -17,8 +20,26 @@ namespace UrlShortener.Controllers
         {
             this.shortService = shortService;
         }
+       
+        [HttpGet]
+        [Route("search/all/{uid}")]
+        public async Task<ActionResult<List<UrlData>>> GetAllAsync([FromRoute] string uid)
+        {
+            var result = await shortService.GetAllAsync(uid);
+            return result.ToList();
+        }
 
-        [HttpGet("/{data}")]
+        [HttpGet]
+        [Route("urlById/{id}")]
+        public async Task<ActionResult<UrlData>> GetUrlById([FromRoute] int id)
+        {
+            var url = await shortService.GetUrlById(id);
+
+            return StatusCode(200, url);
+        }
+
+        [HttpGet]
+        [Route("/{data}")]
         public async Task<IActionResult> GetUrl([FromRoute] string data)
         {
             var result = this.shortService.GetOriginalUrl(data);
@@ -50,6 +71,14 @@ namespace UrlShortener.Controllers
             return StatusCode(200, ifExist);
         }
 
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            shortService.DeleteUrl(id);
+
+            return StatusCode(200);
+        }
         public ExistingUrlRecord IsCreated(string originalUrl)
         {
 

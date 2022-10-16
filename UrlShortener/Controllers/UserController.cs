@@ -20,23 +20,6 @@ namespace UrlShortener.Controllers
             this.userService = userService;
         }
 
-        [HttpGet]
-        [Route("search/all/{uid}")]
-        public async Task<ActionResult<List<UrlData>>> GetAllAsync([FromRoute] string uid)
-        {
-            var result = await userService.GetAllAsync(uid);
-            return result.ToList();
-
-        }
-        
-        [HttpGet("{id}")]
-        public IActionResult GetUrlById([FromRoute] int id)
-        {
-            var url = userService.GetUrlById(id);
-
-            return StatusCode(200, url);
-        }
-
         [HttpPost]
         [ServiceFilter(typeof(ValidationFiltersAttribute))]
         public async Task<ActionResult<User>> CreateUserAsync(User data)
@@ -45,15 +28,6 @@ namespace UrlShortener.Controllers
 
             return StatusCode(201, createdUser);
         }
-
-        [HttpDelete("delete/{id}")]
-        public IActionResult Delete([FromRoute] int id)
-        {
-            userService.DeleteUrl(id);
-
-            return StatusCode(200);
-        }
-
         
     }
 }
