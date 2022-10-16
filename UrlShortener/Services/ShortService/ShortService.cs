@@ -3,16 +3,16 @@ using UrlShortener.Models;
 
 namespace UrlShortener.Services
 {
-    public class ShortServices : IShortServices
+    public class ShortService : IShortService
     {
         private ApplicationDbContext db;
 
-        public ShortServices(ApplicationDbContext db)
+        public ShortService(ApplicationDbContext db)
         {
             this.db = db;
         }
 
-        public ShortServices()
+        public ShortService()
         {
         }
         public string GetOriginalUrl(string data)

@@ -44,7 +44,7 @@ namespace UrlShortener
                   .AllowAnyHeader()
                   .AllowCredentials());
             });
-            services.AddScoped<IShortServices, ShortServices>();
+            services.AddScoped<IShortService, ShortService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ValidationFiltersAttribute>();
             services.Configure<ApiBehaviorOptions>(options =>
