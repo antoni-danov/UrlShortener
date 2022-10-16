@@ -6,14 +6,14 @@ using UrlShortener.Services;
 
 namespace UrlShortener.Controllers
 {
-    [Route("api/data")]
+    [Route("api/url")]
     [ApiController]
-    public class DataController : Controller
+    public class UrlController : Controller
     {
         readonly IShortService shortService;
 
 
-        public DataController(IShortService shortService)
+        public UrlController(IShortService shortService)
         {
             this.shortService = shortService;
         }

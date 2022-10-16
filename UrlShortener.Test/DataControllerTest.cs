@@ -8,13 +8,13 @@ namespace UrlShortener.Test
 {
     public class DataControllerTest
     {
-        DataController controller;
+        UrlController controller;
         IShortService services;
 
         public DataControllerTest()
         {
             services = new ShortService();
-            controller = new DataController(services);
+            controller = new UrlController(services);
         }
 
         [Fact]
