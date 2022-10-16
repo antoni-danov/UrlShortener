@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using UrlShortener.Models;
 
@@ -14,18 +11,6 @@ namespace UrlShortener.Services.UserService
         public UserService(ApplicationDbContext db)
         {
             this.db = db;
-        }
-
-        public async Task<IEnumerable<UrlData>> GetAllAsync(string uid)
-        {
-            return await db.UrlDatas.Where(x => x.Uid == uid)
-                     .OrderByDescending(x => x.CreatedOn).ToListAsync();
-        }
-        public UrlData GetUrlById(int id)
-        {
-            var url = db.UrlDatas.Where(x => x.UrlId == id).FirstOrDefault();
-
-            return url;
         }
         public async Task<User> CreateUser(User data)
         {
@@ -46,18 +31,6 @@ namespace UrlShortener.Services.UserService
             }
 
             return existing;
-        }
-        public void DeleteUrl(int id)
-        {
-            var existingUrl = GetUrlById(id);
-
-            if (existingUrl != null)
-            {
-                db.UrlDatas.Remove(existingUrl);
-                db.SaveChanges();
-
-            }
-            
         }
         public User isCreated(string originalUrl)
         {

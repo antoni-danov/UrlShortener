@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/User/user.service';
 import { environment } from '../../../environments/environment';
+import { ShortServiceService } from '../../services/ShorteningURL/short-service.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class UserProfileComponent implements OnInit {
   host: string = environment.urlAddress;
 
   constructor(
-    private userService: UserService,
+    private shortService: ShortServiceService
   ) { }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
 
   async GetAllUrls() {
 
-    return await this.userService.GetAll()
+    return await this.shortService.GetAll()
       .then((data) => {
         this.urlData = data!;
         this.numberOfRecords = this.urlData!.length;
@@ -33,7 +33,7 @@ export class UserProfileComponent implements OnInit {
 
   deleteUrl(urlId: number) {
     if (confirm("Are you sure")) {
-      this.userService.DeleteUrl(urlId);
+      this.shortService.DeleteUrl(urlId);
       alert("Record deleted");
       this.ngOnInit();
     } else {

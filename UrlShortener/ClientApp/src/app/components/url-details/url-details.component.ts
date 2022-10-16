@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { UserService } from '../../services/User/user.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import Swal from 'sweetalert2';
+import { ShortServiceService } from '../../services/ShorteningURL/short-service.service';
 
 
 
@@ -22,7 +21,7 @@ export class UrlDetailsComponent implements OnInit {
 
 
   constructor(
-    private userService: UserService,
+    private shortService: ShortServiceService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private router: Router
@@ -36,7 +35,7 @@ export class UrlDetailsComponent implements OnInit {
 
   async GetDetails(urlId: string) {
 
-    await this.userService.GetById(urlId)
+    await this.shortService.GetById(urlId)
       .then((data) => {
         this.urlDetails = data;
       });
@@ -46,34 +45,12 @@ export class UrlDetailsComponent implements OnInit {
 
   deleteUrl(urlId: number) {
     if (confirm("Are you sure")) {
-      this.userService.DeleteUrl(urlId);
+      this.shortService.DeleteUrl(urlId);
       alert("Record deleted");
       this.router.navigateByUrl('/profile');
     } else {
       alert("Not this time");
     }
-    //Swal.fire({
-    //  title: 'Are you sure want to delete this Url?',
-    //  icon: 'warning',
-    //  showCancelButton: true,
-    //  confirmButtonText: 'Yes, delete it!',
-    //  cancelButtonText: 'No, keep it'
-    //}).then((result) => {
-    //  if (result.value) {
-    //    this.userService.DeleteUrl(urlId);
-    //    Swal.fire(
-    //      'Deleted!',
-    //      'Your Url has been deleted.',
-    //      'success'
-    //    )
-    //  } else if (result.dismiss === Swal.DismissReason.cancel) {
-    //    Swal.fire(
-    //      'Cancelled',
-    //      'Your Url is safe!',
-    //      'error'
-    //    )
-    //  }
-    //});
   }
 
 
