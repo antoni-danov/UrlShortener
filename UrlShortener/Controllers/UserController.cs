@@ -41,9 +41,9 @@ namespace UrlShortener.Controllers
         [ServiceFilter(typeof(ValidationFiltersAttribute))]
         public async Task<ActionResult<User>> CreateUserAsync(User data)
         {
-            var createdUrl = await userService.CreateUser(data);
+            var createdUser = await userService.CreateUser(data);
 
-            return StatusCode(201, createdUrl);
+            return StatusCode(201, createdUser);
         }
 
         [HttpDelete("delete/{id}")]
