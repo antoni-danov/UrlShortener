@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/User/user.service';
 import { environment } from '../../../environments/environment';
 import { ShortServiceService } from '../../services/ShorteningURL/short-service.service';
 
@@ -16,7 +15,6 @@ export class UserProfileComponent implements OnInit {
   host: string = environment.urlAddress;
 
   constructor(
-    private userService: UserService,
     private shortService: ShortServiceService
   ) { }
 
