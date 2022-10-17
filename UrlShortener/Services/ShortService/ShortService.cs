@@ -23,7 +23,6 @@ namespace UrlShortener.Services
             return await db.UrlDatas.Where(x => x.Uid == uid)
                      .OrderByDescending(x => x.CreatedOn).ToListAsync();
         }
-
         public UrlData GetUrlById(int id)
         {
             var url = db.UrlDatas.Where(x => x.UrlId == id).FirstOrDefault();
@@ -43,7 +42,6 @@ namespace UrlShortener.Services
 
             return null;
         }
-
         public UrlData CreateUrlRecord(UrlData data)
         {
             var url = new UrlData
@@ -59,7 +57,6 @@ namespace UrlShortener.Services
 
             return url;
         }
-
         public void DeleteUrl(int id)
         {
             var existingUrl = GetUrlById(id);
@@ -72,7 +69,6 @@ namespace UrlShortener.Services
             }
 
         }
-
         public ExistingUrlRecord isCreated(string originalUrl)
         {
             var result = this.db.UrlDatas.FirstOrDefault(x => x.OriginalUrl == originalUrl);
