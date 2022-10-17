@@ -11,9 +11,10 @@
         <div>This field is required</div>
       </div>
       <br><button class="btn btn-lg my-2" type="submit" [disabled]="form.get('OriginalUrl').value.length == 0">
-        <img class="img-button" src="../assets/images/play.png" alt="Alternate Text" /> Short your Url
-      </button>
-
+  <img *ngIf="form.get('OriginalUrl').value.length == 0" class="img-button" src="../assets/images/scissors.png" alt="Alternate Text" />
+  <img *ngIf="form.get('OriginalUrl').value.length > 0" class="img-button" src="../assets/images/scissors.gif" alt="Alternate Text" /> Short your Url
+</button>
+      <a href="https://www.flaticon.com/free-animated-icons/scissors" title="scissors animated icons" hidden>Scissors animated icons created by Freepik - Flaticon</a>
     </form>
 
     <div *ngIf="spiner" class="d-flex justify-content-center mt-4">

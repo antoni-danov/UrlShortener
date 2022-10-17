@@ -3,7 +3,8 @@
 
 body,
 html {
-  background-color: #059dc0;
+  background: rgb(9,17,121);
+  background: linear-gradient(90deg, rgba(9,17,121,0.9948354341736695) 19%, rgba(25,93,173,1) 50%, rgba(0,186,230,1) 100%);
   min-height: 100%;
   margin: 0;
   padding: 0;

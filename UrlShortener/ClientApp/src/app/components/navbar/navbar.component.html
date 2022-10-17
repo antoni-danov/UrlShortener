@@ -8,10 +8,17 @@
       <button id="loginBtn" class="btn btn-light mt-1 px-2" routerLink="/login">Sign in</button>
       <button id="registerBtn" class="btn btn-light mt-1 px-2" routerLink="/register">Sign up</button>
     </div>
-    <div *ngIf="isLoggedIn">
+    <div class="loggedUser" *ngIf="isLoggedIn">
       <button id="homeBtn" class=" btn btn-light mt-1 px-1" routerLink="/">Short an Url</button>
-      <button id="profileBtn" class="btn btn-light mt-1 px-1" routerLink="/profile">Hello,  {{userGreetings}}!</button>
-      <button id="logoutBtn" class="btn btn-light mt-1 px-1" (click)="Logout()">Logout</button>
+      <div class="dropdown mx-5 py-2">
+        <button class="btn btn-light mt-2 px-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Hello,  {{userGreetings}}!
+        </button>
+        <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton">
+          <button class="dropdown-item" routerLink="/profile">My collection</button>
+          <button class="dropdown-item" (click)="Logout()">Logout</button>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
