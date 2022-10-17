@@ -1,9 +1,9 @@
-<div class="container-fluid text-center">
+<!--<div class="container-fluid text-center">
   <h3 class="p-4">Login</h3>
   <form class="form-group" [formGroup]="form" (ngSubmit)="SignInEmailAndPassword(form.value)">
     <div class="form-outline mb-1">
       <div class="input-group mb-1">
-        <input type="text" class="form-control" name="email" formControlName="email" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" name="email" formControlName="email" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
       </div>
     </div>
     <div class="form-outline mb-1">
@@ -30,4 +30,50 @@
   </div>
   <div>You don't have your account yet?</div>
   <a class="my-4" href="/register">Sign up here!</a>
-</div>
+</div>-->
+<!-- Section: Design Block -->
+<section class=" text-center text-lg-start">
+  <div class="card mt-5">
+    <div class="row g-0 d-flex align-items-center">
+      <div class="col-lg-4 d-none d-lg-flex">
+        <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" alt="Trendy Pants and Shoes"
+             class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
+      </div>
+      <div class="col-lg-8">
+        <div class="card-body py-5 px-md-5">
+          <h3 class="mb-4 text-center">Login</h3>
+          <form class="form-group" [formGroup]="form" (ngSubmit)="SignInEmailAndPassword(form.value)">
+            <div class="form-outline mb-2">
+              <input id="form2Example1" type="text" class="form-control" name="email" formControlName="email" placeholder="Email" />
+            </div>
+            <div class="form-outline mb-2">
+              <input type="password" id="form2Example2" class="form-control" name="password" formControlName="password" placeholder="Password" />
+            </div>
+            <div class="row mb-2">
+              <div class="col d-flex justify-content-center">
+                <div class="form-check">
+                  <input id="rememberMe" class="form-check-label" type="checkbox" name="checkbox" formControlName="checkbox" value="" id="rememberMe" checked />
+                  <label class="form-check-label mx-2" for="rememberMe"> Remember me </label>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mb-2">
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Login</button>
+            </div>
+          </form>
+          <div class="signInContainer text-center">
+            <div class="formGroup">
+              <button id="googleBtn" type="button" class="btn btn-primary my-3" (click)="SignInWithGoogle()">
+                Sign in using Google
+              </button>
+            </div>
+          </div>
+          <div class="text-center">You don't have your account yet?</div>
+          <div class="text-center">
+            <a class="mb-2 text-center" href="/register">Sign up here!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
