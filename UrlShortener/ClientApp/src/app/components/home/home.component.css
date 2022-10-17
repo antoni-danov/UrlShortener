@@ -31,6 +31,7 @@ input:invalid {
 .img-button {
   width: 50px;
   height: 50px;
+ 
 }
 .alert {
   width: 50%;
@@ -45,7 +46,7 @@ input:invalid {
 }
 .btn {
   background-color: white;
-  color: #059dc0;
+  color: #195dad;
   padding: 5px 20px;
   font-family: Prompt;
   font-size: 20px;

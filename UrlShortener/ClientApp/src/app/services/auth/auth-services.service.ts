@@ -115,7 +115,7 @@ export class AuthServicesService {
       });
   }
 
-  async CreateUser(uid: User){
+  async CreateUser(uid: string){
     var user = { Uid: uid };
     var createdUser = await this.http.post(`${environment.userHost}`, user).toPromise();
 
