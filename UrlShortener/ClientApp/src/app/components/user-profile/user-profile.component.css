@@ -16,10 +16,11 @@ h2{
   color: black;
   text-align: center;
 }
-.recordsNumber{
-    background-color:white;
-    border-radius: 15px;
-    width: 150px;
+.recordsNumber {
+  background-color: white;
+  border-radius: 15px;
+  width: 150px;
+  color: #195dad;
 }
 .btnAndRecords{
     display: flex;

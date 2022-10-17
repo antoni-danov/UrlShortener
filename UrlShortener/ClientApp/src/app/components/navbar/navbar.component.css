@@ -1,6 +1,6 @@
 a {
   text-decoration: none;
-  background-color: #059dc0;
+  background: linear-gradient(90deg, rgba(9,17,121,0.9948354341736695) 19%, rgba(25,93,173,1) 50%, rgba(0,186,230,1) 100%);
   color: white;
   padding: 10px;
   border-radius: 15px;
@@ -18,7 +18,7 @@ a {
 #registerBtn, #logoutBtn,
 #profileBtn {
   background-color: transparent;
-  color: #059dc0;
+  color: #195dad;
   border: unset;
   margin-top: -40px;
   margin-right: 35px;
@@ -27,5 +27,17 @@ a {
   #loginBtn a {
     text-decoration: none;
     background-color: transparent;
-    color: #059dc0;
+    color: #195dad;
   }
+#dropdownMenuButton, .dropdown-item {
+  background-color: transparent;
+  border: none;
+  color: #195dad;
+  border-radius: 15px;
+}
+  #dropdownMenuButton:hover, .dropdown-item:hover {
+    background-color: #ffc107;
+  }
+.loggedUser {
+    display: flex;
+}
