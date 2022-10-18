@@ -4,7 +4,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UrlData } from 'src/app/models/UrlData';
 import { ShortServiceService } from 'src/app/services/ShorteningURL/short-service.service';
-var validUrl = require('valid-url');
 
 @Component({
   selector: 'app-home',
@@ -19,8 +18,7 @@ export class HomeComponent implements OnInit {
   spiner: boolean = false;
   datePipe: DatePipe = new DatePipe('en-US');
   dateTimeFormat: string = 'dd MMM yyyy, HH:mm';
-  errorMessage!: string;
-  isOpen: boolean = true;
+  urlRegexPattern: RegExp = /^(https|http:\/\/?)(?:\w+(?:\w+)?@)?[^\s\/]+(?:\d+)?(?:\/[\w#!:.?+=&%@\-\/]*)?$/;
 
   constructor(
     private service: ShortServiceService,
@@ -30,25 +28,22 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 
     this.form = new FormGroup({
-      OriginalUrl: new FormControl('', Validators.required),
+      OriginalUrl: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern(this.urlRegexPattern)
+      ])),
       CreatedOn: new FormControl(this.datePipe.transform(new Date(), this.dateTimeFormat), Validators.required)
     });
   }
 
   async CreateUrl(data: UrlData) {
 
-    if (validUrl.isUri(data.OriginalUrl)) {
-      const dataInfo = await this.service.CreateUrl(data)
-        .then(data => {
-          this.currentShortUrl = data;
-        });
-      this.spiner = true;
+    const dataInfo = await this.service.CreateUrl(data)
+      .then(data => {
+        this.currentShortUrl = data;
+      });
+    this.spiner = true;
 
-      this.router.navigateByUrl('/shorturl');
-    } else {
-      this.errorMessage = 'You have to enter a valid Url !';
-    }
-
-   
+    this.router.navigateByUrl('/shorturl');
   };
 }

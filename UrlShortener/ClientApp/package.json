@@ -36,7 +36,6 @@
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.4.33",
     "tslib": "^2.3.0",
-    "valid-url": "^1.0.9",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
