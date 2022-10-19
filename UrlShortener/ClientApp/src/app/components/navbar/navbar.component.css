@@ -35,7 +35,10 @@ a {
   color: #195dad;
   border-radius: 15px;
 }
-  #dropdownMenuButton:hover, .dropdown-item:hover {
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+ .dropdown-item:hover {
     background-color: #ffc107;
   }
 .loggedUser {

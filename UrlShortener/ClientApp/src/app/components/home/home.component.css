@@ -54,3 +54,8 @@ input:invalid {
 .textInput {
   height: 150px;
 }
+.close{
+    background-color: transparent;
+    border: none;
+    margin-left: 5px;
+}
