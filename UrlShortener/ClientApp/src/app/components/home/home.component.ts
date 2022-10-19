@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   spiner: boolean = false;
   datePipe: DatePipe = new DatePipe('en-US');
   dateTimeFormat: string = 'dd MMM yyyy, HH:mm';
+  urlRegexPattern: RegExp = /^(https|http:\/\/?)(?:\w+(?:\w+)?@)?[^\s\/]+(?:\d+)?(?:\/[\w#!:.?+=&%@\-\/]*)?$/;
 
   constructor(
     private service: ShortServiceService,
@@ -27,7 +28,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 
     this.form = new FormGroup({
-      OriginalUrl: new FormControl('', Validators.required),
+      OriginalUrl: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern(this.urlRegexPattern)
+      ])),
       CreatedOn: new FormControl(this.datePipe.transform(new Date(), this.dateTimeFormat), Validators.required)
     });
   }
