@@ -18,6 +18,6 @@ public class DeletedItem
     public string? DeletedOn { get; set; }
 
     [Required]
-    public int UserId { get; set; }
+    //public virtual int UserId { get; set; }
     public User? User { get; set; }
 }
