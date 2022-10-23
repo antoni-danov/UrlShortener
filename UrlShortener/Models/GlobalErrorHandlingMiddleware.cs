@@ -4,39 +4,38 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace UrlShortener.Models
+namespace UrlShortener.Models;
+
+public class GlobalErrorHandlingMiddleware
 {
-    public class GlobalErrorHandlingMiddleware
+    private readonly RequestDelegate _next;
+
+    public GlobalErrorHandlingMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+    }
 
-        public GlobalErrorHandlingMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context) 
+    {
+        try
         {
-            _next = next;
+            await _next.Invoke(context);
         }
-
-        public async Task Invoke(HttpContext context) 
+        catch (Exception ex)
         {
-            try
+            var response = context.Response;
+            response.ContentType = "application/json";
+            response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+            var errorResponse = new
             {
-                await _next.Invoke(context);
-            }
-            catch (Exception ex)
-            {
-                var response = context.Response;
-                response.ContentType = "application/json";
-                response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                message = ex.Message,
+                statusCode = response.StatusCode
+            };
 
-                var errorResponse = new
-                {
-                    message = ex.Message,
-                    statusCode = response.StatusCode
-                };
+            var errorJson = JsonSerializer.Serialize(errorResponse);
 
-                var errorJson = JsonSerializer.Serialize(errorResponse);
-
-                await response.WriteAsync(errorJson);
-            }
+            await response.WriteAsync(errorJson);
         }
     }
 }

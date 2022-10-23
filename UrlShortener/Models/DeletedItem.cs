@@ -1,24 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UrlShortener.Models
+namespace UrlShortener.Models;
+
+public class DeletedItem
 {
-    public class DeletedItem
-    {
-        [Key]
-        public int Id { get; set; }
-       
-        [Required]
-        public int UrlId { get; set; }
-        public UrlData UrlData { get; set; }
+    [Key]
+    public int Id { get; set; }
+   
+    [Required]
+    public int UrlId { get; set; }
+    public UrlData? UrlData { get; set; }
 
-        [Required]
-        public string CreatedOn { get; set; }
+    [Required]
+    public string? CreatedOn { get; set; }
 
-        [Required]
-        public string DeletedOn { get; set; }
+    [Required]
+    public string? DeletedOn { get; set; }
 
-        [Required]
-        public int UserId { get; set; }
-        public User User { get; set; }
-    }
+    [Required]
+    //public virtual int UserId { get; set; }
+    public User? User { get; set; }
 }

@@ -14,10 +14,6 @@ namespace UrlShortener.Services
         {
             this.db = db;
         }
-
-        public ShortService()
-        {
-        }
         public async Task<IEnumerable<UrlData>> GetAllAsync(string uid)
         {
             return await db.UrlDatas.Where(x => x.Uid == uid)

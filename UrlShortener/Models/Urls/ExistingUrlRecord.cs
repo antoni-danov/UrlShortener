@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UrlShortener.Models
+namespace UrlShortener.Models;
+
+public class ExistingUrlRecord
 {
-    public class ExistingUrlRecord
-    {
-        [Required(ErrorMessage = "The field is required")]
-        public string OriginalUrl { get; set; }
+    [Required(ErrorMessage = "The field is required")]
+    public string? OriginalUrl { get; set; }
 
-        [Required(ErrorMessage = "The field is required")]
-        public string ShortUrl { get; set; }
-        public string Uid { get; set; }
+    [Required(ErrorMessage = "The field is required")]
+    public string? ShortUrl { get; set; }
+    public string? Uid { get; set; }
 
-    }
 }
