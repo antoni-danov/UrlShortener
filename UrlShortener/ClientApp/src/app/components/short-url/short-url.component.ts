@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import { ShortServiceService } from 'src/app/services/ShorteningURL/short-service.service';
-import { ClipboardService } from 'ngx-clipboard';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
@@ -11,7 +10,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './short-url.component.html',
   styleUrls: ['./short-url.component.css']
 })
-export class ShortUrlComponent implements OnInit, AfterViewInit {
+export class ShortUrlComponent implements OnInit{
 
   currentShortUrl: any;
   originalUrl!: any;
@@ -27,13 +26,13 @@ export class ShortUrlComponent implements OnInit, AfterViewInit {
 
     if (this.service.shortUrl !== undefined) {
       this.SetLocalStorage(this.service.shortUrl);
+      this.GetUrl();
+    } else {
+      this.router.navigateByUrl("/");
     }
 
   }
 
-  ngAfterViewInit() {
-    this.GetUrl();
-  }
   async GetUrl() {
 
     this.currentShortUrl = await this.service.temporaryValue;
@@ -53,13 +52,6 @@ export class ShortUrlComponent implements OnInit, AfterViewInit {
   SetLocalStorage(shortUrl: string) {
     localStorage.setItem("shortUrl", shortUrl);
   }
-
-  //async CopyUrl(data: string) {
-
-  //  var publicUrl = this.clipboard.copyFromContent(`${environment.urlAddress}` + data);
-
-  //  const originalLink = this.service.GetUrl(data);
-  //}
 
   ShortAnotherUrl() {
 

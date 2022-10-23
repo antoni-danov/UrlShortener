@@ -36,6 +36,8 @@ namespace UrlShortener
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            builder.Services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddDbContext<ApplicationDbContext>(connection =>
             {
                 connection.UseSqlServer(builder.Configuration.GetConnectionString("default"));

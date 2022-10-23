@@ -12,7 +12,10 @@
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 }
-
+img {
+  height: auto;
+  max-width: 100%;
+}
 @media (min-width: 992px) {
   .rounded-tr-lg-0 {
     border-top-right-radius: 0;

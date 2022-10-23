@@ -6,8 +6,6 @@ import * as firebase from 'firebase/compat/app';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment.prod';
 import { Cookie } from '../../models/Cookie';
-import { User } from '../../models/User';
-
 
 @Injectable({
   providedIn: 'root'
