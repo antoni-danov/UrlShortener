@@ -18,7 +18,7 @@ public class UrlData
     [Required]
     public string? CreatedOn { get; set; }
     public string? Uid { get; set; }
-    public int UserId { get; set; }
+    //public virtual int UserId { get; set; }
     public User? User { get; set; }
 
 }
