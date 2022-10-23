@@ -37,8 +37,7 @@ export class HomeComponent implements OnInit {
   }
 
   async CreateUrl(data: UrlData) {
-    console.log(data);
-    const dataInfo = await this.service.CreateUrl(data)
+    await this.service.CreateUrl(data)
       .then(data => {
         this.currentShortUrl = data;
       });
