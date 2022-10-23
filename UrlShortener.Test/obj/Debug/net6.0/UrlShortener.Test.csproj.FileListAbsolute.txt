@@ -140,3 +140,9 @@ D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\obj\Debug\net6.0\
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\UrlShortener.staticwebassets.runtime.json
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
