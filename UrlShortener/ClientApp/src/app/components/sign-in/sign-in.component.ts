@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginUserDto } from '../../interfaces/user/LoginUserDto';
 import { AuthServicesService } from '../../services/auth/auth-services.service';
 
 @Component({
@@ -11,6 +13,7 @@ import { AuthServicesService } from '../../services/auth/auth-services.service';
 export class SignInComponent implements OnInit {
 
   form!: FormGroup;
+  errors: string[] = [];
 
   constructor(
     private authServices: AuthServicesService,
@@ -31,14 +34,18 @@ export class SignInComponent implements OnInit {
       checkbox: new FormControl('')
     });
 
-        
+
   }
 
-  async SignInEmailAndPassword(userdata: any) {
-    return await this.authServices.SignInWithEmailAndPassword(userdata);
+  SignInEmailAndPassword(userdata: LoginUserDto) {
+    this.authServices.LoginUser(userdata)
+      .then()
+      .catch((err: HttpErrorResponse) => {
+        this.errors = err.error.errors;
+      });
 
   }
   async SignInWithGoogle() {
-    return await this.authServices.SignInWithPopUp();
+  //  return await this.authServices.SignInWithPopUp();
   }
 }

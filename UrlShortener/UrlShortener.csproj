@@ -16,6 +16,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.10" />
 		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
@@ -50,7 +51,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<TypeScriptCompile Remove="ClientApp\src\app\interfaces\response\AuthResponseDto.ts" />
+		<TypeScriptCompile Remove="ClientApp\src\app\interfaces\response\RegistrationResponseDto.ts" />
+		<TypeScriptCompile Remove="ClientApp\src\app\interfaces\user\LoginUserDto.ts" />
 		<TypeScriptCompile Remove="ClientApp\src\app\models\Cookie.ts" />
+		<TypeScriptCompile Remove="ClientApp\src\app\models\RegisterUserDto.ts" />
 		<TypeScriptCompile Remove="ClientApp\src\app\models\User.ts" />
 		<TypeScriptCompile Remove="ClientApp\src\app\shared\utils\utils.ts" />
 	</ItemGroup>

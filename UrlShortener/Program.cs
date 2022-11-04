@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using UrlShortener.ActionFilters;
 using UrlShortener.Models;
+using UrlShortener.Models.JwtFeatures;
 using UrlShortener.Services;
 using UrlShortener.Services.UserService;
 
@@ -15,6 +19,7 @@ namespace UrlShortener
         {
             var customCorsPolicy = "CorsPolicy";
             var builder = WebApplication.CreateBuilder(args);
+            var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
             builder.Services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -22,10 +27,10 @@ namespace UrlShortener
             });
             builder.Services.Configure<IdentityOptions>(options =>
             {
-                options.Password.RequireDigit = false;
+                options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
+                options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 4;
                 options.Password.RequiredUniqueChars = 1;
             });
@@ -36,8 +41,28 @@ namespace UrlShortener
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            builder.Services.AddIdentity<User, IdentityRole>()
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters 
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings["validIssuer"],
+                    ValidAudience = jwtSettings["validAudience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+            .GetBytes(jwtSettings.GetSection("securityKey").Value))
+                };
+            });
+
             builder.Services.AddDbContext<ApplicationDbContext>(connection =>
             {
                 connection.UseSqlServer(builder.Configuration.GetConnectionString("default"));
@@ -53,6 +78,7 @@ namespace UrlShortener
             });
             builder.Services.AddScoped<IShortService, ShortService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<JwtHandler>();
             builder.Services.AddScoped<ValidationFiltersAttribute>();
 
 
@@ -68,6 +94,7 @@ namespace UrlShortener
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors(customCorsPolicy);
             app.UseMiddleware<GlobalErrorHandlingMiddleware>();

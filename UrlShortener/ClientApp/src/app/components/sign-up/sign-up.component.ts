@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RegisterUserDto } from '../../interfaces/user/RegisterUserDto';
 import { AuthServicesService } from '../../services/auth/auth-services.service';
 
 @Component({
@@ -11,6 +13,7 @@ import { AuthServicesService } from '../../services/auth/auth-services.service';
 export class SignUpComponent implements OnInit {
 
   userForm!: FormGroup;
+  errors: string[] = [];
 
   constructor(
     private authServices: AuthServicesService,
@@ -32,7 +35,11 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  UserSignUp(userdata: any) {
-    this.authServices.SignUpWithEmailAndPassword(userdata);
+  UserSignUp(userdata: RegisterUserDto) {
+    this.authServices.CreateUser(userdata)
+      .then()
+      .catch((err: HttpErrorResponse) => {
+        this.errors = err.error.errors;
+      });
   }
 }
