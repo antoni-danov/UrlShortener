@@ -9,6 +9,13 @@
       <div class="col-lg-8">
         <div class="card-body py-5 px-md-5">
           <h3 class="mb-4 text-center">Login</h3>
+          <div *ngIf="errors">
+            <div *ngFor="let error of errors">
+              <div class="alert alert-warning alert-dismissible">
+                {{error}}
+              </div>
+            </div>
+          </div>
           <form class="form-group" [formGroup]="form" (ngSubmit)="SignInEmailAndPassword(form.value)">
             <div class="form-outline mb-2">
               <input id="form2Example1" type="email" class="form-control" name="email" formControlName="email" placeholder="Email" />
