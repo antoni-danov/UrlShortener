@@ -13,7 +13,6 @@ namespace UrlShortener.Test
 
         public DataControllerTest()
         {
-            services = new ShortService();
             controller = new UrlController(services);
         }
 

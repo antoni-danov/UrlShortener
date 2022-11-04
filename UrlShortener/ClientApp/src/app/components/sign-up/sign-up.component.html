@@ -1,5 +1,12 @@
 <div class="container-fluid text-center">
   <h2 class="p-4">Register</h2>
+  <div *ngIf="errors">
+    <div *ngFor="let error of errors">
+      <div class="alert alert-warning alert-dismissible">
+        {{error}}
+      </div>
+    </div>
+  </div>
   <form class="form-group p-4" [formGroup]="userForm" (ngSubmit)="UserSignUp(userForm.value)">
     <div class="input-group mb-1">
       <input type="text" class="form-control" name="email" formControlName="email" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">

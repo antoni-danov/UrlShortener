@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase/compat/app';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment.prod';
+import { RegistrationResponseDto } from '../../interfaces/response/RegistrationResponseDto';
+import { RegisterUserDto } from '../../interfaces/user/RegisterUserDto';
 import { Cookie } from '../../models/Cookie';
 
 @Injectable({
@@ -41,7 +43,7 @@ export class AuthServicesService {
         var credential = error.credential;
       });
 
-    this.CreateUser(this.uid);
+    //this.CreateUser(this.uid);
 
     this.cookie = {
       JWT: this.jwt,
@@ -99,7 +101,7 @@ export class AuthServicesService {
     };
 
     this.CookiesFactory(this.cookie);
-    this.CreateUser(this.user.uid);
+    //this.CreateUser(this.user.uid);
 
     this.router.navigateByUrl('/');
   }
@@ -113,12 +115,9 @@ export class AuthServicesService {
       });
   }
 
-  async CreateUser(uid: string){
-    var user = { Uid: uid };
-    var createdUser = await this.http.post(`${environment.userHost}`, user).toPromise();
-
-    return createdUser;
-  };
+  async CreateUser(userdata: RegisterUserDto) {
+    await this.http.post<RegistrationResponseDto>(`${environment.userHost}`, userdata).toPromise();
+  }
   IsAuthenticated() {
 
     const checkUser = this.cookieService.get('JWT');
