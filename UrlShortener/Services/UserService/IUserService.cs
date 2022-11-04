@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using UrlShortener.Models;
+using UrlShortener.Models.UserDtos.Registration;
 
 namespace UrlShortener.Services.UserService
 {

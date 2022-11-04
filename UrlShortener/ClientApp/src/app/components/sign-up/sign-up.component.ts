@@ -37,9 +37,7 @@ export class SignUpComponent implements OnInit {
 
   UserSignUp(userdata: RegisterUserDto) {
     this.authServices.CreateUser(userdata)
-      .then(data => {
-        console.log(data);
-      })
+      .then()
       .catch((err: HttpErrorResponse) => {
         this.errors = err.error.errors;
       });

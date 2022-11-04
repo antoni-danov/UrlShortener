@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using UrlShortener.ActionFilters;
-using UrlShortener.Models;
+using System.IdentityModel.Tokens.Jwt;
+using UrlShortener.Models.JwtFeatures;
+using UrlShortener.Models.UserDtos.Login;
+using UrlShortener.Models.UserDtos.Registration;
 using UrlShortener.Services.UserService;
 
 namespace UrlShortener.Controllers
@@ -10,27 +12,26 @@ namespace UrlShortener.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        public IUserService userService;
-        private UserManager<IdentityUser> userManager;
-        private SignInManager<IdentityUser> signInManager;
+        public readonly IUserService userService;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly JwtHandler jwtHandler;
 
         public UserController(IUserService userService,
             UserManager<IdentityUser> usermanager,
-                           SignInManager<IdentityUser> signInManager)
+                           SignInManager<IdentityUser> signInManager,
+                           JwtHandler jwtHandler)
         {
             this.userService = userService;
             this.userManager = usermanager;
             this.signInManager = signInManager;
+            this.jwtHandler = jwtHandler;
         }
 
-        [HttpPost]
+        [HttpPost("Register")]
         //[ServiceFilter(typeof(ValidationFiltersAttribute))]
         public async Task<IActionResult> CreateUserAsync([FromBody] RegisterUserDto data)
         {
-            //await userService.CreateUser(data);
-
-            //return StatusCode(201);
-
             if (data == null || !ModelState.IsValid)
             {
                 return BadRequest();
@@ -48,32 +49,50 @@ namespace UrlShortener.Controllers
             {
                 var errors = newUser.Errors.Select(d => d.Description);
 
-                return BadRequest(new RegistrationResponseDto {Errors = errors});
+                return BadRequest(new RegistrationResponseDto { Errors = errors });
 
             }
 
             return StatusCode(201);
         }
 
-        [HttpPost("test")]
+        [HttpPost("Login")]
 
-        public async Task<IActionResult> Test([FromBody] RegisterUserDto data)
+        public async Task<IActionResult> Login([FromBody] LoginUserDto data)
         {
-            //var user = await userManager.FindByEmailAsync(data.Email);
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
 
-            //if (user != null && await userManager.CheckPasswordAsync(user, data.Password))
-            //{
-            //    var result = await signInManager.PasswordSignInAsync(user.UserName, data.Password, isPersistent: false, lockoutOnFailure: false);
+            var user = await userManager.FindByEmailAsync(data.Email);
 
-            //    if (result.Succeeded)
-            //    {
-            //        return Redirect("https://www.google.com");
+            if (user == null || !await userManager.CheckPasswordAsync(user, data.Password))
+            {
+                return StatusCode(401, new AuthResponseDto { ErrorMessage = "Invalid Authentication" });
+            }
 
-            //    }
+            var result = await signInManager.PasswordSignInAsync(user.Email, data.Password, isPersistent: false, lockoutOnFailure: false);
 
-            //}
+            if (result.Succeeded)
+            {
+                var signingCredentials = jwtHandler.GetSigningCredentials();
+                var claims = jwtHandler.GetClaims(user);
+                var tokenOptions = jwtHandler.GenerateTokenOptions(signingCredentials, claims);
+                var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            
+                return StatusCode(200, new AuthResponseDto { IsAuthSuccessful = true, Token = token });
+            }
 
-            return Redirect("https://www.abv.bg");
+            return Ok();
+        }
+
+        [HttpGet("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+
+            return StatusCode(205);
         }
 
     }

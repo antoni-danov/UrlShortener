@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UrlShortener.Models
+namespace UrlShortener.Models.UserDtos.Registration
 {
     public class RegisterUserDto
     {
@@ -9,7 +9,7 @@ namespace UrlShortener.Models
 
         [Required(ErrorMessage = "Password is required.")]
         public string? Password { get; set; }
-       
+
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string? ConfirmPassword { get; set; }
     }
