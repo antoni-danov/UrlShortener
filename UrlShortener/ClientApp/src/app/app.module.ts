@@ -15,13 +15,6 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
-//firebase
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { environment } from '../environments/environment';
 import { AuthServicesService } from './services/auth/auth-services.service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserService } from './services/User/user.service';
@@ -48,11 +41,6 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     ReactiveFormsModule,
     HttpClientModule,
     ClipboardModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFireStorageModule,
-    AngularFireDatabaseModule,
     ShareButtonsModule,
     ShareIconsModule
   ],

@@ -1,47 +1,55 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using UrlShortener.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using UrlShortener.Models.UserDtos.Registration;
 
 namespace UrlShortener.Services.UserService
 {
     public class UserService : IUserService
     {
-        private ApplicationDbContext db;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-        public UserService(ApplicationDbContext db)
+        public UserService(UserManager<IdentityUser> usermanager,
+                           SignInManager<IdentityUser> signInManager)
         {
-            this.db = db;
+            this.userManager = usermanager;
+            this.signInManager = signInManager;
         }
-        public async Task<User> CreateUser(User data)
+        public async Task<string> CreateUser(RegisterUserDto data)
         {
-            var existing = isCreated(data.Uid);
+            //var currentUser = new IdentityUser
+            //{
+            //    UserName = data.Email,
+            //    Email = data.Email
+            //};
 
-            if (existing == null)
+            //var newUser = await userManager.CreateAsync(currentUser, data.Password);
+
+            //if (newUser.Succeeded)
+            //{
+            //    await signInManager.SignInAsync(currentUser, isPersistent: false);
+            //}
+            return "TEST";
+        }
+
+        public async Task<string> LoginUser(RegisterUserDto data)
+        {
+            var user = await userManager.FindByEmailAsync(data.Email);
+
+            if (user != null && await userManager.CheckPasswordAsync(user, data.Password))
             {
-                var user = new User()
+              var result = await signInManager.PasswordSignInAsync(user.UserName, data.Password, isPersistent: false, lockoutOnFailure: false);
+
+                if (result.Succeeded)
                 {
-                    Uid = data.Uid
-                };
-
-                var newUser = await db.Users.AddAsync(user);
-                db.SaveChanges();
-
-                return newUser.Entity;
+                    return "https://www.google.com";
+                    
+                }
 
             }
 
-            return existing;
-        }
-        public User isCreated(string originalUrl)
-        {
-            var existingUser = db.Users.FirstOrDefault(x => x.Uid == originalUrl);
-
-            if (existingUser != null)
-            {
-                return existingUser;
-            }
-
-            return null;
+            return "https://www.abv.bg";
         }
     }
 }
