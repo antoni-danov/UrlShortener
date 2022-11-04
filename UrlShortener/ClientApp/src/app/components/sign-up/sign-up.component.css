@@ -1,3 +1,11 @@
 .container-fluid {
   background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
 }
+.alert{
+    padding: 5px;
+    margin: 5px 25px;
+}
+.close{
+    border:none;
+    background-color: none;
+}

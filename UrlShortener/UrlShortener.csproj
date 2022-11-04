@@ -50,7 +50,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<TypeScriptCompile Remove="ClientApp\src\app\interfaces\response\RegistrationResponseDto.ts" />
 		<TypeScriptCompile Remove="ClientApp\src\app\models\Cookie.ts" />
+		<TypeScriptCompile Remove="ClientApp\src\app\models\RegisterUserDto.ts" />
 		<TypeScriptCompile Remove="ClientApp\src\app\models\User.ts" />
 		<TypeScriptCompile Remove="ClientApp\src\app\shared\utils\utils.ts" />
 	</ItemGroup>

@@ -22,10 +22,10 @@ namespace UrlShortener
             });
             builder.Services.Configure<IdentityOptions>(options =>
             {
-                options.Password.RequireDigit = false;
+                options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
+                options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 4;
                 options.Password.RequiredUniqueChars = 1;
             });
@@ -36,7 +36,7 @@ namespace UrlShortener
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            builder.Services.AddIdentity<User, IdentityRole>()
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddDbContext<ApplicationDbContext>(connection =>
             {
@@ -69,6 +69,7 @@ namespace UrlShortener
 
             app.UseRouting();
             app.UseAuthorization();
+            app.UseAuthentication();
             app.UseCors(customCorsPolicy);
             app.UseMiddleware<GlobalErrorHandlingMiddleware>();
             app.UseEndpoints(endpoints =>

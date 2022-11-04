@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using UrlShortener.Models;
 
 namespace UrlShortener.Services.UserService
 {
     public interface IUserService
     {
-        public Task<User> CreateUser(User data);
-        public User isCreated(string originalUrl);
+        public Task<string> CreateUser(RegisterUserDto data);
+        public Task<string> LoginUser(RegisterUserDto data);
 
     }
 }

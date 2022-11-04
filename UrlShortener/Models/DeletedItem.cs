@@ -17,7 +17,4 @@ public class DeletedItem
     [Required]
     public string? DeletedOn { get; set; }
 
-    [Required]
-    //public virtual int UserId { get; set; }
-    public User? User { get; set; }
 }
