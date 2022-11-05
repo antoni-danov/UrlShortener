@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using UrlShortener.ActionFilters;
 using UrlShortener.Models;
 using UrlShortener.Services;
@@ -45,8 +46,9 @@ public class UrlController : Controller
 
     [HttpPost]
     [ServiceFilter(typeof(ValidationFiltersAttribute))]
-    public async Task<IActionResult> CreateAsync([FromBody] UrlData data)
+    public async Task<IActionResult> CreateAsync([FromBody] UrlData data) //A optimiser
     {
+        ExistingUrlRecord currentUserUrl = new ExistingUrlRecord();
 
         var ifExist = IsCreated(data.OriginalUrl);
 
@@ -55,16 +57,19 @@ public class UrlController : Controller
             var currentUrl = shortService.CreateUrlRecord(data);
             return StatusCode(201, currentUrl);
         }
-        else if (ifExist != null)
-        {
-            if (ifExist.Uid == "N/A")
-            {
-                var currentUrl = shortService.CreateUrlRecord(data);
-                return StatusCode(201, currentUrl);
-            }
-        }
+        
+        currentUserUrl = ifExist.FirstOrDefault(x => x.Uid == data.Uid);
 
-        return StatusCode(200, ifExist);
+        if (currentUserUrl == null || currentUserUrl.Uid != data.Uid)
+        {
+            var currentUrl = shortService.CreateUrlRecord(data);
+            return StatusCode(201, currentUrl);
+        }
+        if (currentUserUrl.Uid != "N/A")
+        {
+            return StatusCode(200, currentUserUrl);
+        }
+        return StatusCode(200, currentUserUrl);
     }
 
     [HttpDelete]
@@ -75,11 +80,9 @@ public class UrlController : Controller
 
         return StatusCode(200);
     }
-    public ExistingUrlRecord IsCreated(string originalUrl)
+    public List<ExistingUrlRecord> IsCreated(string originalUrl)
     {
-
         return this.shortService.isCreated(originalUrl);
-
 
     }
 

@@ -29,7 +29,7 @@ export class ShortServiceService {
   }
 
   async GetAll(): Promise<UrlData[] | undefined> {
-    var params = this.cookies.get('uid');
+    var params = this.cookies.get('Uid');
     return await this.http.get<UrlData[]>(`${environment.localhost}/search/all/${params}`).toPromise();
   }
 
@@ -50,7 +50,7 @@ export class ShortServiceService {
 
   formatUrlData(data: UrlData): UrlData {
     var shortUrl = hash.hash(data.OriginalUrl);
-    var actualUid = this.cookies.get('uid');
+    var actualUid = this.cookies.get('Uid');
 
     var dataUrl = {
       OriginalUrl: data.OriginalUrl,
