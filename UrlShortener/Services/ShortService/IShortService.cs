@@ -11,7 +11,7 @@ namespace UrlShortener.Services
         public string GetOriginalUrl(string data);
         public UrlData CreateUrlRecord(UrlData data);
         public void DeleteUrl(int id);
-        public ExistingUrlRecord isCreated(string originalUrl);
+        public List<ExistingUrlRecord> isCreated(string originalUrl);
 
     }
 }
