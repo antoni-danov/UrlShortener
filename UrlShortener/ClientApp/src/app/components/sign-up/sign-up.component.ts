@@ -31,7 +31,7 @@ export class SignUpComponent implements OnInit {
         Validators.pattern('^[A-za-z0-9._%+-]+@[a-z]{3,6}\.[a-z]{2,4}$')
       ])),
       password: new FormControl('', Validators.required),
-      repeatPassword: new FormControl('', Validators.required)
+      confirmPassword: new FormControl('', Validators.required)
     });
   }
 
