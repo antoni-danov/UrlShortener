@@ -50,12 +50,15 @@ export class AuthServicesService {
   //}
  
   async CreateUser(userdata: RegisterUserDto) {
-    await this.http.post<RegistrationResponseDto>(`${environment.userHost}/register`, userdata).toPromise();
+    var registerUser = await this.http.post<AuthResponseDto>(`${environment.userHost}/register`, userdata).toPromise();
+
+    this.CookiesFactory(registerUser?.token!, registerUser?.email!, registerUser?.uid!);
+    this.router.navigateByUrl('/');
   }
   async LoginUser(userdata: LoginUserDto) {
-    var test = await this.http.post<AuthResponseDto>(`${environment.userHost}/login`, userdata).toPromise();
+    var userLogedIn = await this.http.post<AuthResponseDto>(`${environment.userHost}/login`, userdata).toPromise();
 
-    this.CookiesFactory(test?.token!);
+    this.CookiesFactory(userLogedIn?.token!, userLogedIn?.email!, userLogedIn?.uid!);
     this.router.navigateByUrl('/');
   }
   SignOut() {
@@ -75,10 +78,12 @@ export class AuthServicesService {
     }
     return false;
   }
-  CookiesFactory(jwt: string) {
+  CookiesFactory(jwt: string, email: string, uid: string) {
     this.currentDate = new Date();
     this.currentDate.setHours(this.currentDate.getHours() + 12);
 
     this.cookieService.set('JWT', jwt, { expires: this.currentDate, secure: true });
+    this.cookieService.set('Email', email, { expires: this.currentDate, secure: true });
+    this.cookieService.set('Uid', uid, { expires: this.currentDate, secure: true });
   }
 }

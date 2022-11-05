@@ -65,23 +65,31 @@ namespace UrlShortener.Services
             }
 
         }
-        public ExistingUrlRecord isCreated(string originalUrl)
+        public List<ExistingUrlRecord> isCreated(string originalUrl)
         {
-            var result = this.db.UrlDatas.FirstOrDefault(x => x.OriginalUrl == originalUrl);
+            List<ExistingUrlRecord> existingRecords = new List<ExistingUrlRecord>();
+
+            var result = this.db.UrlDatas.Where(x => x.OriginalUrl == originalUrl);
 
             if (result != null)
             {
-                var existingUrl = new ExistingUrlRecord()
+                foreach(var item in result)
                 {
-                    OriginalUrl = result.OriginalUrl,
-                    ShortUrl = result.ShortUrl,
-                    Uid = result.Uid
-                };
+                    var existingUrl = new ExistingUrlRecord()
+                    {
+                        OriginalUrl = item.OriginalUrl,
+                        ShortUrl = item.ShortUrl,
+                        Uid = item.Uid
+                    };
 
-                return existingUrl;
+                    existingRecords.Add(existingUrl);
+                }
+                
+
+                return existingRecords;
             }
 
-            return null;
+            return existingRecords;
         }
 
     }

@@ -45,7 +45,16 @@ namespace UrlShortener.Controllers
 
             var newUser = await userManager.CreateAsync(currentUser, data.Password);
 
-            if (!newUser.Succeeded)
+            if (newUser.Succeeded)
+            {
+                var signingCredentials = jwtHandler.GetSigningCredentials();
+                var claims = jwtHandler.GetClaims(currentUser);
+                var tokenOptions = jwtHandler.GenerateTokenOptions(signingCredentials, claims);
+                var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+                return StatusCode(200, new AuthResponseDto { IsAuthSuccessful = true, Token = token, Email = currentUser.Email, Uid = currentUser.Id });
+            }
+            else if (!newUser.Succeeded)
             {
                 var errors = newUser.Errors.Select(d => d.Description);
 
@@ -81,7 +90,7 @@ namespace UrlShortener.Controllers
                 var tokenOptions = jwtHandler.GenerateTokenOptions(signingCredentials, claims);
                 var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
             
-                return StatusCode(200, new AuthResponseDto { IsAuthSuccessful = true, Token = token });
+                return StatusCode(200, new AuthResponseDto { IsAuthSuccessful = true, Token = token, Email = user.Email, Uid = user.Id });
             }
 
             return Ok();
