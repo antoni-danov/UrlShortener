@@ -1,23 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-//import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import jwt_decode from "jwt-decode";
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment.prod';
 import { AuthResponseDto } from '../../interfaces/response/AuthResponseDto';
-import { RegistrationResponseDto } from '../../interfaces/response/RegistrationResponseDto';
 import { LoginUserDto } from '../../interfaces/user/LoginUserDto';
 import { RegisterUserDto } from '../../interfaces/user/RegisterUserDto';
+import { TokenData } from '../../models/TokenData';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServicesService {
   currentDate!: Date;
-  uid: any;
   jwt!: string;
-  email!: string;
-  user: any;
   rememberMe: boolean = false;
 
   constructor(
@@ -48,17 +45,17 @@ export class AuthServicesService {
 
   //  this.router.navigateByUrl('/');
   //}
- 
+
   async CreateUser(userdata: RegisterUserDto) {
     var registerUser = await this.http.post<AuthResponseDto>(`${environment.userHost}/register`, userdata).toPromise();
 
-    this.CookiesFactory(registerUser?.token!, registerUser?.email!, registerUser?.uid!);
+    this.CookiesFactory(registerUser?.token!);
     this.router.navigateByUrl('/');
   }
   async LoginUser(userdata: LoginUserDto) {
     var userLogedIn = await this.http.post<AuthResponseDto>(`${environment.userHost}/login`, userdata).toPromise();
 
-    this.CookiesFactory(userLogedIn?.token!, userLogedIn?.email!, userLogedIn?.uid!);
+    await this.CookiesFactory(userLogedIn?.token!);
     this.router.navigateByUrl('/');
   }
   SignOut() {
@@ -78,12 +75,21 @@ export class AuthServicesService {
     }
     return false;
   }
-  CookiesFactory(jwt: string, email: string, uid: string) {
+  async CookiesFactory(jwt: string) {
     this.currentDate = new Date();
     this.currentDate.setHours(this.currentDate.getHours() + 12);
 
-    this.cookieService.set('JWT', jwt, { expires: this.currentDate, secure: true });
-    this.cookieService.set('Email', email, { expires: this.currentDate, secure: true });
-    this.cookieService.set('Uid', uid, { expires: this.currentDate, secure: true });
+    await this.cookieService.set('JWT', jwt, { expires: this.currentDate, secure: true });
+
+    await this.RetrieveTokenInformation(this.cookieService.get('JWT'));
+  }
+  async RetrieveTokenInformation(token: string){
+    var decode: TokenData = await jwt_decode(token);
+
+    if (decode != null) {
+
+      await this.cookieService.set('uid', decode.uid, { expires: this.currentDate, secure: true });
+      await this.cookieService.set('email', decode.email, { expires: this.currentDate, secure: true });
+    }
   }
 }
