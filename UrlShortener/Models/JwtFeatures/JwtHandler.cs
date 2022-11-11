@@ -28,7 +28,8 @@ namespace UrlShortener.Models.JwtFeatures
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Id)
+                new Claim("uid", user.Id ),
+                new Claim("email", user.Email)
             };
 
             return claims;
