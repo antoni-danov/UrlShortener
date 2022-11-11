@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
     this.isLoggedIn = this.services.IsAuthenticated();
 
     if (this.isLoggedIn == true) {
-      this.userGreetings = this.cookies.get("Email");
+      this.userGreetings = this.cookies.get('email');
     }
   }
   ngAfterContentChecked() {

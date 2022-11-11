@@ -29,6 +29,7 @@
     "firebase": "^9.9.4",
     "guid-typescript": "^1.0.9",
     "jhash": "^0.1.10",
+    "jwt-decode": "^3.1.2",
     "ngx-clipboard": "^15.1.0",
     "ngx-cookie-service": "^14.0.1",
     "ngx-sharebuttons": "^11.0.0",

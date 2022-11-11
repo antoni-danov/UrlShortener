@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { UrlData } from 'src/app/models/UrlData';
 import { environment } from 'src/environments/environment';
+import { AuthServicesService } from '../auth/auth-services.service';
 var hash = require('jhash');
 
 
@@ -29,7 +30,7 @@ export class ShortServiceService {
   }
 
   async GetAll(): Promise<UrlData[] | undefined> {
-    var params = this.cookies.get('Uid');
+    var params = this.cookies.get('uid');
     return await this.http.get<UrlData[]>(`${environment.localhost}/search/all/${params}`).toPromise();
   }
 
