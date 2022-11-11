@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using UrlShortener.Models.JwtFeatures;
 using UrlShortener.Models.UserDtos.Login;
@@ -54,7 +53,6 @@ namespace UrlShortener.Services.UserService
             return new AuthResponseDto { IsAuthSuccessful = true };
 
         }
-
         public async Task<AuthResponseDto> LoginUser(LoginUserDto data)
         {
 

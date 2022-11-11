@@ -21,6 +21,7 @@ export class ShortServiceService {
   ) { }
 
   async CreateUrl(data: UrlData) {
+
     var object = this.formatUrlData(data);
     var result = await this.http.post(`${environment.localhost}`, object).toPromise();
     this.temporaryValue = result!;
@@ -51,7 +52,7 @@ export class ShortServiceService {
 
   formatUrlData(data: UrlData): UrlData {
     var shortUrl = hash.hash(data.OriginalUrl);
-    var actualUid = this.cookies.get('Uid');
+    var actualUid = this.cookies.get('uid');
 
     var dataUrl = {
       OriginalUrl: data.OriginalUrl,
