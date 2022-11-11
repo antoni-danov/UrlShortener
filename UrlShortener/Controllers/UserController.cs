@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 using UrlShortener.Models.JwtFeatures;
 using UrlShortener.Models.UserDtos.Login;
 using UrlShortener.Models.UserDtos.Registration;
@@ -29,7 +28,6 @@ namespace UrlShortener.Controllers
         }
 
         [HttpPost("Register")]
-        //[ServiceFilter(typeof(ValidationFiltersAttribute))]
         public async Task<IActionResult> CreateUserAsync([FromBody] RegisterUserDto data)
         {
             if (data == null || !ModelState.IsValid)
@@ -37,36 +35,24 @@ namespace UrlShortener.Controllers
                 return BadRequest();
             }
 
-            var currentUser = new IdentityUser
+            AuthResponseDto result = await userService.CreateUser(data);
+
+            if (result.IsAuthSuccessful == true)
             {
-                UserName = data.Email,
-                Email = data.Email
-            };
-
-            var newUser = await userManager.CreateAsync(currentUser, data.Password);
-
-            if (newUser.Succeeded)
-            {
-                var signingCredentials = jwtHandler.GetSigningCredentials();
-                var claims = jwtHandler.GetClaims(currentUser);
-                var tokenOptions = jwtHandler.GenerateTokenOptions(signingCredentials, claims);
-                var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-
-                return StatusCode(200, new AuthResponseDto { IsAuthSuccessful = true, Token = token, Email = currentUser.Email, Uid = currentUser.Id });
+                return StatusCode(201, new AuthResponseDto { IsAuthSuccessful = true, Token = result.Token });
             }
-            else if (!newUser.Succeeded)
+            if (result.RegistrationErrors != null)
             {
-                var errors = newUser.Errors.Select(d => d.Description);
+                var errors = result.RegistrationErrors.Select(d => d);
 
-                return BadRequest(new RegistrationResponseDto { Errors = errors });
-
+                return BadRequest(new AuthResponseDto { RegistrationErrors = errors });
             }
 
-            return StatusCode(201);
+            return StatusCode(200, result);
+
         }
 
         [HttpPost("Login")]
-
         public async Task<IActionResult> Login([FromBody] LoginUserDto data)
         {
             if (data == null || !ModelState.IsValid)
@@ -74,26 +60,14 @@ namespace UrlShortener.Controllers
                 return BadRequest();
             }
 
-            var user = await userManager.FindByEmailAsync(data.Email);
+            AuthResponseDto result = await userService.LoginUser(data);
 
-            if (user == null || !await userManager.CheckPasswordAsync(user, data.Password))
+            if (result.IsAuthSuccessful)
             {
-                return StatusCode(401, new AuthResponseDto { ErrorMessage = "Invalid Authentication" });
+                return StatusCode(200, new AuthResponseDto { IsAuthSuccessful = true, Token = result.Token });
             }
 
-            var result = await signInManager.PasswordSignInAsync(user.Email, data.Password, isPersistent: false, lockoutOnFailure: false);
-
-            if (result.Succeeded)
-            {
-                var signingCredentials = jwtHandler.GetSigningCredentials();
-                var claims = jwtHandler.GetClaims(user);
-                var tokenOptions = jwtHandler.GenerateTokenOptions(signingCredentials, claims);
-                var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-            
-                return StatusCode(200, new AuthResponseDto { IsAuthSuccessful = true, Token = token, Email = user.Email, Uid = user.Id });
-            }
-
-            return Ok();
+            return StatusCode(401, new AuthResponseDto { ErrorMessage = "Invalid Authentication" });
         }
 
         [HttpGet("Logout")]
