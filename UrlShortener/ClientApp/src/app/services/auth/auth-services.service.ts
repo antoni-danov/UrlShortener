@@ -85,7 +85,7 @@ export class AuthServicesService {
   }
   async RetrieveTokenInformation(token: string){
     var decode: TokenData = await jwt_decode(token);
-   
+
     if (decode != null) {
 
       await this.cookieService.set('uid', decode.uid, { expires: this.currentDate, secure: true });
