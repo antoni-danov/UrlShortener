@@ -20,6 +20,7 @@ namespace UrlShortener
             var customCorsPolicy = "CorsPolicy";
             var builder = WebApplication.CreateBuilder(args);
             var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+            var googleAuth = builder.Configuration.GetSection("Authentication:Google");
 
             builder.Services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -48,9 +49,10 @@ namespace UrlShortener
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
+            })
+            .AddJwtBearer(options =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters 
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
@@ -61,6 +63,12 @@ namespace UrlShortener
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
             .GetBytes(jwtSettings.GetSection("securityKey").Value))
                 };
+            })
+            .AddGoogle("google", options =>
+            {
+                options.ClientId = googleAuth["ClientId"];
+                options.ClientSecret = googleAuth["ClientSecret"];
+                options.SignInScheme = IdentityConstants.ExternalScheme;
             });
 
             builder.Services.AddDbContext<ApplicationDbContext>(connection =>
@@ -116,7 +124,7 @@ namespace UrlShortener
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
-      
+
             app.Run();
         }
     }
