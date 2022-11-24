@@ -70,6 +70,16 @@ namespace UrlShortener.Controllers
             return StatusCode(401, new AuthResponseDto { ErrorMessage = "Invalid Authentication" });
         }
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+
+        //public IActionResult GoogleLogin(string provider, string returnUrl = null)
+        //{
+        //    var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
+        //    var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+        //    return Challenge(properties, provider);
+        //}
+
         [HttpGet("Logout")]
         public async Task<IActionResult> Logout()
         {
