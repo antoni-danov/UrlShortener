@@ -7,6 +7,7 @@ namespace UrlShortener.Services.UserService
     {
         public Task<AuthResponseDto> CreateUser(RegisterUserDto data);
         public Task<AuthResponseDto> LoginUser(LoginUserDto data);
+        public Task Logout();
 
     }
 }

@@ -32,7 +32,13 @@ namespace UrlShortener.Controllers
         {
             if (data == null || !ModelState.IsValid)
             {
-                return BadRequest();
+                List<string> errorsMessage = ModelState.Values
+                    .Where(e => e.Errors.Count > 0)
+                    .SelectMany(e => e.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                return BadRequest(errorsMessage);
             }
 
             AuthResponseDto result = await userService.CreateUser(data);
@@ -41,15 +47,10 @@ namespace UrlShortener.Controllers
             {
                 return StatusCode(201, new AuthResponseDto { IsAuthSuccessful = true, Token = result.Token });
             }
-            if (result.RegistrationErrors != null)
-            {
-                var errors = result.RegistrationErrors.Select(d => d);
 
-                return BadRequest(new AuthResponseDto { RegistrationErrors = errors });
-            }
+            //List<string> errors = result.RegistrationErrors!.Select(d => d).ToList();
 
-            return StatusCode(200, result);
-
+            return BadRequest(result.RegistrationErrors);
         }
 
         [HttpPost("Login")]
@@ -57,7 +58,13 @@ namespace UrlShortener.Controllers
         {
             if (data == null || !ModelState.IsValid)
             {
-                return BadRequest();
+                var errors = ModelState.Values
+                    .Where(e => e.Errors.Count > 0)
+                    .SelectMany(e => e.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                return BadRequest(errors);
             }
 
             AuthResponseDto result = await userService.LoginUser(data);
@@ -67,7 +74,7 @@ namespace UrlShortener.Controllers
                 return StatusCode(200, new AuthResponseDto { IsAuthSuccessful = true, Token = result.Token });
             }
 
-            return StatusCode(401, new AuthResponseDto { ErrorMessage = "Invalid Authentication" });
+            return StatusCode(401, result);
         }
 
         //[HttpPost]
@@ -83,8 +90,7 @@ namespace UrlShortener.Controllers
         [HttpGet("Logout")]
         public async Task<IActionResult> Logout()
         {
-            await signInManager.SignOutAsync();
-
+            await this.userService.Logout();
             return StatusCode(205);
         }
 
