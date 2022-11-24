@@ -13,7 +13,7 @@ import { AuthServicesService } from '../../services/auth/auth-services.service';
 export class SignUpComponent implements OnInit {
 
   userForm!: FormGroup;
-  errors: string[] = [];
+  errors!: string[];
 
   constructor(
     private authServices: AuthServicesService,
@@ -39,7 +39,15 @@ export class SignUpComponent implements OnInit {
     this.authServices.CreateUser(userdata)
       .then()
       .catch((err: HttpErrorResponse) => {
-        this.errors = err.error.errors;
+        console.log(err);
+        console.log(typeof (err));
+
+        this.errors = err.error;
+        setTimeout(() => this.errors = [], 5000);
       });
+  }
+
+  async SignInWithGoogle() {
+
   }
 }

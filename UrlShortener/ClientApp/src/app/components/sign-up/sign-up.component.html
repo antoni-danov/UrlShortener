@@ -1,24 +1,56 @@
-<div class="container-fluid text-center">
-  <h2 class="p-4">Register</h2>
-  <div *ngIf="errors">
-    <div *ngFor="let error of errors">
-      <div class="alert alert-warning alert-dismissible">
-        {{error}}
+<section class=" text-center text-lg-start">
+  <div class="card mt-5">
+    <div class="row g-0 d-flex align-items-center">
+      <div class="col-lg-4 d-none d-lg-flex">
+        <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" alt="Trendy Pants and Shoes"
+             class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
+      </div>
+      <div class="col-lg-8">
+        <div class="card-body py-3 px-md-5">
+          <h2 class="mb-4 text-center">Register</h2>
+          <div *ngIf="errors">
+            <div *ngFor="let error of errors">
+              <div class="alert alert-warning alert-dismissible">
+                {{error}}
+              </div>
+            </div>
+          </div>
+          <form class="form-group" [formGroup]="userForm" (ngSubmit)="UserSignUp(userForm.value)">
+            <div class="form-outline mb-2">
+              <input id="form2Example1" type="email" class="form-control" name="email" formControlName="email" placeholder="Email" />
+              <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.hasError('required')" class="alert alert-danger mt-1 p-1 text-center">
+                <div>Email is required</div>
+              </div>
+              <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.hasError('pattern')" class="alert alert-danger mt-1 p-1 text-center">
+                <div>Please enter valid email format: exemple@test.com</div>
+              </div>
+            </div>
+            <div class="form-outline mb-2">
+              <input type="password" id="form2Example2" class="form-control" name="password" formControlName="password" placeholder="Password" />
+              <div *ngIf="userForm.get('password')?.touched && userForm.get('password')?.hasError('required')" class="alert alert-danger mt-1 p-1 text-center">
+                <div>Password is required</div>
+              </div>
+            </div>
+            <div class="form-outline mb-2">
+              <input type="password" id="form2Example3" class="form-control" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password" />
+            </div>
+            <div class="text-center mb-2">
+              <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Register</button>
+            </div>
+          </form>
+          <div class="signInContainer text-center">
+            <div class="formGroup">
+              <button id="googleBtn" type="button" class="btn btn-primary my-3" (click)="SignInWithGoogle()">
+                Sign in using Google
+              </button>
+            </div>
+          </div>
+          <div class="text-center">
+            <div>You have your account?</div>
+            <a class="mb-2 text-center" routerLink="/login">Sign in here!</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <form class="form-group p-4" [formGroup]="userForm" (ngSubmit)="UserSignUp(userForm.value)">
-    <div class="input-group mb-1">
-      <input type="text" class="form-control" name="email" formControlName="email" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group mb-1">
-      <input type="password" class="form-control" name="password" formControlName="password" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group mb-1">
-      <input type="password" class="form-control" name="confirmPassword" formControlName="confirmPassword" placeholder="Repeat Password" aria-label="confirmPassword" aria-describedby="basic-addon1">
-    </div>
-    <button type="submit" class="btn btn-primary my-3" [disabled]="!userForm.valid">Register</button>
-  </form>
-  <div>You have your account?</div>
-  <a class="my-4" href="/login">Sign in here!</a>
-</div>
+</section>
