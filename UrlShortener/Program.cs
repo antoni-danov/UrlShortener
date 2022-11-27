@@ -73,8 +73,7 @@ namespace UrlShortener
 
             builder.Services.AddDbContext<ApplicationDbContext>(connection =>
             {
-                //connection.UseSqlServer(builder.Configuration.GetConnectionString("default"));
-                connection.UseSqlServer(builder.Configuration.GetConnectionString("azure_database"));
+               connection.UseSqlServer(builder.Configuration.GetConnectionString("default"));
             });
             builder.Services.AddCors(options =>
             {

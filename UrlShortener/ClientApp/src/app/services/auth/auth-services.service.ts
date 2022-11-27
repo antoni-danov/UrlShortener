@@ -8,6 +8,10 @@ import { AuthResponseDto } from '../../interfaces/response/AuthResponseDto';
 import { LoginUserDto } from '../../interfaces/user/LoginUserDto';
 import { RegisterUserDto } from '../../interfaces/user/RegisterUserDto';
 import { TokenData } from '../../models/TokenData';
+import { SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
+import { GoogleLoginProvider } from "@abacritt/angularx-social-login";
+import { Subject } from 'rxjs';
+import { ExternalProviderDto } from '../../models/ExternalProviderDto';
 
 @Injectable({
   providedIn: 'root'
@@ -16,35 +20,28 @@ export class AuthServicesService {
   currentDate!: Date;
   jwt!: string;
   rememberMe: boolean = false;
+  extAuthChangeSub = new Subject<SocialUser>();
+  extAuthChanged = this.extAuthChangeSub.asObservable();
+  isExternalAuth!: boolean;
 
   constructor(
-    //private afAuth: AngularFireAuth,
     private cookieService: CookieService,
     private router: Router,
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private externalAuthService: SocialAuthService
+  ) {
+    this.externalAuthService.authState.subscribe((user) => {
+      this.GoogleLogin(user);
+      this.isExternalAuth = true;
+    });
+  }
 
-  //async SignInWithPopUp() {
-  //  var provider = new firebase.default.auth.GoogleAuthProvider();
+  async SignInWithGoogle() {
 
-  //  await firebase.default.auth().signInWithPopup(provider)
-  //    .then((result) => {
-  //      this.jwt = result?.credential?.signInMethod!;
-  //      this.uid = result.user?.uid;
-  //      this.email = result?.user?.email!;
-  //    }).catch(function (error) {
-  //      var errorCode = error.code;
-  //      var errorMessage = error.message;
-  //      var email = error.email;
-  //      var credential = error.credential;
-  //    });
+    await this.externalAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
 
-  //  this.CreateUser(this.uid);
-
-  //  this.CookiesFactory(this.cookie);
-
-  //  this.router.navigateByUrl('/');
-  //}
+    return this.router.navigate(['/']);
+  }
 
   async CreateUser(userdata: RegisterUserDto) {
     var registerUser = await this.http.post<AuthResponseDto>(`${environment.userHost}/register`, userdata).toPromise();
@@ -58,11 +55,24 @@ export class AuthServicesService {
     await this.CookiesFactory(userLogedIn?.token!);
     this.router.navigateByUrl('/');
   }
+  async GoogleLogin(data: SocialUser) {
+    var googleUser: ExternalProviderDto = {
+      provider: data.provider,
+      idToken: data.idToken
+    };
+
+    this.CookiesFactory(data.idToken);
+    await this.http.post<AuthResponseDto>(`${environment.userHost}/googleLogin`, googleUser).toPromise();
+  }
   SignOut() {
     this.cookieService.deleteAll();
     this.http.get(`${environment.userHost}/logout`).toPromise();
 
     return this.router.navigate(['/']);
+  }
+  GoogleSignOut() {
+    this.isExternalAuth = false;
+    this.externalAuthService.signOut();
   }
 
 
@@ -83,7 +93,7 @@ export class AuthServicesService {
 
     await this.RetrieveTokenInformation(this.cookieService.get('JWT'));
   }
-  async RetrieveTokenInformation(token: string){
+  async RetrieveTokenInformation(token: string) {
     var decode: TokenData = await jwt_decode(token);
 
     if (decode != null) {

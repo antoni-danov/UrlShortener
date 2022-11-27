@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginUserDto } from '../../interfaces/user/LoginUserDto';
+import { ExternalProviderDto } from '../../models/ExternalProviderDto';
 import { AuthServicesService } from '../../services/auth/auth-services.service';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -14,6 +16,7 @@ export class SignInComponent implements OnInit {
 
   form!: FormGroup;
   errors: string[] = [];
+  showError: any;
 
   constructor(
     private authServices: AuthServicesService,
@@ -41,11 +44,20 @@ export class SignInComponent implements OnInit {
     this.authServices.LoginUser(userdata)
       .then()
       .catch((err: HttpErrorResponse) => {
-        this.errors = err.error.errors;
+
+        this.errors = err.error;
+        setTimeout(() => this.errors = [], 5000);
       });
 
   }
   async SignInWithGoogle() {
-  //  return await this.authServices.SignInWithPopUp();
+    this.showError = false;
+    await this.authServices.SignInWithGoogle();
+  }
+
+  private validateExternalAuth(externalAuth: ExternalProviderDto) {
+    //this.authServices.externalLogin
   }
 }
+
+

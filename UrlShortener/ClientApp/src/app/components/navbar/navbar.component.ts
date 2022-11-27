@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthServicesService } from '../../services/auth/auth-services.service';
 
@@ -14,7 +15,8 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
 
   constructor(
     private services: AuthServicesService,
-    private cookies: CookieService
+    private cookies: CookieService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -29,8 +31,14 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
   }
 
   Logout() {
+    if (this.services.isExternalAuth == true) {
+      this.services.GoogleSignOut();
+      this.router.navigate(["/"]);
+    }
+
     this.isLoggedIn = false;
     return this.services.SignOut();
+
   }
 
 }

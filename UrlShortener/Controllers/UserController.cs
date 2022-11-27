@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 using UrlShortener.Models.JwtFeatures;
 using UrlShortener.Models.UserDtos.Login;
 using UrlShortener.Models.UserDtos.Registration;
@@ -48,8 +49,6 @@ namespace UrlShortener.Controllers
                 return StatusCode(201, new AuthResponseDto { IsAuthSuccessful = true, Token = result.Token });
             }
 
-            //List<string> errors = result.RegistrationErrors!.Select(d => d).ToList();
-
             return BadRequest(result.RegistrationErrors);
         }
 
@@ -74,24 +73,63 @@ namespace UrlShortener.Controllers
                 return StatusCode(200, new AuthResponseDto { IsAuthSuccessful = true, Token = result.Token });
             }
 
-            return StatusCode(401, result);
+            return StatusCode(401, result.RegistrationErrors);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
+        [HttpPost("googleLogin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GoogleLogin(ExternalProviderDto data)
+        {
+            var payload = await jwtHandler.VerifyGoogleToken(data);
 
-        //public IActionResult GoogleLogin(string provider, string returnUrl = null)
-        //{
-        //    var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
-        //    var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-        //    return Challenge(properties, provider);
-        //}
+            if (payload == null)
+            {
+                return BadRequest("Invalid Authentication");
+            }
+
+            var info = new UserLoginInfo(data.Provider, payload.Subject, data.Provider);
+            var user = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+
+            if (user == null)
+            {
+                user = await userManager.FindByEmailAsync(payload.Email);
+
+                if (user == null)
+                {
+                    user = new IdentityUser { Email = payload.Email, UserName = payload.Email };
+                    await userManager.CreateAsync(user);
+
+                    await userManager.AddLoginAsync(user, info);
+                }
+                else
+                {
+                    await userManager.AddLoginAsync(user, info);
+                }
+            }
+            if (user == null)
+            {
+                return BadRequest("Invalid Authentication");
+            }
+
+            var token = JWTTokenFabric(user);
+            return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = token}); ;
+        }
 
         [HttpGet("Logout")]
         public async Task<IActionResult> Logout()
         {
             await this.userService.Logout();
             return StatusCode(205);
+        }
+
+        private string JWTTokenFabric(IdentityUser currentUser)
+        {
+            var signingCredentials = jwtHandler.GetSigningCredentials();
+            var claims = jwtHandler.GetClaims(currentUser);
+            var tokenOptions = jwtHandler.GenerateTokenOptions(signingCredentials, claims);
+            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            return token;
         }
 
     }

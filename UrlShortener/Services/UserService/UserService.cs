@@ -9,7 +9,7 @@ namespace UrlShortener.Services.UserService
     public class UserService : IUserService
     {
         private const string userExist = "User already exist";
-        private const string authenticationFailed = "Invalid Authentication";
+        private const string authenticationFailed = "Wrong Email or Password";
 
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
