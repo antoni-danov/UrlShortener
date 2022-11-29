@@ -23,6 +23,10 @@ namespace UrlShortener.Models.JwtFeatures
 
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> f791317d5baabd14d93217b495ab8e033e4ed2e1
         public List<Claim> GetClaims(IdentityUser user)
         {
             var claims = new List<Claim>
@@ -33,6 +37,10 @@ namespace UrlShortener.Models.JwtFeatures
 
             return claims;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> f791317d5baabd14d93217b495ab8e033e4ed2e1
         public JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
             var tokenOptions = new JwtSecurityToken(

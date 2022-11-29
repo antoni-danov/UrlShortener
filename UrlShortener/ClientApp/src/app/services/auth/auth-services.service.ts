@@ -20,6 +20,7 @@ export class AuthServicesService {
   externalGoogleInfo!: ExternalProviderDto;
 
   constructor(
+    //private afAuth: AngularFireAuth,
     private cookieService: CookieService,
     private router: Router,
     private http: HttpClient
@@ -29,7 +30,7 @@ export class AuthServicesService {
   async SignInWithGoogle(data: string) {
 
     await this.http.post<AuthResponseDto>(`${environment.userHost}/GoogleLogin`, data).toPromise();
-  
+
     return this.router.navigate(['/']);
   }
 
@@ -62,7 +63,8 @@ export class AuthServicesService {
 
     return this.router.navigate(['/']);
   }
- 
+
+
   IsAuthenticated() {
 
     const checkUser = this.cookieService.get('JWT');

@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { LoginUserDto } from '../../interfaces/user/LoginUserDto';
 import { AuthServicesService } from '../../services/auth/auth-services.service';
 
-
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -15,7 +14,6 @@ export class SignInComponent implements OnInit {
 
   form!: FormGroup;
   errors: string[] = [];
-  showError: any;
 
   constructor(
     private authServices: AuthServicesService,
@@ -49,14 +47,8 @@ export class SignInComponent implements OnInit {
       });
 
   }
-  SignInWithGoogle(event: any) {
-    var provider = event.target.firstChild.data;
-
-    this.authServices.SignInWithGoogle(provider)
-      .then()
-      .catch(err => {
-        console.log(err);
-      });
+  async SignInWithGoogle() {
+  //  return await this.authServices.SignInWithPopUp();
   }
 }
 

@@ -21,7 +21,10 @@ import { UserService } from './services/User/user.service';
 import { ShortServiceService } from './services/ShorteningURL/short-service.service';
 import { UrlDetailsComponent } from './components/url-details/url-details.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+<<<<<<< HEAD
 import { environment } from '../environments/environment.prod';
+=======
+>>>>>>> f791317d5baabd14d93217b495ab8e033e4ed2e1
 
 @NgModule({
   declarations: [
@@ -43,7 +46,11 @@ import { environment } from '../environments/environment.prod';
     HttpClientModule,
     ClipboardModule,
     ShareButtonsModule,
+<<<<<<< HEAD
     ShareIconsModule,
+=======
+    ShareIconsModule
+>>>>>>> f791317d5baabd14d93217b495ab8e033e4ed2e1
   ],
   providers: [
     AuthServicesService,

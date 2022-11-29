@@ -49,6 +49,8 @@ namespace UrlShortener.Controllers
                 return StatusCode(201, new AuthResponseDto { IsAuthSuccessful = true, Token = result.Token });
             }
 
+            //List<string> errors = result.RegistrationErrors!.Select(d => d).ToList();
+
             return BadRequest(result.RegistrationErrors);
         }
 
@@ -76,40 +78,15 @@ namespace UrlShortener.Controllers
             return StatusCode(401, result.RegistrationErrors);
         }
 
-        [HttpPost("GoogleLogin")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> GoogleLogin(ExternalProviderDto data)
-        {
-            //var payload = await jwtHandler.VerifyGoogleToken(data);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
 
-            //if (payload == null)
-            //{
-            //    return BadRequest("Invalid Authentication");
-            //}
-
-            //var info = new UserLoginInfo(data.Provider, payload.Subject, data.Provider);
-            //var user = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
-
-            //if (user == null)
-            //{
-            //    user = await userManager.FindByEmailAsync(payload.Email);
-
-            //    if (user == null)
-            //    {
-            //        
-            //        await userManager.CreateAsync(user);
-
-            //        await userManager.AddLoginAsync(user, info);
-            //    }
-            //    else
-            //    {
-            //        await userManager.AddLoginAsync(user, info);
-            //    }
-            //}
-            //if (user == null)
-            //{
-            //    return BadRequest("Invalid Authentication");
-            //}
+        //public IActionResult GoogleLogin(string provider, string returnUrl = null)
+        //{
+        //    var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
+        //    var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+        //    return Challenge(properties, provider);
+        //}
            var user = new IdentityUser { Email = "", UserName = "" }; var token = JWTTokenFabric(user);
             return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = token}); ;
         }
