@@ -23,11 +23,6 @@
     "@fortawesome/angular-fontawesome": "^0.11.1",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-brands-svg-icons": "^6.2.0",
-    "@fortawesome/free-solid-svg-icons": "^6.2.0",
-<<<<<<< HEAD
-=======
-    "@sweetalert2/ngx-sweetalert2": "^11.0.0",
->>>>>>> f791317d5baabd14d93217b495ab8e033e4ed2e1
     "bootstrap": "^5.2.0",
     "firebase": "^9.9.4",
     "guid-typescript": "^1.0.9",
@@ -38,7 +33,6 @@
     "ngx-sharebuttons": "^11.0.0",
     "nodemon": "^2.0.19",
     "rxjs": "~7.5.0",
-    "sweetalert2": "^11.4.33",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

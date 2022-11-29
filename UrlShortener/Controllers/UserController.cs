@@ -87,9 +87,9 @@ namespace UrlShortener.Controllers
         //    var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
         //    return Challenge(properties, provider);
         //}
-           var user = new IdentityUser { Email = "", UserName = "" }; var token = JWTTokenFabric(user);
-            return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = token}); ;
-        }
+           //var user = new IdentityUser { Email = "", UserName = "" }; var token = JWTTokenFabric(user);
+           // return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = token}); ;
+        //}
 
         [HttpGet("Logout")]
         public async Task<IActionResult> Logout()

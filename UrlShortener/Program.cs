@@ -3,10 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< HEAD
-using Microsoft.Extensions.Configuration;
-=======
->>>>>>> f791317d5baabd14d93217b495ab8e033e4ed2e1
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UrlShortener.ActionFilters;
@@ -70,10 +66,7 @@ namespace UrlShortener
             })
             .AddGoogle("google", options =>
             {
-<<<<<<< HEAD
                 var googleAuth = builder.Configuration.GetSection("Authentication:Google");
-=======
->>>>>>> f791317d5baabd14d93217b495ab8e033e4ed2e1
                 options.ClientId = googleAuth["ClientId"];
                 options.ClientSecret = googleAuth["ClientSecret"];
                 options.SignInScheme = IdentityConstants.ExternalScheme;
@@ -81,7 +74,6 @@ namespace UrlShortener
 
             builder.Services.AddDbContext<ApplicationDbContext>(connection =>
             {
-<<<<<<< HEAD
                 if (builder.Environment.IsProduction())
                 {
                     connection.UseSqlServer(builder.Configuration.GetConnectionString("azure_database"));
@@ -90,10 +82,6 @@ namespace UrlShortener
                 {
                     connection.UseSqlServer(builder.Configuration.GetConnectionString("default"));
                 }
-=======
-                //connection.UseSqlServer(builder.Configuration.GetConnectionString("default"));
-                connection.UseSqlServer(builder.Configuration.GetConnectionString("azure_database"));
->>>>>>> f791317d5baabd14d93217b495ab8e033e4ed2e1
             });
             builder.Services.AddCors(options =>
             {

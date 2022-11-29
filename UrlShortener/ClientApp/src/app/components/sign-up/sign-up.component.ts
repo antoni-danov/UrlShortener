@@ -39,12 +39,7 @@ export class SignUpComponent implements OnInit {
     this.authServices.CreateUser(userdata)
       .then()
       .catch((err: HttpErrorResponse) => {
-<<<<<<< HEAD
-=======
-        console.log(err);
-        console.log(typeof (err));
 
->>>>>>> f791317d5baabd14d93217b495ab8e033e4ed2e1
         this.errors = err.error;
         setTimeout(() => this.errors = [], 5000);
       });
