@@ -41,7 +41,9 @@ export class SignInComponent implements OnInit {
     this.authServices.LoginUser(userdata)
       .then()
       .catch((err: HttpErrorResponse) => {
-        this.errors = err.error.errors;
+
+        this.errors = err.error;
+        setTimeout(() => this.errors = [], 5000);
       });
 
   }
@@ -49,3 +51,5 @@ export class SignInComponent implements OnInit {
   //  return await this.authServices.SignInWithPopUp();
   }
 }
+
+

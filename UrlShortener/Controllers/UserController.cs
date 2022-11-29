@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 using UrlShortener.Models.JwtFeatures;
 using UrlShortener.Models.UserDtos.Login;
 using UrlShortener.Models.UserDtos.Registration;
@@ -74,7 +75,7 @@ namespace UrlShortener.Controllers
                 return StatusCode(200, new AuthResponseDto { IsAuthSuccessful = true, Token = result.Token });
             }
 
-            return StatusCode(401, result);
+            return StatusCode(401, result.RegistrationErrors);
         }
 
         //[HttpPost]
@@ -86,12 +87,25 @@ namespace UrlShortener.Controllers
         //    var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
         //    return Challenge(properties, provider);
         //}
+           //var user = new IdentityUser { Email = "", UserName = "" }; var token = JWTTokenFabric(user);
+           // return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = token}); ;
+        //}
 
         [HttpGet("Logout")]
         public async Task<IActionResult> Logout()
         {
             await this.userService.Logout();
             return StatusCode(205);
+        }
+
+        private string JWTTokenFabric(IdentityUser currentUser)
+        {
+            var signingCredentials = jwtHandler.GetSigningCredentials();
+            var claims = jwtHandler.GetClaims(currentUser);
+            var tokenOptions = jwtHandler.GenerateTokenOptions(signingCredentials, claims);
+            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            return token;
         }
 
     }

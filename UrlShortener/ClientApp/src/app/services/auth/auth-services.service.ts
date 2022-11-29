@@ -8,6 +8,7 @@ import { AuthResponseDto } from '../../interfaces/response/AuthResponseDto';
 import { LoginUserDto } from '../../interfaces/user/LoginUserDto';
 import { RegisterUserDto } from '../../interfaces/user/RegisterUserDto';
 import { TokenData } from '../../models/TokenData';
+import { ExternalProviderDto } from '../../models/ExternalProviderDto';
 
 @Injectable({
   providedIn: 'root'
@@ -16,35 +17,22 @@ export class AuthServicesService {
   currentDate!: Date;
   jwt!: string;
   rememberMe: boolean = false;
+  externalGoogleInfo!: ExternalProviderDto;
 
   constructor(
     //private afAuth: AngularFireAuth,
     private cookieService: CookieService,
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
-  //async SignInWithPopUp() {
-  //  var provider = new firebase.default.auth.GoogleAuthProvider();
+  async SignInWithGoogle(data: string) {
 
-  //  await firebase.default.auth().signInWithPopup(provider)
-  //    .then((result) => {
-  //      this.jwt = result?.credential?.signInMethod!;
-  //      this.uid = result.user?.uid;
-  //      this.email = result?.user?.email!;
-  //    }).catch(function (error) {
-  //      var errorCode = error.code;
-  //      var errorMessage = error.message;
-  //      var email = error.email;
-  //      var credential = error.credential;
-  //    });
+    await this.http.post<AuthResponseDto>(`${environment.userHost}/GoogleLogin`, data).toPromise();
 
-  //  this.CreateUser(this.uid);
-
-  //  this.CookiesFactory(this.cookie);
-
-  //  this.router.navigateByUrl('/');
-  //}
+    return this.router.navigate(['/']);
+  }
 
   async CreateUser(userdata: RegisterUserDto) {
     var registerUser = await this.http.post<AuthResponseDto>(`${environment.userHost}/register`, userdata).toPromise();
@@ -57,6 +45,17 @@ export class AuthServicesService {
 
     await this.CookiesFactory(userLogedIn?.token!);
     this.router.navigateByUrl('/');
+  }
+  async GoogleLogin() {
+    //var googleUser: ExternalProviderDto = {
+    //  provider: data.provider,
+    //  idToken: data.idToken
+    //};
+
+    //this.CookiesFactory(data.idToken);
+    
+
+    //this.router.navigateByUrl('/');
   }
   SignOut() {
     this.cookieService.deleteAll();
@@ -83,7 +82,7 @@ export class AuthServicesService {
 
     await this.RetrieveTokenInformation(this.cookieService.get('JWT'));
   }
-  async RetrieveTokenInformation(token: string){
+  async RetrieveTokenInformation(token: string) {
     var decode: TokenData = await jwt_decode(token);
 
     if (decode != null) {

@@ -146,3 +146,5 @@ D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
+D:\Toni\Solutions\URL-Shortener\UrlShortener\UrlShortener.Test\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

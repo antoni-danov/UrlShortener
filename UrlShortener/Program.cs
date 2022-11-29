@@ -66,6 +66,7 @@ namespace UrlShortener
             })
             .AddGoogle("google", options =>
             {
+                var googleAuth = builder.Configuration.GetSection("Authentication:Google");
                 options.ClientId = googleAuth["ClientId"];
                 options.ClientSecret = googleAuth["ClientSecret"];
                 options.SignInScheme = IdentityConstants.ExternalScheme;
@@ -73,8 +74,14 @@ namespace UrlShortener
 
             builder.Services.AddDbContext<ApplicationDbContext>(connection =>
             {
-                //connection.UseSqlServer(builder.Configuration.GetConnectionString("default"));
-                connection.UseSqlServer(builder.Configuration.GetConnectionString("azure_database"));
+                if (builder.Environment.IsProduction())
+                {
+                    connection.UseSqlServer(builder.Configuration.GetConnectionString("azure_database"));
+                }
+                else if (builder.Environment.IsDevelopment())
+                {
+                    connection.UseSqlServer(builder.Configuration.GetConnectionString("default"));
+                }
             });
             builder.Services.AddCors(options =>
             {
