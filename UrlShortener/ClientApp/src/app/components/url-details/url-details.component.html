@@ -4,7 +4,8 @@
   </div>
   <div class="rightContainer">
     <div class="p-2"><strong>Date of creation:</strong> {{urlDetails?.createdOn}}</div>
-    <div class="p-2"><strong>Original Url: </strong> <a target="_blank" href="{{urlDetails?.originalUrl}}">{{urlDetails?.originalUrl}}</a></div>
+    <!--<div class="p-2"><strong>Original Url: </strong> <a target="_blank" href="{{urlDetails?.originalUrl}}">{{urlDetails?.originalUrl}}</a></div>-->
+    <div class="p-2"><strong>Original Url: </strong><iframe src="{{urlDetails?.originalUrl}}" width="400" height="400"></iframe> </div>
     <div class="p-2">
       <strong>Short version of the Url: </strong>  <a target="_blank" href="{{environmentHost}}{{urlDetails?.shortUrl}}">{{environmentHost}}{{urlDetails?.shortUrl}}</a>
       <share-buttons theme="circles-dark"

@@ -76,42 +76,41 @@ namespace UrlShortener.Controllers
             return StatusCode(401, result.RegistrationErrors);
         }
 
-        [HttpPost("googleLogin")]
+        [HttpPost("GoogleLogin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GoogleLogin(ExternalProviderDto data)
         {
-            var payload = await jwtHandler.VerifyGoogleToken(data);
+            //var payload = await jwtHandler.VerifyGoogleToken(data);
 
-            if (payload == null)
-            {
-                return BadRequest("Invalid Authentication");
-            }
+            //if (payload == null)
+            //{
+            //    return BadRequest("Invalid Authentication");
+            //}
 
-            var info = new UserLoginInfo(data.Provider, payload.Subject, data.Provider);
-            var user = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+            //var info = new UserLoginInfo(data.Provider, payload.Subject, data.Provider);
+            //var user = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
 
-            if (user == null)
-            {
-                user = await userManager.FindByEmailAsync(payload.Email);
+            //if (user == null)
+            //{
+            //    user = await userManager.FindByEmailAsync(payload.Email);
 
-                if (user == null)
-                {
-                    user = new IdentityUser { Email = payload.Email, UserName = payload.Email };
-                    await userManager.CreateAsync(user);
+            //    if (user == null)
+            //    {
+            //        
+            //        await userManager.CreateAsync(user);
 
-                    await userManager.AddLoginAsync(user, info);
-                }
-                else
-                {
-                    await userManager.AddLoginAsync(user, info);
-                }
-            }
-            if (user == null)
-            {
-                return BadRequest("Invalid Authentication");
-            }
-
-            var token = JWTTokenFabric(user);
+            //        await userManager.AddLoginAsync(user, info);
+            //    }
+            //    else
+            //    {
+            //        await userManager.AddLoginAsync(user, info);
+            //    }
+            //}
+            //if (user == null)
+            //{
+            //    return BadRequest("Invalid Authentication");
+            //}
+           var user = new IdentityUser { Email = "", UserName = "" }; var token = JWTTokenFabric(user);
             return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = token}); ;
         }
 

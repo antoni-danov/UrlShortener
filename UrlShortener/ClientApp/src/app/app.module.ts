@@ -21,8 +21,6 @@ import { UserService } from './services/User/user.service';
 import { ShortServiceService } from './services/ShorteningURL/short-service.service';
 import { UrlDetailsComponent } from './components/url-details/url-details.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { environment } from '../environments/environment.prod';
 
 @NgModule({
@@ -46,27 +44,11 @@ import { environment } from '../environments/environment.prod';
     ClipboardModule,
     ShareButtonsModule,
     ShareIconsModule,
-    SocialLoginModule,
   ],
   providers: [
     AuthServicesService,
     ShortServiceService,
-    UserService,
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(environment.googleProvider)
-          },
-        ],
-        onError: (err) => {
-          console.error(err);
-        }
-      } as SocialAuthServiceConfig
-    }
+    UserService
   ],
   bootstrap: [AppComponent]
 })

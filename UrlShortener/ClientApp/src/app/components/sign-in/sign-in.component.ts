@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginUserDto } from '../../interfaces/user/LoginUserDto';
-import { ExternalProviderDto } from '../../models/ExternalProviderDto';
 import { AuthServicesService } from '../../services/auth/auth-services.service';
 
 
@@ -50,13 +49,14 @@ export class SignInComponent implements OnInit {
       });
 
   }
-  async SignInWithGoogle() {
-    this.showError = false;
-    await this.authServices.SignInWithGoogle();
-  }
+  SignInWithGoogle(event: any) {
+    var provider = event.target.firstChild.data;
 
-  private validateExternalAuth(externalAuth: ExternalProviderDto) {
-    //this.authServices.externalLogin
+    this.authServices.SignInWithGoogle(provider)
+      .then()
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
 

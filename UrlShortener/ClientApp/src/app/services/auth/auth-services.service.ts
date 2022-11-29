@@ -8,9 +8,6 @@ import { AuthResponseDto } from '../../interfaces/response/AuthResponseDto';
 import { LoginUserDto } from '../../interfaces/user/LoginUserDto';
 import { RegisterUserDto } from '../../interfaces/user/RegisterUserDto';
 import { TokenData } from '../../models/TokenData';
-import { SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
-import { GoogleLoginProvider } from "@abacritt/angularx-social-login";
-import { Subject } from 'rxjs';
 import { ExternalProviderDto } from '../../models/ExternalProviderDto';
 
 @Injectable({
@@ -20,26 +17,19 @@ export class AuthServicesService {
   currentDate!: Date;
   jwt!: string;
   rememberMe: boolean = false;
-  extAuthChangeSub = new Subject<SocialUser>();
-  extAuthChanged = this.extAuthChangeSub.asObservable();
-  isExternalAuth!: boolean;
+  externalGoogleInfo!: ExternalProviderDto;
 
   constructor(
     private cookieService: CookieService,
     private router: Router,
-    private http: HttpClient,
-    private externalAuthService: SocialAuthService
+    private http: HttpClient
   ) {
-    this.externalAuthService.authState.subscribe((user) => {
-      this.GoogleLogin(user);
-      this.isExternalAuth = true;
-    });
   }
 
-  async SignInWithGoogle() {
+  async SignInWithGoogle(data: string) {
 
-    await this.externalAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-
+    await this.http.post<AuthResponseDto>(`${environment.userHost}/GoogleLogin`, data).toPromise();
+  
     return this.router.navigate(['/']);
   }
 
@@ -55,14 +45,16 @@ export class AuthServicesService {
     await this.CookiesFactory(userLogedIn?.token!);
     this.router.navigateByUrl('/');
   }
-  async GoogleLogin(data: SocialUser) {
-    var googleUser: ExternalProviderDto = {
-      provider: data.provider,
-      idToken: data.idToken
-    };
+  async GoogleLogin() {
+    //var googleUser: ExternalProviderDto = {
+    //  provider: data.provider,
+    //  idToken: data.idToken
+    //};
 
-    this.CookiesFactory(data.idToken);
-    await this.http.post<AuthResponseDto>(`${environment.userHost}/googleLogin`, googleUser).toPromise();
+    //this.CookiesFactory(data.idToken);
+    
+
+    //this.router.navigateByUrl('/');
   }
   SignOut() {
     this.cookieService.deleteAll();
@@ -70,12 +62,7 @@ export class AuthServicesService {
 
     return this.router.navigate(['/']);
   }
-  GoogleSignOut() {
-    this.isExternalAuth = false;
-    this.externalAuthService.signOut();
-  }
-
-
+ 
   IsAuthenticated() {
 
     const checkUser = this.cookieService.get('JWT');

@@ -31,14 +31,8 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
   }
 
   Logout() {
-    if (this.services.isExternalAuth == true) {
-      this.services.GoogleSignOut();
-      this.router.navigate(["/"]);
-    }
-
     this.isLoggedIn = false;
     return this.services.SignOut();
-
   }
 
 }

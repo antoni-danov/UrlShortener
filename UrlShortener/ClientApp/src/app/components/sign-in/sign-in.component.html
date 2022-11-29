@@ -45,11 +45,9 @@
           </form>
           <div class="signInContainer text-center">
             <div class="formGroup">
-              <asl-google-signin-button>
-                <button id="googleBtn" type="button" class="btn btn-primary my-3" (click)="SignInWithGoogle()">
-                  Sign in using Google
+                <button id="googleBtn" type="button" class="btn btn-primary my-3" (click)="SignInWithGoogle($event)">
+                  Google
                 </button>
-              </asl-google-signin-button>
             </div>
           </div>
           <div class="text-center">You don't have your account yet?</div>
