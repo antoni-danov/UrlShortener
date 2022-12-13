@@ -20,7 +20,7 @@ namespace UrlShortener
             var customCorsPolicy = "CorsPolicy";
             var builder = WebApplication.CreateBuilder(args);
             var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-            var googleAuth = builder.Configuration.GetSection("Authentication:Google");
+            var googleAuth = builder.Configuration.GetSection("Google");
 
             builder.Services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -66,9 +66,9 @@ namespace UrlShortener
             })
             .AddGoogle("google", options =>
             {
-                var googleAuth = builder.Configuration.GetSection("Authentication:Google");
-                options.ClientId = googleAuth["ClientId"];
-                options.ClientSecret = googleAuth["ClientSecret"];
+                var googleAuth = builder.Configuration.GetSection("Google");
+                options.ClientId = googleAuth["clientId"];
+                options.ClientSecret = googleAuth["clientSecret"];
                 options.SignInScheme = IdentityConstants.ExternalScheme;
             });
 

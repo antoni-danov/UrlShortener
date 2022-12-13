@@ -45,7 +45,7 @@ export class SignUpComponent implements OnInit {
       });
   }
 
-  async SignInWithGoogle() {
-
+  SignInWithGoogle() {
+    this.authServices.SignInWithGoogle();
   }
 }

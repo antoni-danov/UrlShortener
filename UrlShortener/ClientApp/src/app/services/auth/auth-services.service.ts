@@ -9,6 +9,7 @@ import { LoginUserDto } from '../../interfaces/user/LoginUserDto';
 import { RegisterUserDto } from '../../interfaces/user/RegisterUserDto';
 import { TokenData } from '../../models/TokenData';
 import { ExternalProviderDto } from '../../models/ExternalProviderDto';
+import { SocialAuthService, GoogleLoginProvider, SocialUser } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
@@ -18,20 +19,20 @@ export class AuthServicesService {
   jwt!: string;
   rememberMe: boolean = false;
   externalGoogleInfo!: ExternalProviderDto;
+  socialUser!: SocialUser;
+  isLoggedin?: boolean;
 
   constructor(
-    //private afAuth: AngularFireAuth,
     private cookieService: CookieService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private socialAuthService: SocialAuthService
+
   ) {
-  }
-
-  async SignInWithGoogle(data: string) {
-
-    await this.http.post<AuthResponseDto>(`${environment.userHost}/GoogleLogin`, data).toPromise();
-
-    return this.router.navigate(['/']);
+    this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.SignInWithGoogle();
+    });
   }
 
   async CreateUser(userdata: RegisterUserDto) {
@@ -46,16 +47,19 @@ export class AuthServicesService {
     await this.CookiesFactory(userLogedIn?.token!);
     this.router.navigateByUrl('/');
   }
-  async GoogleLogin() {
-    //var googleUser: ExternalProviderDto = {
-    //  provider: data.provider,
-    //  idToken: data.idToken
-    //};
+  async SignInWithGoogle() {
 
-    //this.CookiesFactory(data.idToken);
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+
+    var googleUser: ExternalProviderDto = {
+      provider: this.socialUser.provider,
+      idToken: this.socialUser.idToken
+    };
+    var result = await this.http.post<AuthResponseDto>(`${environment.userHost}/googleLogin`, googleUser).toPromise();
+
+    this.CookiesFactory(result?.token!);
     
-
-    //this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/');
   }
   SignOut() {
     this.cookieService.deleteAll();
