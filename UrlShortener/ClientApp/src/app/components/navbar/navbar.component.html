@@ -1,23 +1,19 @@
 <nav class="navbar container-fluid">
-  <div>
-    <span class="mt-2 navbar-brand h1"><a class="mainNavbar" href="/">URL Shortener</a></span>
+  <div class="mt-2 navbar-brand h1"><a class="mainNavbar" href="/">URL Shortener</a></div>
+  <div *ngIf="!isLoggedIn">
+    <button id="homeBtn" class=" btn btn-light mt-1 px-2" routerLink="/">Home</button>
+    <button id="loginBtn" class="btn btn-light mt-1 px-2" routerLink="/login">Sign in</button>
+    <button id="registerBtn" class="btn btn-light mt-1 px-2" routerLink="/register">Sign up</button>
   </div>
-  <div class="navigation">
-    <div *ngIf="!isLoggedIn">
-      <button id="homeBtn" class=" btn btn-light mt-1 px-2" routerLink="/">Home</button>
-      <button id="loginBtn" class="btn btn-light mt-1 px-2" routerLink="/login">Sign in</button>
-      <button id="registerBtn" class="btn btn-light mt-1 px-2" routerLink="/register">Sign up</button>
-    </div>
-    <div class="loggedUser" *ngIf="isLoggedIn">
-      <button id="homeBtn" class=" btn btn-light mt-1 px-1" routerLink="/">Short an Url</button>
-      <div class="dropdown mx-5 py-2">
-        <button class="btn btn-light px-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Hello,  {{userGreetings}}!
-        </button>
-        <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton">
-          <button class="dropdown-item" routerLink="/profile">My collection</button>
-          <button class="dropdown-item" (click)="Logout()">Logout</button>
-        </div>
+  <div class="loggedUser" *ngIf="isLoggedIn">
+    <button id="homeBtn" class=" btn btn-light mt-1 px-1" routerLink="/">Short an Url</button>
+    <div class="dropdown mx-5 py-2">
+      <button class="btn btn-light px-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Hello,  {{userGreetings}}!
+      </button>
+      <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton">
+        <button class="dropdown-item" routerLink="/profile">My collection</button>
+        <button class="dropdown-item" (click)="Logout()">Logout</button>
       </div>
     </div>
   </div>

@@ -14,10 +14,12 @@ export class SignInComponent implements OnInit {
 
   form!: FormGroup;
   errors: string[] = [];
+  
 
   constructor(
     private authServices: AuthServicesService,
-    private router: Router
+    private router: Router,
+
   ) { }
 
   ngOnInit() {
@@ -33,8 +35,6 @@ export class SignInComponent implements OnInit {
       password: new FormControl('', Validators.required),
       checkbox: new FormControl('')
     });
-
-
   }
 
   SignInEmailAndPassword(userdata: LoginUserDto) {
@@ -47,8 +47,8 @@ export class SignInComponent implements OnInit {
       });
 
   }
-  async SignInWithGoogle() {
-  //  return await this.authServices.SignInWithPopUp();
+  SignInWithGoogle() {
+    this.authServices.SignInWithGoogle();
   }
 }
 

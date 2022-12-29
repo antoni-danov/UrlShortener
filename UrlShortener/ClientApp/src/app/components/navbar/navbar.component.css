@@ -10,9 +10,11 @@ a {
   font-weight: bolder;
   margin-left: 35%;
 }
-.navbar, .navigation {
+.navbar {
   background-color: white;
   display: flex;
+  flex-wrap:wrap;
+  justify-content: space-between;
 }
 #homeBtn, #loginBtn,
 #registerBtn, #logoutBtn,

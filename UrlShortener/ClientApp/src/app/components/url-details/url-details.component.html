@@ -1,29 +1,26 @@
 <div class="container my-3 p-3">
-  <div class="leftContainer">
-    TEST
-  </div>
-  <div class="rightContainer">
-    <div class="p-2"><strong>Date of creation:</strong> {{urlDetails?.createdOn}}</div>
-<<<<<<< HEAD
-    <!--<div class="p-2"><strong>Original Url: </strong> <a target="_blank" href="{{urlDetails?.originalUrl}}">{{urlDetails?.originalUrl}}</a></div>-->
-    <div class="p-2"><strong>Original Url: </strong><iframe src="{{urlDetails?.originalUrl}}" width="400" height="400"></iframe> </div>
-=======
-    <div class="p-2"><strong>Original Url: </strong> <a target="_blank" href="{{urlDetails?.originalUrl}}">{{urlDetails?.originalUrl}}</a></div>
->>>>>>> f791317d5baabd14d93217b495ab8e033e4ed2e1
-    <div class="p-2">
-      <strong>Short version of the Url: </strong>  <a target="_blank" href="{{environmentHost}}{{urlDetails?.shortUrl}}">{{environmentHost}}{{urlDetails?.shortUrl}}</a>
-      <share-buttons theme="circles-dark"
-                     [include]="['copy', 'facebook', 'email', 'messenger', 'linkedin', 'reddit', 'tumblr', 'twitter', 'viber', 'whatsapp']"
-                     [showIcon]="true"
-                     [showText]="false"
-                     url="{{environmentHost}}{{urlDetails?.shortUrl}}"
-                     description="Angular Share Buttons"
-                     class="py-4">
-      </share-buttons>
+  <div class="row">
+    <div class="col-sm-1">
+      Test
     </div>
-    <button type="button" class="btn btn-danger m-2" (click)="deleteUrl(urlDetails.urlId)">
-      Delete
-    </button>
-    <button class="btn btn-success m-2" (click)="goBack()">Back</button>
-  </div>
+    <div class="col-sm-3">
+        <div class="p-2"><strong>Date of creation:</strong> {{urlDetails?.createdOn}}</div>
+        <div class="p-2"><strong>Original Url: </strong> <a target="_blank" href="{{urlDetails?.originalUrl}}">{{urlDetails?.originalUrl}}</a></div>
+        <div class="p-2">
+          <strong>Short version of the Url: </strong>  <a target="_blank" href="{{environmentHost}}{{urlDetails?.shortUrl}}">{{environmentHost}}{{urlDetails?.shortUrl}}</a>
+          <share-buttons theme="circles-dark"
+                         [include]="['copy', 'facebook', 'email', 'messenger', 'linkedin', 'reddit', 'tumblr', 'twitter', 'viber', 'whatsapp']"
+                         [showIcon]="true"
+                         [showText]="false"
+                         url="{{environmentHost}}{{urlDetails?.shortUrl}}"
+                         description="Angular Share Buttons"
+                         class="py-4">
+          </share-buttons>
+        </div>
+        <button class="btn btn-success m-2" (click)="goBack()">Back</button>
+        <button type="button" class="btn btn-danger m-2" (click)="deleteUrl(urlDetails.urlId)">
+          Delete
+        </button>
+      </div>
+    </div>
 </div>
